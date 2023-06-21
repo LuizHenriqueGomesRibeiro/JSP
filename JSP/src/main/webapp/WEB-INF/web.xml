@@ -14,4 +14,22 @@
     <servlet-name>ServletLogin</servlet-name>
     <url-pattern>/ServletLogin</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>d</display-name>
+    <filter-name>d</filter-name>
+    <filter-class>Filter.d</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>d</filter-name>
+    <url-pattern>/d</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>FilterAutentificacao</display-name>
+    <filter-name>FilterAutentificacao</filter-name>
+    <filter-class>Filter.FilterAutentificacao</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>FilterAutentificacao</filter-name>
+    <url-pattern>/FilterAutentificacao</url-pattern>
+  </filter-mapping>
 </web-app>

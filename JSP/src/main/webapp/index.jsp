@@ -15,10 +15,12 @@
 	<% out.println("E arroz."); %>
 	
 	<form action="ServletLogin" method="post" name="frmContato" id="formulario">
+		<input type="hidden" value="<%= request.getParameter("url") %>" name="url">
 		<p>Login:<input name="login" type="text"></p>
 		<p>Senha:<input name="senha" type="password"></p>
 		
 		<input type="submit" value="Enviar" onclick="validar()">
 	</form>
+	<h4>${error}</h4>
 </body>
 </html>

@@ -14,6 +14,7 @@ import model.ModelLogin;
 /**
  * Servlet implementation class ServletLogin
  */
+@WebServlet(urlPatterns = {"/principal/ServletLogin"})
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,29 +38,39 @@ public class ServletLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// TODO Auto-generated method stub
-		/*
-		System.out.println(request.getParameter("login"));
-		System.out.println(request.getParameter("senha"));
-		*/
-		
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
+		String url = request.getParameter("url");
 		
-		ModelLogin modelLogin = new ModelLogin();
-		modelLogin.setLogin(login);
-		modelLogin.setSenha(senha);
 		
-		if(modelLogin.getLogin().equalsIgnoreCase("admin") && modelLogin.getSenha().equalsIgnoreCase("admin")) {
+		if (login != null && !login.isEmpty() && senha != null && !senha.isEmpty()) {
 			
-			request.getSession().setAttribute("usuario", modelLogin.getLogin());
+			ModelLogin modelLogin = new ModelLogin();
+			modelLogin.setLogin(login);
+			modelLogin.setSenha(senha);
 			
-			RequestDispatcher despachador1 = request.getRequestDispatcher("principal/principal.jsp");
-			despachador1.forward(request, response);
+			if (modelLogin.getLogin().equalsIgnoreCase("admin")
+					&& modelLogin.getSenha().equalsIgnoreCase("admin")) { /*Simulando login*/
+				
+				request.getSession().setAttribute("usuario", modelLogin.getLogin());
+				
+				if (url == null || url.equals("null")) {
+					url = "principal/principal.jsp";
+				}
+				
+				RequestDispatcher redirecionar = request.getRequestDispatcher(url);
+				redirecionar.forward(request, response);
+				
+			}else {
+				RequestDispatcher redirecionar = request.getRequestDispatcher("/index.jsp");
+				request.setAttribute("msg", "Informe o login e senha corretamente!");
+				redirecionar.forward(request, response);
+			}
 			
-		}else{
-			RequestDispatcher despachador1 = request.getRequestDispatcher("index.jsp");
-			despachador1.forward(request, response);
+		}else {
+			RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
+			request.setAttribute("msg", "Informe o login e senha corretamente!");
+			redirecionar.forward(request, response);
 		}	
 	}
 }
