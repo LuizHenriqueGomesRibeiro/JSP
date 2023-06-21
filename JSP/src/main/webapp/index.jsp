@@ -5,17 +5,20 @@
 <head>
 <meta charset="utf-8">
 <title>Index do site</title>
+<script type="text/javascript" src="scripts/jquery-3.7.0.js"></script>
+<script type="text/javascript" src="scripts/jquery.validate.js"></script>
+<script type="text/javascript" src="scripts/validacao.js"></script>
 </head>
 <body>
 	<p>Olá mundo</p>
 	<p>Eu gosto de feijão</p>
 	<% out.println("E arroz."); %>
 	
-	<form action="ServletLogin" method="post">
-		<input name="login" type="text">
-		<input name="senha" type="password">
+	<form action="ServletLogin" method="post" name="frmContato" id="formulario">
+		<p>Login:<input name="login" type="text"></p>
+		<p>Senha:<input name="senha" type="password"></p>
 		
-		<input type="submit" value="Enviar">
+		<input type="submit" value="Enviar" onclick="validar()">
 	</form>
 </body>
 </html>
