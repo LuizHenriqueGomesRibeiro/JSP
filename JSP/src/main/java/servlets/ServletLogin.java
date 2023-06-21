@@ -50,9 +50,16 @@ public class ServletLogin extends HttpServlet {
 		modelLogin.setLogin(login);
 		modelLogin.setSenha(senha);
 		
-		RequestDispatcher despachador = request.getRequestDispatcher("index.jsp");
-		despachador.forward(request, response);
-		
-		
+		if(modelLogin.getLogin().equalsIgnoreCase("admin") && modelLogin.getSenha().equalsIgnoreCase("admin")) {
+			
+			request.getSession().setAttribute("usuario", modelLogin.getLogin());
+			
+			RequestDispatcher despachador1 = request.getRequestDispatcher("principal/principal.jsp");
+			despachador1.forward(request, response);
+			
+		}else{
+			RequestDispatcher despachador1 = request.getRequestDispatcher("index.jsp");
+			despachador1.forward(request, response);
+		}	
 	}
 }
