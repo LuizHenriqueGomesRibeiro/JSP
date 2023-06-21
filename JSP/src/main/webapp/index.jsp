@@ -11,9 +11,11 @@
 	<p>Eu gosto de feijão</p>
 	<% out.println("E arroz."); %>
 	
-	<form action="receber.jsp">
-		<input name="nome">
-		<input name="numero">
+	<form action="ServletLogin" method="post">
+		<input name="login" type="text">
+		<input name="senha" type="password">
+		
+		<input type="submit" value="Enviar">
 	</form>
 </body>
 </html>
