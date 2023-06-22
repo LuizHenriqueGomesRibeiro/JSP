@@ -11,31 +11,24 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
 
 
-/**
- * Servlet implementation class ServletLogin
- */
-@WebServlet(urlPatterns = {"/principal/ServletLogin", "/ServletLogin"})
+/*O chamando Controller são as servlets ou ServletLoginController*/
+@WebServlet(urlPatterns = {"/principal/ServletLogin", "/ServletLogin"}) /*Mapeamento de URL que vem da tela*/
 public class ServletLogin extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
+  
     public ServletLogin() {
-        super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
+    /*Recebe os dados pela url em parametros*/
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
+	/*recebe os dados enviados por um formulario*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String login = request.getParameter("login");
@@ -74,4 +67,5 @@ public class ServletLogin extends HttpServlet {
 		}
 		
 	}
+
 }
