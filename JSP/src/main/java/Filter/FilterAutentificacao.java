@@ -13,32 +13,33 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = {"/principal/*"})
+@WebFilter(urlPatterns = { "/principal/*" })
 public class FilterAutentificacao implements Filter {
 
-    public FilterAutentificacao() {
-    }
+	public FilterAutentificacao() {
+	}
 
 	public void destroy() {
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-	     
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
-		
+
 		String usuarioLogado = (String) session.getAttribute("usuario");
-		
+
 		String urlParaAutenticar = req.getServletPath();
-		
+
 		if (usuarioLogado == null && !urlParaAutenticar.equalsIgnoreCase("/principal/ServletLogin")) {
-			
+
 			RequestDispatcher redireciona = request.getRequestDispatcher("/index.jsp?url=" + urlParaAutenticar);
 			request.setAttribute("msg", "Por favor realize o login!");
 			redireciona.forward(request, response);
-			return; 
-			
-		}else {
+			return;
+
+		} else {
 			chain.doFilter(request, response);
 		}
 	}
