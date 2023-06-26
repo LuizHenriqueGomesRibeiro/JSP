@@ -6,42 +6,37 @@ body{
 	overflow: hidden;
 }
 
-main div{
+main div.caixa{
 	position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 400px;
-	height: 400px;
+    width: 300px;
+    height: 300px;
 }
-main div form p{
-	font-size: 20px;
-	margin: 0px 0px 12px 0px;
-}
-main div form input{
+main div form div{
 	position: relative;
-	top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-	width: 400px;
-	margin: 10px;
-	border: 1px solid gray;
-	height: 45px;
-	margin: 20px 0px -20px 0px;
-	border-radius: 7px;
-	font-size: 16px;
+	width: 300px;
+	margin: 0px;
 }
-main div form input.enviar{
-	border: none;
-	width: 405px;
-	background-color: #f80032;
-	font-size: 15px;
-	color: white;
-	font-weight: 800;
-	margin: 34px 0px 0px 0px;
-	cursor: pointer;
+main div form div{
+	position: relative;
+}
+main div form div label{
+	margin-top: 10px;
+}
+main div form div input{
+	margin-top: 7px;
+	width: 300px;
+}
+main div form div input{
+	margin-top: 12px;
+	width: 300px;
 }
 .error{
 	position: relative;
 	color: red;
+}
+.invalid-feedback{
+	display: none;
 }

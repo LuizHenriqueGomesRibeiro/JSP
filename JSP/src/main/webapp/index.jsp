@@ -23,46 +23,28 @@
 		crossorigin="anonymous"></script>
 
 	<main>
-		<div>
-			<form action="ServletLogin" method="post" name="frmContato"
-				id="formulario" class="row g-3 needs-validation" novalidate>
-				
-				<input type="hidden" value="<%=request.getParameter("url")%>"
-					name="url">
+		<div class="caixa">
+			<form action="ServletLogin" method="post" name="frmContato" id="formulario" class="row g-3 needs-validation" novalidate>
+			
+				<input type="hidden" value="<%=request.getParameter("url")%>" name="url">
 
-				<p>Login:</p>
-				<input class="text" name="login" type="text" required="required">
+			
+					<label for="validationCustom01" class="form-label">Nome:</label> 
+					<input name="login" type="text" class="form-control" id="validationCustom01" value="Mark" required>
+		
 				
-				<p>Senha:</p>
-				<input class="text" name="senha" type="password" required="required"><br>
+				
+					<label for="validationCustom01" class="form-label">Senha:</label> 
+					<input name="senha" type="password" class="form-control" id="validationCustom01" value="Mark" required>
+			
+				
+		  		<input class="enviar btn btn-primary" type="submit" value="Continuar" onclick="validar()">
 
-				<input class="enviar" type="submit" value="Continuar"
-					onclick="validar()">
+				
 			</form>
-			<h4>${msg}</h4>
+			<h4 class="msg">${msg}</h4>
 		</div>
 	</main>
-	
-	<script type="text/javascript">
-		(function() {
-			'use strict'
-
-			// Fetch all the forms we want to apply custom Bootstrap validation styles to
-			var forms = document.querySelectorAll('.needs-validation')
-
-			// Loop over them and prevent submission
-			Array.prototype.slice.call(forms).forEach(function(form) {
-				form.addEventListener('submit', function(event) {
-					if (!form.checkValidity()) {
-						event.preventDefault()
-						event.stopPropagation()
-					}
-
-					form.classList.add('was-validated')
-				}, false)
-			})
-		})()
-	</script>
 
 </body>
 </html>

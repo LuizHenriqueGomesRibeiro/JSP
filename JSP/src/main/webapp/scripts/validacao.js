@@ -21,7 +21,7 @@ jQuery(function() {
 			},
 			messages: {
 				login:{
-					required: "O nome é obrigatório",
+					required: "O nome é obrigatório, idiota",
 					minlength: "Seu nome deve ter ao menos dois caracteres"
 				},
 				senha:{
