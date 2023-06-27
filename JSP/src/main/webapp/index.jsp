@@ -27,8 +27,6 @@
 			</form>
 			<h4>${msg}</h4>
 		</div>
-		<div class="direito">
-		</div>
 	</main>
 </body>
 </html>

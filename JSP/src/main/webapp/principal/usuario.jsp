@@ -25,8 +25,7 @@
 									<!-- Page-body start -->
 									<div class="page-body">
 										<div class="row">
-											
-											<!--  project and team member end -->
+											<h1>Página do usuário</h1>
 										</div>
 									</div>
 									<!-- Page-body end -->
