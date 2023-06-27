@@ -33,7 +33,7 @@ main div form input{
 }
 main div form input.enviar{
 	border: none;
-	width: 405px;
+	width: 413px;
 	background-color: #f80032;
 	font-size: 15px;
 	color: white;
@@ -44,4 +44,7 @@ main div form input.enviar{
 .error{
 	position: relative;
 	color: red;
+}
+.valid{
+  border-color:green;
 }

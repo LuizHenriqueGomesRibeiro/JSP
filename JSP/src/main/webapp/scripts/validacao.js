@@ -4,6 +4,9 @@
 jQuery(function() {
 	if(jQuery("#formulario").length){
 		jQuery("#formulario").validate({
+			errorPlacement: function(){
+            	return false;
+        		},
 			rules: {
 				login: {
 					required: true,
