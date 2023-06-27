@@ -12,7 +12,7 @@
 </head>
 <body>
 	<main>
-		<div>
+		<div class="esquerdo">
 			<form action="ServletLogin" method="post" name="frmContato" id="formulario">
 				
 				<input type="hidden" value="<%=request.getParameter("url")%>" name="url">
@@ -26,6 +26,8 @@
 				<input class="enviar" type="submit" value="Continuar" onclick="validar()">
 			</form>
 			<h4>${msg}</h4>
+		</div>
+		<div class="direito">
 		</div>
 	</main>
 </body>

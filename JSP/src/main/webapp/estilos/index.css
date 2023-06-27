@@ -5,8 +5,10 @@ body{
 	height: 100%;
 	overflow: hidden;
 }
-
-main div{
+main{
+	display: inline;
+}
+main div.esquerdo{
 	position: absolute;
     top: 50%;
     left: 50%;
@@ -14,11 +16,11 @@ main div{
     width: 400px;
 	height: 400px;
 }
-main div form p{
+main div.esquerdo form p{
 	font-size: 20px;
 	margin: 0px 0px 12px 0px;
 }
-main div form input{
+main div.esquerdo form input{
 	position: relative;
 	top: 50%;
     left: 50%;
@@ -31,7 +33,7 @@ main div form input{
 	border-radius: 7px;
 	font-size: 16px;
 }
-main div form input.enviar{
+main div.esquerdo form input.enviar{
 	border: none;
 	width: 413px;
 	background-color: #f80032;
@@ -44,4 +46,7 @@ main div form input.enviar{
 .error{
 	position: relative;
 	color: red;
+}
+main div.direito{
+	
 }
