@@ -2,7 +2,31 @@
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
-<jsp:include page="includes/head.jsp"></jsp:include>
+<head>
+<meta charset="utf-8">
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<!-- Favicon icon -->
+<link rel="icon" href="<%=request.getContextPath() %>/assets/images/favicon.ico" type="image/x-icon">
+<!-- Google font-->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+<!-- waves.css -->
+<link rel="stylesheet" href="<%=request.getContextPath() %>/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+<!-- Required Fremwork -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/css/bootstrap/css/bootstrap.min.css">
+<!-- waves.css -->
+<link rel="stylesheet" href="<%=request.getContextPath() %>/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+<!-- themify icon -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/icon/themify-icons/themify-icons.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/icon/font-awesome/css/font-awesome.min.css">
+<!-- scrollbar.css -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/css/jquery.mCustomScrollbar.css">
+<!-- am chart export.css -->
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<!-- Style.css -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/css/style.css">
+</head>
 <jsp:include page="includes/theme-loader.jsp"></jsp:include>
 <jsp:include page="includes/javascript.jsp"></jsp:include>
 <body>
@@ -35,7 +59,8 @@
 													</div>
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
-														<form class="form-material" name="frmContato" id="formulario" action="ServletLogin" method="post">
+														<form class="form-material" name="frmContato"
+															id="formulario" action="ServletLogin" method="post">
 															<div class="form-group form-default">
 																<input type="password" name="footer-email"
 																	class="form-control" readonly="readonly"> <span
