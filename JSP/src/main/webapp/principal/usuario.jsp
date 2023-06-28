@@ -36,23 +36,36 @@
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
 														<form class="form-material" name="frmContato"
-															id="formulario" action="ServletLogin" method="post">
+															id="formulario"
+															action="<%=request.getContextPath()%>/ServletUsuarioController"
+															method="post">
 															<div class="form-group form-default">
-																<input type="password" name="footer-email"
+																<input type="text" name="id" id="id"
 																	class="form-control" readonly="readonly"> <span
 																	class="form-bar"></span> <label class="float-label">Id</label>
 															</div>
 															<div class="form-group form-default">
-																<input type="text" class="form-control" name="login">
-																<span class="form-bar"></span> <label
-																	class="float-label">Nome</label>
+																<input type="text" class="form-control" name="nome"
+																	id="nome" autocomplete="none"> <span
+																	class="form-bar"></span> <label class="float-label">Nome</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="text" class="form-control" name="email"
+																	id="email" autocomplete="none"> <span
+																	class="form-bar"></span> <label class="float-label">E-mail</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="text" class="form-control" name="login"
+																	id="login" autocomplete="none"> <span
+																	class="form-bar"></span> <label class="float-label">login</label>
 															</div>
 															<div class="form-group form-default">
 																<input type="password" name="senha" class="form-control">
 																<span class="form-bar"></span> <label
 																	class="float-label">Senha</label>
 															</div>
-															<button type="submit "onclick="validar()" class="btn btn-primary waves-effect waves-light">Enviar</button>
+															<button type="submit " onclick="validar()"
+																class="btn btn-primary waves-effect waves-light">Enviar</button>
 														</form>
 													</div>
 												</div>
@@ -69,6 +82,7 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
 </body>
 </html>
