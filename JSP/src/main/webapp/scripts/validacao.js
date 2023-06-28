@@ -4,18 +4,20 @@ jQuery(function() {
 			rules: {
 				login: {
 					required: true,
+					minlength: 2
 				},
 				senha: {
-					required:true,
-				}
+					required:true
+				},
 			},
 			messages: {
-				login:{
+				login: {
 					required: "O nome é obrigatório",
+					minlength: "Seu nome deve ter ao menos dois caracteres"
 				},
 				senha:{
 					required:"A senha é obrigatória",
-				},
+				}
 			}
 		});
 	}

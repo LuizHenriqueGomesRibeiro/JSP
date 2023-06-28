@@ -47,7 +47,7 @@ public class ServletLogin extends HttpServlet {
 			doPost(request, response);
 		}		
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
