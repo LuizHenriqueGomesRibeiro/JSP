@@ -35,7 +35,8 @@
 													</div>
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
-														<form class="form-material" name="frmContato" id="formulario" action="ServletLogin" method="post">
+														<form class="form-material" name="frmContato"
+															id="formulario" action="ServletLogin" method="post">
 															<div class="form-group form-default">
 																<input type="password" name="footer-email"
 																	class="form-control" readonly="readonly"> <span
@@ -51,8 +52,7 @@
 																<span class="form-bar"></span> <label
 																	class="float-label">Senha</label>
 															</div>
-															<input class="enviar" type="submit" value="Continuar"
-																onclick="validar()">
+															<button type="submit "onclick="validar()" class="btn btn-primary waves-effect waves-light">Enviar</button>
 														</form>
 													</div>
 												</div>
@@ -69,5 +69,6 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
 </body>
 </html>
