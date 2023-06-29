@@ -67,13 +67,16 @@
 															</div>
 															<button type="submit" onclick="validar()" class="btn btn-primary waves-effect waves-light">Novo</button>
 															<button type="submit" onclick="validar()" class="btn btn-primary waves-effect waves-light">Salvar</button>
-															<button type="submit" onclick="validar()" class="btn btn-primary waves-effect waves-light">Excluir</button>
+															<button type="submit" onclick="validar()" class="btn btn-primary waves-effect waves-light">Excluir</button><br>															
 														</form>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
+									<span>
+										<h4>${msg}</h4>															
+									</span>
 									<!-- Page-body end -->
 								</div>
 								<div id="styleSelector"></div>
