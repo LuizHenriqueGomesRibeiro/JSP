@@ -1,3 +1,4 @@
+<%@page import="model.ModelLogin"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -46,26 +47,27 @@
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="nome"
-																	id="nome" autocomplete="none"> <span
+																	id="nome" autocomplete="none" value="${modelLogin.nome}"> <span
 																	class="form-bar"></span> <label class="float-label">Nome</label>
 															</div>
 															<div class="form-group form-default">
-																<input type="text" class="form-control" name="email"
+																<input type="text" class="form-control" name="email" value="${modelLogin.email}"
 																	id="email" autocomplete="none"> <span
 																	class="form-bar"></span> <label class="float-label">E-mail</label>
 															</div>
 															<div class="form-group form-default">
-																<input type="text" class="form-control" name="login"
+																<input type="text" class="form-control" name="login" value="${modelLogin.login}"
 																	id="login" autocomplete="none"> <span
 																	class="form-bar"></span> <label class="float-label">login</label>
 															</div>
 															<div class="form-group form-default">
-																<input type="password" name="senha" class="form-control">
+																<input type="password" name="senha" class="form-control" value="${modelLogin.senha}">
 																<span class="form-bar"></span> <label
 																	class="float-label">Senha</label>
 															</div>
-															<button type="submit " onclick="validar()"
-																class="btn btn-primary waves-effect waves-light">Enviar</button>
+															<button type="submit" onclick="validar()" class="btn btn-primary waves-effect waves-light">Novo</button>
+															<button type="submit" onclick="validar()" class="btn btn-primary waves-effect waves-light">Salvar</button>
+															<button type="submit" onclick="validar()" class="btn btn-primary waves-effect waves-light">Excluir</button>
 														</form>
 													</div>
 												</div>

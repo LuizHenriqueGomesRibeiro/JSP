@@ -2,10 +2,12 @@ package servlets;
 
 import java.io.IOException;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.ModelLogin;
 
 /**
  * Servlet implementation class ServletUsuarioController
@@ -26,7 +28,7 @@ public class ServletUsuarioController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 	}
 
 	/**
@@ -34,7 +36,23 @@ public class ServletUsuarioController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String id = request.getParameter("id");
+		String nome = request.getParameter("nome");
+		String login = request.getParameter("login");
+		String senha = request.getParameter("senha");
+		String email = request.getParameter("email");
+		
+		ModelLogin modelLogin = new ModelLogin();
+		modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
+		modelLogin.setNome(nome);
+		modelLogin.setLogin(login);
+		modelLogin.setEmail(email);
+		modelLogin.setSenha(senha);
+		
+		request.setAttribute("modelLogin", modelLogin);
+		
+		RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");		
+		redirecionar.forward(request, response);
 	}
-
 }
