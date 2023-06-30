@@ -87,7 +87,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
 </body>
 </html>
