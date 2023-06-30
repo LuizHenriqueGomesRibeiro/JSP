@@ -75,10 +75,8 @@ public class DAOUsuarioRepository {
 	
 	public boolean validarLogin(String login) {
 		
-		ModelLogin modelLogin = new ModelLogin();
-		
 		try {
-			String sql = "SELECT count(1)>0 AS existe FROM model_login WHERE login = ?;";
+			String sql = "SELECT count(1) > 0 AS existe FROM model_login WHERE login = ?;";
 			
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, login);
@@ -90,7 +88,6 @@ public class DAOUsuarioRepository {
 		} catch (Exception e) {
 			// TODO: handle exception
 			return false;
-		}
-		
+		}		
 	}
 }

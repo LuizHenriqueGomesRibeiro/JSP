@@ -67,7 +67,7 @@ public class ServletUsuarioController extends HttpServlet {
 				
 			}else {
 				
-				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
+				daoUsuarioRepository.gravarUsuario(modelLogin);
 				request.setAttribute("msg", "Operação realizada com sucesso.");
 				request.setAttribute("modelLogin", modelLogin);
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
@@ -80,6 +80,5 @@ public class ServletUsuarioController extends HttpServlet {
 			request.setAttribute("msg", e.getMessage());
 			redirecionar.forward(request, response);
 		}
-
 	}
 }
