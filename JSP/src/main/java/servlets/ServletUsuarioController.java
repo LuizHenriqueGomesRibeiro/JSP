@@ -59,15 +59,21 @@ public class ServletUsuarioController extends HttpServlet {
 			modelLogin.setSenha(senha);
 			
 			if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
-				
-				request.setAttribute("msg_login", "Já existe um usuário com este login.");
-				request.setAttribute("modelLogin", modelLogin);
-				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-				redirecionar.forward(request, response);
-				
+				if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
+					request.setAttribute("msg_login", "Já existe um usuário com este login.");
+					request.setAttribute("msg_email", "Já existe um usuário com este email.");
+					request.setAttribute("modelLogin", modelLogin);
+					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
+					redirecionar.forward(request, response);
+				}
+				else {
+					request.setAttribute("msg_login", "Já existe um usuário com este login.");
+					request.setAttribute("modelLogin", modelLogin);
+					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
+					redirecionar.forward(request, response);
+				}
 			}
 			else if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
-				
 				request.setAttribute("msg_email", "Já existe um usuário com este email.");
 				request.setAttribute("modelLogin", modelLogin);
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");

@@ -41,25 +41,27 @@
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="post">
 															<div class="form-group form-default">
-																<input type="text" name="id" id="id"
-																	class="form-control" readonly="readonly"> <span
-																	class="form-bar"></span> <label class="float-label">Id</label>
+																<input name="id" id="id"
+																	class="form-control" readonly="readonly" type="hidden"> <span
+																	class="form-bar"></span> <label class="float-label"></label>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="nome"
 																	id="nome" autocomplete="none" value="${modelLogin.nome}"> <span
-																	class="form-bar"></span> <label class="float-label">Nome</label>
+																	class="form-bar"></span> <label class="float-label">Nome</label>														
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="email" value="${modelLogin.email}"
 																	id="email" autocomplete="none"> <span
 																	class="form-bar"></span> <label class="float-label">E-mail</label>
 															</div>
+															<p>${msg_email}</p>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="login" value="${modelLogin.login}"
 																	id="login" autocomplete="none"> <span
 																	class="form-bar"></span> <label class="float-label">login</label>
 															</div>
+															<p>${msg_login}</p>
 															<div class="form-group form-default">
 																<input type="password" name="senha" class="form-control" value="${modelLogin.senha}">
 																<span class="form-bar"></span> <label
@@ -75,8 +77,7 @@
 										</div>
 									</div>
 									<span>
-										<h4>${msg_login}</h4>
-										<h4>${msg_email}</h4>																
+										<h4>${msg}</h4>																
 									</span>
 									<!-- Page-body end -->
 								</div>
