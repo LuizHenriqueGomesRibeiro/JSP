@@ -16,61 +16,39 @@ public class DAOUsuarioRepository {
 		connection = SingleConnectionBanco.getConnection();
 	}
 
-	public ModelLogin gravarUsuario(ModelLogin modelLogin) {
+	public ModelLogin gravarUsuario(ModelLogin modelLogin) throws Exception {
 
 		if (modelLogin.isNovo()) {
-			try {
-				String sql = "INSERT INTO model_login(login, senha, nome, email) VALUES (?, ?, ?, ?);";
+			String sql = "INSERT INTO model_login(login, senha, nome, email) VALUES (?, ?, ?, ?);";
 
-				PreparedStatement statement = connection.prepareStatement(sql);
-				statement.setString(1, modelLogin.getLogin());
-				statement.setString(2, modelLogin.getSenha());
-				statement.setString(3, modelLogin.getNome());
-				statement.setString(4, modelLogin.getEmail());
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, modelLogin.getLogin());
+			statement.setString(2, modelLogin.getSenha());
+			statement.setString(3, modelLogin.getNome());
+			statement.setString(4, modelLogin.getEmail());
 
-				statement.execute();
-				connection.commit();
+			statement.execute();
+			connection.commit();
 
-				return this.consultaUsuario(modelLogin.getLogin());
-
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-				try {
-					connection.rollback();
-				} catch (Exception e2) {
-					// TODO: handle exception
-					e2.printStackTrace();
-				}
-			}
 		} else {
 
-			try {
-				String sql = "UPDATE model_login SET login=?, senha=?, id=?, nome=?, email=? WHERE id = "+ modelLogin.getId() + ";";
+			String sql = "UPDATE model_login SET login=?, senha=?, id=?, nome=?, email=? WHERE id = "
+					+ modelLogin.getId() + ";";
 
-				PreparedStatement statement = connection.prepareStatement(sql);
-				statement.setString(1, modelLogin.getLogin());
-				statement.setString(2, modelLogin.getSenha());
-				statement.setString(3, modelLogin.getNome());
-				statement.setString(4, modelLogin.getEmail());
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, modelLogin.getLogin());
+			statement.setString(2, modelLogin.getSenha());
+			statement.setString(3, modelLogin.getNome());
+			statement.setString(4, modelLogin.getEmail());
 
-				statement.executeUpdate();
+			statement.executeUpdate();
 
-				connection.commit();
-
-			} catch (Exception e) {
-				try {
-					connection.rollback();
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-			}
-
+			connection.commit();
 		}
 
-		return null;
+		return this.consultaUsuario(modelLogin.getLogin());
 	}
-	
+
 	public ModelLogin consultaUsuario(String login) {
 
 		ModelLogin modelLogin = new ModelLogin();

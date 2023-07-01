@@ -52,6 +52,7 @@ public class ServletUsuarioController extends HttpServlet {
 			String email = request.getParameter("email");
 
 			ModelLogin modelLogin = new ModelLogin();
+			
 			modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
 			modelLogin.setNome(nome);
 			modelLogin.setLogin(login);
