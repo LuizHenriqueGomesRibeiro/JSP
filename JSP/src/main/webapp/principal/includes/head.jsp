@@ -3,6 +3,7 @@
     
 <head>
 <meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/css/usuario.css">
 <!-- Favicon icon -->
 <link rel="icon" href="<%=request.getContextPath() %>/assets/images/favicon.ico" type="image/x-icon">
 <!-- Google font-->

@@ -81,8 +81,28 @@ public class DAOUsuarioRepository {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, login);
 			ResultSet resultado=statement.executeQuery();
-			
+
 				resultado.next();
+				
+				return resultado.getBoolean("existe");
+				
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}		
+	}
+	
+	public boolean validarEmail(String email) {
+		
+		try {
+			String sql = "SELECT count(1) > 0 AS existe FROM model_login WHERE email = ?;";
+			
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, email);
+			ResultSet resultado=statement.executeQuery();
+
+				resultado.next();
+				
 				return resultado.getBoolean("existe");
 				
 		} catch (Exception e) {

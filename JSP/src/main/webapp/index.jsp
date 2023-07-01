@@ -8,7 +8,7 @@
 <script type="text/javascript" src="scripts/jquery-3.7.0.js"></script>
 <script type="text/javascript" src="scripts/jquery.validate.js"></script>
 <script type="text/javascript" src="scripts/validacao.js"></script>
-<link rel="stylesheet" href="estilos/index.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/estilos/index.css">
 </head>
 <body>
 	<main>

@@ -75,7 +75,8 @@
 										</div>
 									</div>
 									<span>
-										<h4>${msg}</h4>															
+										<h4>${msg_login}</h4>
+										<h4>${msg_email}</h4>																
 									</span>
 									<!-- Page-body end -->
 								</div>

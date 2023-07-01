@@ -60,12 +60,20 @@ public class ServletUsuarioController extends HttpServlet {
 			
 			if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
 				
-				request.setAttribute("msg", "Já existe um usuário com este login.");
+				request.setAttribute("msg_login", "Já existe um usuário com este login.");
 				request.setAttribute("modelLogin", modelLogin);
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
 				
-			}else {
+			}
+			else if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
+				
+				request.setAttribute("msg_email", "Já existe um usuário com este email.");
+				request.setAttribute("modelLogin", modelLogin);
+				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
+				redirecionar.forward(request, response);
+			}
+			else {
 				
 				daoUsuarioRepository.gravarUsuario(modelLogin);
 				request.setAttribute("msg", "Operação realizada com sucesso.");
