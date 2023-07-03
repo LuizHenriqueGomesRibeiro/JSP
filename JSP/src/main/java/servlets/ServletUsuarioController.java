@@ -5,83 +5,72 @@ import java.io.IOException;
 import DAO.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
 
-/**
- * Servlet implementation class ServletUsuarioController
- */
+@WebServlet("/ServletUsuarioController")
 public class ServletUsuarioController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-
+	
+	
 	private DAOUsuarioRepository daoUsuarioRepository = new DAOUsuarioRepository();
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ServletUsuarioController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public ServletUsuarioController() {
+    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
-			String msg = "Opera��o realizada com sucesso!";
-
-			String id = request.getParameter("id");
-			String nome = request.getParameter("nome");
-			String login = request.getParameter("login");
-			String senha = request.getParameter("senha");
-			String email = request.getParameter("email");
-
-			ModelLogin modelLogin = new ModelLogin();
-
-			modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
-			modelLogin.setNome(nome);
-			modelLogin.setLogin(login);
-			modelLogin.setEmail(email);
-			modelLogin.setSenha(senha);
-
-			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
-				msg = "J� existe usu�rio com o mesmo login, informe outro login;";
-			} else {
-				if (modelLogin.isNovo()) {
-					msg = "Gravdo com sucesso!";
-				} else {
-					msg = "Atualizado com sucesso!";
-				}
-
-				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
+			
+		String msg = "Opera��o realizada com sucesso!";	
+		
+		String id = request.getParameter("id");
+		String nome = request.getParameter("nome");
+		String email = request.getParameter("email");
+		String login = request.getParameter("login");
+		String senha = request.getParameter("senha");
+		
+		ModelLogin modelLogin = new ModelLogin();
+		
+		modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
+		modelLogin.setNome(nome);
+		modelLogin.setEmail(email);
+		modelLogin.setLogin(login);
+		modelLogin.setSenha(senha);
+		
+		
+		if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
+			msg = "J� existe usu�rio com o mesmo login, informe outro login;";
+		}else {
+			if (modelLogin.isNovo()) {
+				msg = "Gravdo com sucesso!";
+			}else {
+				msg= "Atualizado com sucesso!";
 			}
-
-			request.setAttribute("msg", msg);
-			request.setAttribute("modelLogin", modelLogin);
-			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
-
+			
+		    modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
+		}
+		
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("modolLogin", modelLogin);
+		request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+		
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
 			request.setAttribute("msg", e.getMessage());
 			redirecionar.forward(request, response);
 		}
+		
 	}
+
 }
