@@ -45,6 +45,8 @@ public class ServletUsuarioController extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		try {
+			String msg = "Opera��o realizada com sucesso!";	
+			
 			String id = request.getParameter("id");
 			String nome = request.getParameter("nome");
 			String login = request.getParameter("login");
@@ -59,35 +61,21 @@ public class ServletUsuarioController extends HttpServlet {
 			modelLogin.setEmail(email);
 			modelLogin.setSenha(senha);
 			
-			if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
-				if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
-					request.setAttribute("msg_login", "Já existe um usuário com este login.");
-					request.setAttribute("msg_email", "Já existe um usuário com este email.");
-					request.setAttribute("modelLogin", modelLogin);
-					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-					redirecionar.forward(request, response);
+			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
+				msg = "J� existe usu�rio com o mesmo login, informe outro login;";
+			}else {
+				if (modelLogin.isNovo()) {
+					msg = "Gravdo com sucesso!";
+				}else {
+					msg= "Atualizado com sucesso!";
 				}
-				else {
-					request.setAttribute("msg_login", "Já existe um usuário com este login.");
-					request.setAttribute("modelLogin", modelLogin);
-					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-					redirecionar.forward(request, response);
-				}
-			}
-			else if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
-				request.setAttribute("msg_email", "Já existe um usuário com este email.");
-				request.setAttribute("modelLogin", modelLogin);
-				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-				redirecionar.forward(request, response);
-			}
-			else {
 				
-				daoUsuarioRepository.gravarUsuario(modelLogin);
-				request.setAttribute("msg", "Operação realizada com sucesso.");
-				request.setAttribute("modelLogin", modelLogin);
-				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-				redirecionar.forward(request, response);
+			    modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
 			}
+			
+			request.setAttribute("msg", msg);
+			request.setAttribute("modolLogin", modelLogin);
+			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			
 		} catch (Exception e) {
 			// TODO: handle exception

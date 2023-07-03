@@ -36,40 +36,52 @@
 													</div>
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
-														<form class="form-material" name="frmContato"
-															id="formulario"
+														<form class="form-material"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
-															method="post">
-															<div class="form-group form-default">
-																<input name="id" id="id"
-																	class="form-control" readonly="readonly" type="hidden"> <span
-																	class="form-bar"></span> <label class="float-label"></label>
+															method="post" id="formUser">
+															<div class="form-group form-default form-static-label">
+																<input type="text" name="id" id="id"
+																	class="form-control" readonly="readonly"
+																	value="${modelLogin.id}"> <span
+																	class="form-bar"></span> <label class="float-label">ID:</label>
 															</div>
-															<div class="form-group form-default">
-																<input type="text" class="form-control" name="nome"
-																	id="nome" autocomplete="none" value="${modelLogin.nome}"> <span
-																	class="form-bar"></span> <label class="float-label">Nome</label>														
+
+															<div class="form-group form-default form-static-label">
+																<input type="text" name="nome" id="nome"
+																	class="form-control" required="required"
+																	value="${modelLogin.nome}"> <span
+																	class="form-bar"></span> <label class="float-label">Nome:</label>
 															</div>
-															<div class="form-group form-default">
-																<input type="text" class="form-control" name="email" value="${modelLogin.email}"
-																	id="email" autocomplete="none"> <span
-																	class="form-bar"></span> <label class="float-label">E-mail</label>
+
+															<div class="form-group form-default form-static-label">
+																<input type="email" name="email" id="email"
+																	class="form-control" required="required"
+																	autocomplete="off" value="${modelLogin.email}">
+																<span class="form-bar"></span> <label
+																	class="float-label">E-mail:</label>
 															</div>
-															<p>${msg_email}</p>
-															<div class="form-group form-default">
-																<input type="text" class="form-control" name="login" value="${modelLogin.login}"
-																	id="login" autocomplete="none"> <span
-																	class="form-bar"></span> <label class="float-label">login</label>
+
+															<div class="form-group form-default form-static-label">
+																<input type="text" name="login" id="login"
+																	class="form-control" required="required"
+																	autocomplete="off" value="${modelLogin.login}">
+																<span class="form-bar"></span> <label
+																	class="float-label">Login</label>
 															</div>
-															<p>${msg_login}</p>
-															<div class="form-group form-default">
-																<input type="password" name="senha" class="form-control" value="${modelLogin.senha}">
+
+															<div class="form-group form-default form-static-label">
+																<input type="password" name="senha" id="senha"
+																	class="form-control" required="required"
+																	autocomplete="off" value="${modelLogin.senha}">
 																<span class="form-bar"></span> <label
 																	class="float-label">Senha</label>
 															</div>
-															<button type="submit" onclick="validar()" class="btn btn-primary waves-effect waves-light">Novo</button>
-															<button type="submit" onclick="validar()" class="btn btn-primary waves-effect waves-light">Salvar</button>
-															<button type="submit" onclick="validar()" class="btn btn-primary waves-effect waves-light">Excluir</button><br>															
+
+															<button type="button"
+																class="btn btn-primary waves-effect waves-light"
+																onclick="limparForm();">Novo</button>
+															<button class="btn btn-success waves-effect waves-light">Salvar</button>
+															<button class="btn btn-info waves-effect waves-light">Excluir</button>
 														</form>
 													</div>
 												</div>
@@ -77,7 +89,7 @@
 										</div>
 									</div>
 									<span>
-										<h4>${msg}</h4>																
+										<h4>${msg}</h4>
 									</span>
 									<!-- Page-body end -->
 								</div>
@@ -89,6 +101,7 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
 </body>
 </html>
