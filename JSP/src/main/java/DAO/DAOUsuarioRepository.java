@@ -32,9 +32,7 @@ public class DAOUsuarioRepository {
 
 		} else {
 
-			String sql = "UPDATE model_login SET login=?, senha=?, id=?, nome=?, email=? WHERE id = "
-					+ modelLogin.getId() + ";";
-
+			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=? WHERE id = "+modelLogin.getId() +";";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, modelLogin.getLogin());
 			statement.setString(2, modelLogin.getSenha());
