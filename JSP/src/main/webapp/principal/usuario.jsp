@@ -41,8 +41,8 @@
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="post">
 															<div class="form-group form-default">
-																<input name="id" id="id"
-																	class="form-control" readonly="readonly" type="hidden"> <span
+																<input name="id" id="id" type="text"
+																	class="form-control" readonly="readonly" value="${modelLogin.id}"> <span
 																	class="form-bar"></span> <label class="float-label"></label>
 															</div>
 															<div class="form-group form-default">
