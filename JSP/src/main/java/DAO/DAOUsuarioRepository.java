@@ -16,9 +16,11 @@ public class DAOUsuarioRepository {
 		connection = SingleConnectionBanco.getConnection();
 	}
 
-	public ModelLogin gravarUsuario(ModelLogin modelLogin) throws Exception {
-
-		if (modelLogin.isNovo()) {
+	public ModelLogin gravarUsuario(ModelLogin modelLogin){
+		
+		try {
+			if (modelLogin.isNovo()) {
+			
 			String sql = "INSERT INTO model_login(login, senha, nome, email) VALUES (?, ?, ?, ?);";
 
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -29,10 +31,10 @@ public class DAOUsuarioRepository {
 
 			statement.execute();
 			connection.commit();
-
+			
 		} else {
-
 			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=? WHERE id = "+modelLogin.getId() +";";
+			
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, modelLogin.getLogin());
 			statement.setString(2, modelLogin.getSenha());
@@ -40,11 +42,20 @@ public class DAOUsuarioRepository {
 			statement.setString(4, modelLogin.getEmail());
 
 			statement.executeUpdate();
-
 			connection.commit();
 		}
-
 		return this.consultaUsuario(modelLogin.getLogin());
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+			try {
+				connection.rollback();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+			return null;
+		}		
 	}
 
 	public ModelLogin consultaUsuario(String login) {
@@ -65,7 +76,6 @@ public class DAOUsuarioRepository {
 				modelLogin.setLogin(resultado.getString("login"));
 				modelLogin.setSenha(resultado.getString("senha"));
 			}
-
 			return modelLogin;
 
 		} catch (Exception e) {

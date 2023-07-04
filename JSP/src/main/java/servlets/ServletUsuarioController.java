@@ -35,7 +35,11 @@ public class ServletUsuarioController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		String acao = request.getParameter("acao");
+		
+		if(acao != null & !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+			String idUser = request.getParameter("id");
+		}
 	}
 
 	/**
@@ -125,9 +129,8 @@ public class ServletUsuarioController extends HttpServlet {
 					request.setAttribute("modelLogin", modelLogin);
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
-
 				}
-				else {
+				else {					
 					
 					msg= "Atualizado com sucesso!";
 					
@@ -137,17 +140,8 @@ public class ServletUsuarioController extends HttpServlet {
 					request.setAttribute("modelLogin", modelLogin);
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
-
 				}
-				
-				 modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
 			}
-			
-			request.setAttribute("msg", msg);
-			request.setAttribute("modelLogin", modelLogin);
-			RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-			redirecionar.forward(request, response);
-
 		} catch (Exception e) {
 			// TODO: handle exception
 			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
