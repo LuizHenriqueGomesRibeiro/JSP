@@ -35,10 +35,28 @@ public class ServletUsuarioController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String acao = request.getParameter("acao");
-		
-		if(acao != null & !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
-			String idUser = request.getParameter("id");
+		try {
+			String acao = request.getParameter("acao");
+
+			if (acao != null & !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+
+				String idUser = request.getParameter("id");
+				daoUsuarioRepository.deletar_registro(idUser);
+				
+				request.setAttribute("msg", "excluído com sucesso.");
+			}
+			else {
+				request.setAttribute("msg", "Falha ao excluir o usuário. Tente novamente mais tarde.");
+			}
+			
+			RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
+			redirecionar.forward(request, response);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			request.setAttribute("msg", e);
+			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
+			redirecionar.forward(request, response);
 		}
 	}
 
@@ -67,75 +85,69 @@ public class ServletUsuarioController extends HttpServlet {
 			modelLogin.setEmail(email);
 			modelLogin.setSenha(senha);
 
-			/*if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
-				if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
-					request.setAttribute("msg_login", "Já existe um usuário com este login.");
-					request.setAttribute("msg_email", "Já existe um usuário com este email.");
-					request.setAttribute("modelLogin", modelLogin);
-					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-					redirecionar.forward(request, response);
-				}
-				else {
-					request.setAttribute("msg_login", "Já existe um usuário com este login.");
-					request.setAttribute("modelLogin", modelLogin);
-					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-					redirecionar.forward(request, response);
-				}
-			}
-			else if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
-				request.setAttribute("msg_email", "Já existe um usuário com este email.");
-				request.setAttribute("modelLogin", modelLogin);
-				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-				redirecionar.forward(request, response);
-			}
-			else {
+			/*
+			 * if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) &&
+			 * modelLogin.getId() == null) {
+			 * if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) &&
+			 * modelLogin.getId() == null) { request.setAttribute("msg_login",
+			 * "Já existe um usuário com este login."); request.setAttribute("msg_email",
+			 * "Já existe um usuário com este email."); request.setAttribute("modelLogin",
+			 * modelLogin); RequestDispatcher redirecionar =
+			 * request.getRequestDispatcher("principal/usuario.jsp");
+			 * redirecionar.forward(request, response); } else {
+			 * request.setAttribute("msg_login", "Já existe um usuário com este login.");
+			 * request.setAttribute("modelLogin", modelLogin); RequestDispatcher
+			 * redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
+			 * redirecionar.forward(request, response); } } else
+			 * if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) &&
+			 * modelLogin.getId() == null) { request.setAttribute("msg_email",
+			 * "Já existe um usuário com este email."); request.setAttribute("modelLogin",
+			 * modelLogin); RequestDispatcher redirecionar =
+			 * request.getRequestDispatcher("principal/usuario.jsp");
+			 * redirecionar.forward(request, response); } else {
+			 * 
+			 * daoUsuarioRepository.gravarUsuario(modelLogin); request.setAttribute("msg",
+			 * "Operação realizada com sucesso."); request.setAttribute("modelLogin",
+			 * modelLogin); RequestDispatcher redirecionar =
+			 * request.getRequestDispatcher("principal/usuario.jsp");
+			 * redirecionar.forward(request, response); }
+			 */
 
-				daoUsuarioRepository.gravarUsuario(modelLogin);
-				request.setAttribute("msg", "Operação realizada com sucesso.");
-				request.setAttribute("modelLogin", modelLogin);
-				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-				redirecionar.forward(request, response);
-			}*/
-						
-			if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
-				if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
+			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
+				if (daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
 					request.setAttribute("msg_login", "Já existe um usuário com este login.");
 					request.setAttribute("msg_email", "Já existe um usuário com este email.");
 					request.setAttribute("modelLogin", modelLogin);
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
-				}
-				else {
+				} else {
 					request.setAttribute("msg_login", "Já existe um usuário com este login.");
 					request.setAttribute("modelLogin", modelLogin);
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
 				}
-			}
-			else if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
+			} else if (daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
 				request.setAttribute("msg_email", "Já existe um usuário com este email.");
 				request.setAttribute("modelLogin", modelLogin);
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
-			}
-			else {
-				if(modelLogin.isNovo()) {
-					
+			} else {
+				if (modelLogin.isNovo()) {
+
 					msg = "Gravado com sucesso!";
-					
+
 					modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
-					
+
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
-				}
-				else {					
-					
-					msg= "Atualizado com sucesso!";
-					
+				} else {
+
+					msg = "Atualizado com sucesso!";
+
 					modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
-					
+
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
@@ -145,6 +157,7 @@ public class ServletUsuarioController extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
+			redirecionar.forward(request, response);
 		}
 	}
 }

@@ -32,8 +32,10 @@ jQuery(function() {
 		});
 	}
 	else{
-		function validar() {
-			document.forms["frmContato"].submit();
-		}
+		validar();
 	}
 });
+
+function validar() {
+	document.forms["frmContato"].submit();
+}

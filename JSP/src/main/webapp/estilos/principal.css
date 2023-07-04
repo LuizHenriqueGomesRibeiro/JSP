@@ -1,1 +1,32 @@
 @charset "utf-8";
+
+div.confirmacao{
+	height: 250px;
+	width: 700px;
+	background-color: white;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+div.confirmacao div.card-header h4{
+	text-align: center;
+	top: 50px;
+}
+div.confirmacao button#deletar{
+	position: absolute;
+	left: 43%;
+	top: 70%;
+	transform: translate(-50%,-50%);
+	background-color: red;
+	border: 1px solid red;
+}
+div.confirmacao button#cancelar{
+	position: absolute;
+	left: 57%;
+	top: 70%;
+	transform: translate(-50%,-50%);
+}
+#caixa{
+	background-color: red;
+}

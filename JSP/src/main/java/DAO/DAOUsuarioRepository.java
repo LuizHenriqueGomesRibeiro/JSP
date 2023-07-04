@@ -121,4 +121,46 @@ public class DAOUsuarioRepository {
 			return false;
 		}
 	}
+	
+	public boolean deletar_registro(String idUser) {
+		
+		try {
+			String sql = "DELETE FROM model_login WHERE id = ?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setLong(1,Long.parseLong(idUser));
+			statement.executeUpdate();
+			connection.commit();
+			
+			return true;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			try {
+				connection.rollback();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				
+			}
+		}
+		
+		return false;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
