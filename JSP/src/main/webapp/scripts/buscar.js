@@ -7,11 +7,24 @@ jQuery(function() {
 	var buscar = jQuery("#buscar");
 
 	buscar.click(function() {
-		var nome = jQuery("#nome_pesquisa").val();
+		caixa.hide();
+		var nomeBusca = document.getElementById('nomeBusca').value;
 
-		if (nome != null && nome != '') {
-			alert("teste");
-			caixa.hide();
+		if (nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != '') {
+
+			var urlAction = document.getElementById('formulario').action;
+
+			$.ajax({
+
+				method: "get",
+				url: urlAction,
+				data: "nomeBusca=" + nomeBusca + '&acao=buscarUserAjax',
+				success: function(response) {
+					System.out.println(response);
+				}
+			}).fail(function(xhr, status, errorThrown) {
+				alert('Erro ao buscar usu�rio por nome: ' + xhr.responseText);
+			});
 		}else{
 			caixa.show();
 		}

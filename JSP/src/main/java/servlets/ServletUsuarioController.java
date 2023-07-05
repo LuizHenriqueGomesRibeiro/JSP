@@ -45,6 +45,12 @@ public class ServletUsuarioController extends HttpServlet {
 				
 				request.setAttribute("msg", "excluído com sucesso.");
 			}
+			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+				String nome = request.getParameter("nomeBusca");
+				System.out.println(nome);
+				// daoUsuarioRepository.deletar_registro(nome);
+				// response.getWriter().write("Excluído com sucesso");
+			}
 			else {
 				request.setAttribute("msg", "Falha ao excluir o usuário. Tente novamente mais tarde.");
 			}

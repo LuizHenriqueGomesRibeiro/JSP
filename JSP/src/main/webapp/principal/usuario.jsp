@@ -129,7 +129,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" id='nome_pesquisa'>
+						<input type="text" class="form-control" id='nomeBusca'>
 						<div class="input-group-append">
 							<button class="btn btn-success" type="button" id="buscar">Buscar</button>
 							<button class="btn btn-danger" type="button" id="limpar_pesquisa">Limpar</button>
