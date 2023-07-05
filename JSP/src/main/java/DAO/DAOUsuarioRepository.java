@@ -33,13 +33,14 @@ public class DAOUsuarioRepository {
 			connection.commit();
 			
 		} else {
-			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=? WHERE id = "+modelLogin.getId() +";";
+			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=? WHERE id = ?;";
 			
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, modelLogin.getLogin());
 			statement.setString(2, modelLogin.getSenha());
 			statement.setString(3, modelLogin.getNome());
 			statement.setString(4, modelLogin.getEmail());
+			statement.setLong(5, modelLogin.getId());
 
 			statement.executeUpdate();
 			connection.commit();
@@ -122,12 +123,13 @@ public class DAOUsuarioRepository {
 		}
 	}
 	
-	public boolean deletar_registro(String idUser) {
+	public boolean deletar_registro(String id) {
 		
 		try {
 			String sql = "DELETE FROM model_login WHERE id = ?";
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setLong(1,Long.parseLong(idUser));
+			statement.setLong(1,Long.parseLong(id));
+			
 			statement.executeUpdate();
 			connection.commit();
 			
@@ -146,6 +148,7 @@ public class DAOUsuarioRepository {
 		return false;
 	}
 }
+
 
 
 

@@ -40,8 +40,8 @@ public class ServletUsuarioController extends HttpServlet {
 
 			if (acao != null & !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
 
-				String idUser = request.getParameter("id");
-				daoUsuarioRepository.deletar_registro(idUser);
+				String id = request.getParameter("id");
+				daoUsuarioRepository.deletar_registro(id);
 				
 				request.setAttribute("msg", "excluído com sucesso.");
 			}
@@ -76,7 +76,7 @@ public class ServletUsuarioController extends HttpServlet {
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			String email = request.getParameter("email");
-
+				
 			ModelLogin modelLogin = new ModelLogin();
 
 			modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);

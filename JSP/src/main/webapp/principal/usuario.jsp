@@ -94,9 +94,9 @@
 																style="background-color: red; border: 1px solid red;"
 																class="btn btn-primary waves-effect waves-light"
 																id="caixa">Excluir</button>
-															<button type="button" class="btn btn-primary"
+															<button type="button" class="btn btn-success"
 																data-toggle="modal" data-target="#exampleModal">
-																Launch demo modal</button>
+																Pesquisar</button>
 														</form>
 													</div>
 												</div>
@@ -116,6 +116,67 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="exampleModal" tabindex="1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisar</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id='nome_pesquisa'>
+						<div class="input-group-append">
+							<button class="btn btn-success" type="button" id="buscar">Buscar</button>
+							<button class="btn btn-danger" type="button" id="limpar_pesquisa">Limpar</button>
+						</div>
+					</div>
+					<div class="caixa_de_dialogo">
+						<h7>Digite algum nome</h7>
+					</div>
+				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Nome</th>
+							<th>Selecionar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>John</td>
+							<td>Doe</td>
+							<td>john@example.com</td>
+						</tr>
+						<tr>
+							<td>Mary</td>
+							<td>Moe</td>
+							<td>mary@example.com</td>
+						</tr>
+						<tr>
+							<td>July</td>
+							<td>Dooley</td>
+							<td>july@example.com</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-primary">Salvar
+						mudanças</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
 	<script type="text/javascript"
 		src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
 	<script type="text/javascript"

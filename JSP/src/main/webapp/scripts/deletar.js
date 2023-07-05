@@ -6,6 +6,7 @@ jQuery(function() {
 	var div = jQuery("div.confirmacao");
 	var button = jQuery("#caixa");
 	var cancelar = jQuery("#cancelar");
+	var deletar = jQuery("#deletar");
 
 	div.hide();
 
@@ -16,8 +17,6 @@ jQuery(function() {
 	cancelar.click(function() {
 		div.hide();
 	});
-
-	var deletar = jQuery("#deletar");
 
 	deletar.click(function() {
 		document.getElementById("formulario").method = "get";

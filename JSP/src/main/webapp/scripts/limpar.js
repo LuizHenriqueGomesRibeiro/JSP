@@ -16,3 +16,13 @@ jQuery(function(){
 		id.val("");
 	});
 });
+
+jQuery(function(){
+	
+	var limpar = jQuery("#limpar_pesquisa");
+	var nome = jQuery("#nome_pesquisa");
+	
+	limpar.click(function(){
+		nome.val("");
+	});
+});
