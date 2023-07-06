@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 
-
+<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/buscar.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/estilos/principal.css">
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/css/usuario.css">
@@ -32,5 +32,4 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/scripts/validacao.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/scripts/limpar.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/scripts/deletar.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/buscar.js"></script>
 </head>

@@ -20,12 +20,21 @@ jQuery(function() {
 				url: urlAction,
 				data: "nomeBusca=" + nomeBusca + '&acao=buscarUserAjax',
 				success: function(response) {
-					System.out.println(response);
+					
+					alert(response);
+
+					var json = JSON.parse(response);
+
+					$('#tabelaresultados > tbody > tr').remove();
+
+					for (var p = 0; p < json.length; p++) {
+						$('#tabelaresultados > tbody').append('<tr> <td>'+json[p].id+'</td></tr>');
+					}
 				}
 			}).fail(function(xhr, status, errorThrown) {
 				alert('Erro ao buscar usu�rio por nome: ' + xhr.responseText);
 			});
-		}else{
+		} else {
 			caixa.show();
 		}
 	});

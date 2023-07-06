@@ -1,6 +1,9 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import DAO.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
@@ -42,22 +45,29 @@ public class ServletUsuarioController extends HttpServlet {
 
 				String id = request.getParameter("id");
 				daoUsuarioRepository.deletar_registro(id);
-				
+
 				request.setAttribute("msg", "excluído com sucesso.");
-			}
-			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+
 				String nome = request.getParameter("nomeBusca");
-				System.out.println(nome);
-				// daoUsuarioRepository.deletar_registro(nome);
-				// response.getWriter().write("Excluído com sucesso");
-			}
-			else {
+
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nome);
+				
+				ObjectMapper mapper = new ObjectMapper();
+				
+				String json = mapper.writeValueAsString(dadosJsonUser);
+				
+				response.getWriter().write(json);
+				
+				System.out.println(json);
+
+			} else {
 				request.setAttribute("msg", "Falha ao excluir o usuário. Tente novamente mais tarde.");
 			}
-			
+
 			RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 			redirecionar.forward(request, response);
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			request.setAttribute("msg", e);
@@ -82,7 +92,7 @@ public class ServletUsuarioController extends HttpServlet {
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			String email = request.getParameter("email");
-				
+
 			ModelLogin modelLogin = new ModelLogin();
 
 			modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
