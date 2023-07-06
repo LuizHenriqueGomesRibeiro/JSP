@@ -21,7 +21,6 @@ jQuery(function() {
 				data: "nomeBusca=" + nomeBusca + '&acao=buscarUserAjax',
 				success: function(response) {
 					alert(response);
-
 					var json = JSON.parse(response);
 
 					$('#tabelaresultados > tbody > tr').remove();
