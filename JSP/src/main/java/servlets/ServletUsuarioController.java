@@ -48,6 +48,7 @@ public class ServletUsuarioController extends HttpServlet {
 
 				request.setAttribute("msg", "excluído com sucesso.");
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+				
 				String nome = request.getParameter("nomeBusca");
 
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nome);
