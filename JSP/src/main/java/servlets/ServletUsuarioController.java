@@ -47,17 +47,15 @@ public class ServletUsuarioController extends HttpServlet {
 				daoUsuarioRepository.deletar_registro(id);
 
 				request.setAttribute("msg", "excluído com sucesso.");
+				
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
-				String nome = request.getParameter("nomeBusca");
-
-				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nome);
 				
+				String nomeBusca = request.getParameter("nomeBusca");
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
 				ObjectMapper mapper = new ObjectMapper();
-				
 				String json = mapper.writeValueAsString(dadosJsonUser);
-				
 				response.getWriter().write(json);
-				
+
 				System.out.println(json);
 
 			} else {

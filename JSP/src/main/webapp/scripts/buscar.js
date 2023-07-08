@@ -8,6 +8,7 @@ jQuery(function() {
 
 	buscar.click(function() {
 		caixa.hide();
+		
 		var nomeBusca = document.getElementById('nomeBusca').value;
 
 		if (nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != '') {
@@ -20,17 +21,17 @@ jQuery(function() {
 				url: urlAction,
 				data: "nomeBusca=" + nomeBusca + '&acao=buscarUserAjax',
 				success: function(response) {
-					alert(response);
+
 					var json = JSON.parse(response);
 
-					$('#tabelaresultados > tbody > tr').remove();
+					$('#tabelaresultados tbody tr').remove();
 
 					for (var p = 0; p < json.length; p++) {
-						$('#tabelaresultados > tbody').append('<tr> <td>'+json[p].id+'</td></tr>');
+						$('#tabelaresultados tbody').append('<tr> <td>' + json[p].id + '</td></tr>');
 					}
 				}
 			}).fail(function(xhr, status, errorThrown) {
-				alert('Erro ao buscar usu�rio por nome: ' + xhr.responseText);
+				alert('Erro ao buscar usuário por nome: ' + xhr.responseText);			
 			});
 		} else {
 			caixa.show();
