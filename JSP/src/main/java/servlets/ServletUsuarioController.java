@@ -1,9 +1,11 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import DAO.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
@@ -47,23 +49,36 @@ public class ServletUsuarioController extends HttpServlet {
 				daoUsuarioRepository.deletar_registro(id);
 
 				request.setAttribute("msg", "excluído com sucesso.");
+				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
+				redirecionar.forward(request, response);
 				
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
 				
 				String nomeBusca = request.getParameter("nomeBusca");
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
+				Gson gson = new Gson();
+				String json = gson.toJson(dadosJsonUser);
+				PrintWriter printWriter = response.getWriter();
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				printWriter.write(json);
+				printWriter.close();
+				System.out.println(json);
+				
+				/*
 				ObjectMapper mapper = new ObjectMapper();
 				String json = mapper.writeValueAsString(dadosJsonUser);
 				response.getWriter().write(json);
 
 				System.out.println(json);
-
+				*/
 			} else {
 				request.setAttribute("msg", "Falha ao excluir o usuário. Tente novamente mais tarde.");
+				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
+				redirecionar.forward(request, response);
 			}
 
-			RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-			redirecionar.forward(request, response);
+			
 
 		} catch (Exception e) {
 			// TODO: handle exception
