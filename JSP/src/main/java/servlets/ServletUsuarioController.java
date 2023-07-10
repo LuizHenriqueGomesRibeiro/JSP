@@ -19,7 +19,7 @@ import model.ModelLogin;
 /**
  * Servlet implementation class ServletUsuarioController
  */
-@WebServlet("/ServletUsuarioController")
+@WebServlet(urlPatterns = { "/ServletUsuarioController"})
 public class ServletUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,6 +44,9 @@ public class ServletUsuarioController extends HttpServlet {
 			String acao = request.getParameter("acao");
 
 			if (acao != null & !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				request.setAttribute("modelLogins", modelLogins);
 
 				String id = request.getParameter("id");
 				daoUsuarioRepository.deletar_registro(id);
@@ -53,6 +56,9 @@ public class ServletUsuarioController extends HttpServlet {
 				redirecionar.forward(request, response);
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				request.setAttribute("modelLogins", modelLogins);
 
 				String nomeBusca = request.getParameter("nomeBusca");
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
@@ -72,17 +78,30 @@ public class ServletUsuarioController extends HttpServlet {
 				 */
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscar")) {
+				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				request.setAttribute("modelLogins", modelLogins);
 
 				String id = request.getParameter("id");
-				
+
 				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id);
-				 
-			    request.setAttribute("msg", "Usuário em edição");
+
+				request.setAttribute("msg", "Usuário em edição");
 				request.setAttribute("modelLogin", modelLogin);
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUsuario")) {
 				
-			} else {
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				request.setAttribute("modelLogins", modelLogins);
+				
+				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
+				redirecionar.forward(request, response);
+				
+				System.out.println(modelLogins);
+			}
+			else {
 				request.setAttribute("msg", "Falha ao excluir o usuário. Tente novamente mais tarde.");
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);

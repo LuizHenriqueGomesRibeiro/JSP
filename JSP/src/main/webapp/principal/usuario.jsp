@@ -1,5 +1,7 @@
 <%@page import="model.ModelLogin"%>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -106,6 +108,33 @@
 									<span>
 										<h4>${msg}</h4>
 									</span>
+									<div class="card">
+										<div class="card-header">
+											<h5>Lista de usuários cadastrados</h5>
+										</div>
+										<div>
+											<table class="table" id="tabelaResultados">
+												<thead>
+													<tr>
+														<th style="width: 27%; left: 40px; position: relative;">ID</th>
+														<th style="width: 27%;">Nome</th>
+														<th style="width: 30%;">Login</th>
+														<th style="width: 25%;">Selecionar</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items='${modelLogins}' var='ml'>
+														<tr>
+															<td style="left: 40px; top: 11px; position: relative;"><c:out value="${ml.id}"></c:out></td>
+															<td style="top: 11px; position: relative;"><c:out value="${ml.nome}"></c:out></td>
+															<td style="top: 11px; position: relative;"><c:out value="${ml.login}"></c:out></td>
+															<td><a class="btn btn-success" href="<%=request.getContextPath()%>/ServletUsuarioController?acao=buscar&id=${ml.id}">Ver</a></td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</div>
 									<!-- Page-body end -->
 								</div>
 								<div id="styleSelector"></div>
@@ -148,7 +177,6 @@
 						</tr>
 					</thead>
 					<tbody>
-
 					</tbody>
 				</table>
 				<div class="modal-footer">
