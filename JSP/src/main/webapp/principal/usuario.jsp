@@ -1,6 +1,6 @@
 <%@page import="model.ModelLogin"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
 <!DOCTYPE html>
 <html>
 <jsp:include page="includes/head.jsp"></jsp:include>
@@ -148,7 +148,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						
+
 					</tbody>
 				</table>
 				<div class="modal-footer">
@@ -158,7 +158,6 @@
 						mudanças</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
 	<script type="text/javascript"
@@ -167,5 +166,7 @@
 		src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
 	<script type="text/javascript"
 		src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/editar.js"></script>
 </body>
 </html>

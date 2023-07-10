@@ -112,6 +112,32 @@ public class DAOUsuarioRepository {
 		}
 		return null;
 	}
+	
+	public ModelLogin consultaUsuarioId(String id) {
+
+		ModelLogin modelLogin = new ModelLogin();
+
+		try {
+			String sql = "SELECT*FROM model_login WHERE id = ?;";
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setLong(1, Long.parseLong(id));
+			ResultSet resultado = statement.executeQuery();
+
+			while (resultado.next()) {
+				modelLogin.setId(resultado.getLong("id"));
+				modelLogin.setNome(resultado.getString("nome"));
+				modelLogin.setEmail(resultado.getString("email"));
+				modelLogin.setLogin(resultado.getString("login"));
+				modelLogin.setSenha(resultado.getString("senha"));
+			}
+			return modelLogin;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
 
 	public boolean validarLogin(String login) {
 

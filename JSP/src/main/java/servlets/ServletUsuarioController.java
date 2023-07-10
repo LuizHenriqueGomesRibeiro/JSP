@@ -51,9 +51,9 @@ public class ServletUsuarioController extends HttpServlet {
 				request.setAttribute("msg", "excluído com sucesso.");
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
-				
+
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
-				
+
 				String nomeBusca = request.getParameter("nomeBusca");
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
 				Gson gson = new Gson();
@@ -63,23 +63,30 @@ public class ServletUsuarioController extends HttpServlet {
 				response.setCharacterEncoding("UTF-8");
 				printWriter.write(json);
 				printWriter.close();
-				System.out.println(json);
-				
-				/*
-				ObjectMapper mapper = new ObjectMapper();
-				String json = mapper.writeValueAsString(dadosJsonUser);
-				response.getWriter().write(json);
 
-				System.out.println(json);
-				*/
+				/*
+				 * ObjectMapper mapper = new ObjectMapper(); String json =
+				 * mapper.writeValueAsString(dadosJsonUser); response.getWriter().write(json);
+				 * 
+				 * System.out.println(json);
+				 */
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscar")) {
+
+				String id = request.getParameter("id");
+				
+				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id);
+				 
+			    request.setAttribute("msg", "Usuário em edição");
+				request.setAttribute("modelLogin", modelLogin);
+				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
+				redirecionar.forward(request, response);
+				
 			} else {
 				request.setAttribute("msg", "Falha ao excluir o usuário. Tente novamente mais tarde.");
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
 			}
-
-			
-
 		} catch (Exception e) {
 			// TODO: handle exception
 			request.setAttribute("msg", e);

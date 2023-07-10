@@ -15,21 +15,17 @@ jQuery(function() {
 
 			var urlAction = document.getElementById('formulario').action;
 
-			$.ajax({
+			jQuery.ajax({
 
 				method: "get",
 				url: urlAction,
 				data: "nomeBusca=" + nomeBusca + '&acao=buscarUserAjax',
 				success: function(json) {
-
-
-					
-					$('#tabelaresultados tbody tr').remove();
+					jQuery('#tabelaresultados tbody tr').remove();
 
 					for (var p = 0; p < json.length; p++) {
-						$('#tabelaresultados > tbody').append('<tr> <td>' + json[p].id + '</td> <td> ' + json[p].nome + '</td> <td><button type="button" class="btn btn-info">Ver</button></td></tr>');
+						jQuery('#tabelaresultados > tbody').append('<tr><td>' + json[p].id + '</td><td> ' + json[p].nome + '</td><td><button id="editar" onclick="editar('+json[p].id+')" type="button" class="btn btn-info">Ver</button></td></tr>');
 					}
-
 					document.getElementById('totalResultados').textContent = 'Resultados: ' + json.length;
 				}
 			}).fail(function(xhr, status, errorThrown) {

@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
     
 <head>
 <meta charset="utf-8">
 
 <script type="text/javascript" src="<%=request.getContextPath() %>/scripts/buscar.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/editar.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/estilos/principal.css">
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/css/usuario.css">
