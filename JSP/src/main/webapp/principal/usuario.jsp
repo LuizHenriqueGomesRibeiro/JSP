@@ -128,12 +128,13 @@
 															<td style="left: 40px; top: 11px; position: relative;"><c:out value="${ml.id}"></c:out></td>
 															<td style="top: 11px; position: relative;"><c:out value="${ml.nome}"></c:out></td>
 															<td style="top: 11px; position: relative;"><c:out value="${ml.login}"></c:out></td>
-															<td><a class="btn btn-success" href="<%=request.getContextPath()%>/ServletUsuarioController?acao=buscar&id=${ml.id}">Ver</a></td>
+															<td><a class="btn btn-success" href="<%=request.getContextPath()%>/ServletUsuarioController?acao=buscar&id=${ml.id}">Ver</a></td>				
 														</tr>
 													</c:forEach>
 												</tbody>
 											</table>
 										</div>
+										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Pesquisar</button>
 									</div>
 									<!-- Page-body end -->
 								</div>

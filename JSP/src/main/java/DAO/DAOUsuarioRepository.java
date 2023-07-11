@@ -18,18 +18,19 @@ public class DAOUsuarioRepository {
 		connection = SingleConnectionBanco.getConnection();
 	}
 
-	public ModelLogin gravarUsuario(ModelLogin modelLogin){
+	public ModelLogin gravarUsuario(ModelLogin modelLogin, Long userLogado){
 		
 		try {
 			if (modelLogin.isNovo()) {
 			
-			String sql = "INSERT INTO model_login(login, senha, nome, email) VALUES (?, ?, ?, ?);";
+			String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id) VALUES (?, ?, ?, ?, ?);";
 
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, modelLogin.getLogin());
 			statement.setString(2, modelLogin.getSenha());
 			statement.setString(3, modelLogin.getNome());
 			statement.setString(4, modelLogin.getEmail());
+			statement.setLong(5, userLogado);
 
 			statement.execute();
 			connection.commit();
@@ -61,13 +62,14 @@ public class DAOUsuarioRepository {
 		}		
 	}
 	
-	public List<ModelLogin> consultaUsuarioList(String nome) throws Exception {
+	public List<ModelLogin> consultaUsuarioList(String nome, Long userLogado) throws Exception {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login  where upper(nome) like upper(?) ";
+		String sql = "SELECT*FROM model_login  WHERE upper(nome) LIKE upper(?) AND useradmin IS FALSE AND usuario_id = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, "%" + nome + "%");
+		statement.setLong(2, userLogado);
 
 		ResultSet resultado = statement.executeQuery();
 
@@ -87,11 +89,11 @@ public class DAOUsuarioRepository {
 		return retorno;
 	}
 	
-	public List<ModelLogin> consultaUsuarioList() throws Exception {
+	public List<ModelLogin> consultaUsuarioList(Long userlogado) throws Exception {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login";
+		String sql = "SELECT * FROM model_login WHERE useradmin IS FALSE AND usuario_id = "+userlogado;
 		PreparedStatement statement = connection.prepareStatement(sql);
 
 		ResultSet resultado = statement.executeQuery();
@@ -111,13 +113,39 @@ public class DAOUsuarioRepository {
 
 		return retorno;
 	}
+	
+	public ModelLogin consultaUsuario(Long userLogado) {
+
+		ModelLogin modelLogin = new ModelLogin();
+
+		try {
+			String sql = "SELECT*FROM model_login WHERE login = ? AND useradmin IS FALSE AND usuario_Id = "+userLogado;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setLong(1, userLogado);
+			ResultSet resultado = statement.executeQuery();
+
+			while (resultado.next()) {
+				modelLogin.setId(resultado.getLong("id"));
+				modelLogin.setNome(resultado.getString("nome"));
+				modelLogin.setEmail(resultado.getString("email"));
+				modelLogin.setLogin(resultado.getString("login"));
+				modelLogin.setSenha(resultado.getString("senha"));
+			}
+			return modelLogin;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
 
 	public ModelLogin consultaUsuario(String login) {
 
 		ModelLogin modelLogin = new ModelLogin();
 
 		try {
-			String sql = "SELECT*FROM model_login WHERE login = ?;";
+			String sql = "SELECT*FROM model_login WHERE login = ? AND useradmin IS FALSE AND usuario_Id ";
 
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, login);
@@ -138,15 +166,16 @@ public class DAOUsuarioRepository {
 		return null;
 	}
 	
-	public ModelLogin consultaUsuarioId(String id) {
+	public ModelLogin consultaUsuarioId(String id, Long userLogado) {
 
 		ModelLogin modelLogin = new ModelLogin();
 
 		try {
-			String sql = "SELECT*FROM model_login WHERE id = ?;";
+			String sql = "SELECT*FROM model_login WHERE id = ? AND useradmin IS FALSE AND usuario_id = ?";
 
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setLong(1, Long.parseLong(id));
+			statement.setLong(2, Long.parseLong(id));
 			ResultSet resultado = statement.executeQuery();
 
 			while (resultado.next()) {
@@ -167,7 +196,7 @@ public class DAOUsuarioRepository {
 	public boolean validarLogin(String login) {
 
 		try {
-			String sql = "SELECT count(1) > 0 AS existe FROM model_login WHERE login = ?;";
+			String sql = "SELECT count(1) > 0 AS existe FROM model_login WHERE login = ? AND useradmin IS FALSE;";
 
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, login);
