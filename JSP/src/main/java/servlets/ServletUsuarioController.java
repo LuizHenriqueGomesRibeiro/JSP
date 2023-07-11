@@ -93,7 +93,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUsuario")) {
 				
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
 				request.setAttribute("modelLogins", modelLogins);
 				
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");

@@ -66,7 +66,7 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login WHERE useradmin IS FALSE";
+		String sql = "select * from model_login";
 		PreparedStatement statement = connection.prepareStatement(sql);
 
 		ResultSet resultado = statement.executeQuery();
@@ -91,7 +91,7 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "SELECT*FROM model_login WHERE useradmin IS FALSE AND usuario_id = " + userLogado;
+		String sql = "SELECT*FROM model_login WHERE usuario_id = " + userLogado;
 		PreparedStatement statement = connection.prepareStatement(sql);
 
 		ResultSet resultado = statement.executeQuery();
@@ -116,7 +116,7 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "SELECT*FROM model_login  WHERE nome LIKE ? AND useradmin IS FALSE AND usuario_id = ?";
+		String sql = "SELECT*FROM model_login  WHERE nome LIKE ? AND usuario_id = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, "%" + nome + "%");
 		statement.setLong(2, userLogado);
