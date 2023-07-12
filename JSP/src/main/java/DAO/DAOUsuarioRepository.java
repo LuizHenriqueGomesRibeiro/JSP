@@ -195,7 +195,7 @@ public class DAOUsuarioRepository {
 		ModelLogin modelLogin = new ModelLogin();
 
 		try {
-			String sql = "SELECT*FROM model_login WHERE login = " + login;
+			String sql = "select * from model_login where upper(login) = upper('"+login+"')";
 
 			PreparedStatement statement = connection.prepareStatement(sql);
 			ResultSet resultado = statement.executeQuery();
