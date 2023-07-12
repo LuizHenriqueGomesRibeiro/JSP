@@ -19,7 +19,7 @@ import model.ModelLogin;
 /**
  * Servlet implementation class ServletUsuarioController
  */
-@WebServlet(urlPatterns = { "/ServletUsuarioController"})
+@WebServlet(urlPatterns = { "/ServletUsuarioController" })
 public class ServletUsuarioController extends ServletGenericUtil {
 	private static final long serialVersionUID = 1L;
 
@@ -44,7 +44,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String acao = request.getParameter("acao");
 
 			if (acao != null & !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
-				
+
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
 
@@ -56,12 +56,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				redirecionar.forward(request, response);
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
-				
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
-				request.setAttribute("modelLogins", modelLogins); 
-
 				String nomeBusca = request.getParameter("nomeBusca");
-				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca,super.getUserLogado(request));
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca,
+						super.getUserLogado(request));
 				Gson gson = new Gson();
 				String json = gson.toJson(dadosJsonUser);
 				PrintWriter printWriter = response.getWriter();
@@ -78,13 +75,13 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				 */
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscar")) {
-				
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
-				request.setAttribute("modelLogins", modelLogins);
 
 				String id = request.getParameter("id");
 
-				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id,super.getUserLogado(request));
+				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id, super.getUserLogado(request));
+
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
+				request.setAttribute("modelLogins", modelLogins);
 
 				request.setAttribute("msg", "Usuário em edição");
 				request.setAttribute("modelLogin", modelLogin);
@@ -92,16 +89,18 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				redirecionar.forward(request, response);
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUsuario")) {
-				
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
-				
+
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
-				
+
 				System.out.println(modelLogins);
-			}
-			else {
+			} else {
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
+				request.setAttribute("modelLogins", modelLogins);
+
 				request.setAttribute("msg", "Falha ao excluir o usuário. Tente novamente mais tarde.");
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
@@ -169,14 +168,19 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
 				if (daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
+					
 					request.setAttribute("msg_login", "Já existe um usuário com este login.");
 					request.setAttribute("msg_email", "Já existe um usuário com este email.");
 					request.setAttribute("modelLogin", modelLogin);
+					
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
+					
 				} else {
+					
 					request.setAttribute("msg_login", "Já existe um usuário com este login.");
 					request.setAttribute("modelLogin", modelLogin);
+					
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
 				}
@@ -194,6 +198,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
+
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
 				} else {
@@ -204,6 +209,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
+
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
 				}
