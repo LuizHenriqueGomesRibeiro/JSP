@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <nav class="pcoded-navbar">
 	<div class="sidebar_toggle">
@@ -53,11 +53,12 @@
 					class="pcoded-mcaret"></span>
 			</a>
 				<ul class="pcoded-submenu">
-					<c:if test="${isAdmin}">
+				    <%-- <c:if test="${isAdmin}"> --%>
+					<c:if test="${perfil == 'ADMIN'}">
 						<li class=" ">
 							<a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=listarUsuario" class="waves-effect waves-dark"> 
 								<span class="pcoded-micon"><i class="ti-angle-right"></i></span> 
-								<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Usu·rio</span> 
+								<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Usu√°rio</span> 
 								<span class="pcoded-mcaret"></span>
 							</a>
 						</li>

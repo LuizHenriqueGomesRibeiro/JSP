@@ -63,8 +63,41 @@
 																	autocomplete="none"> <span class="form-bar"></span>
 																<label class="float-label">E-mail</label>
 															</div>
-															
 															<p>${msg_email}</p>
+															<div class="form-group form-default form-static-label">
+																<select class="form-control form-select" aria-label="multiple select example" name="perfil">
+																
+																	<option value="ADMIN" <% 
+																	ModelLogin modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+																	if(modelLogin != null && modelLogin.getPerfil().equals("ADMIN")){ 
+																		out.println(" ");
+																		out.println("selected=\"selected\"");
+																		out.println(" ");																		
+																	}%>>Admin</option>
+																	
+																	<option value="SECRETARIA" <% 
+																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+																	
+																	if(modelLogin != null && modelLogin.getPerfil().equals("ADMIN")){ 
+																		out.println(" ");
+																		out.println("selected=\"selected\"");
+																		out.println(" ");																		
+																	}%>>Secretária</option>
+																	
+																	<option value="AUXILIAR" <% 
+																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+																	
+																	if(modelLogin != null && modelLogin.getPerfil().equals("ADMIN")){ 
+																		out.println(" ");
+																		out.println("selected=\"selected\"");
+																		out.println(" ");																		
+																	}%>>Auxiliar</option>
+																	
+																</select>
+																<span class="form-bar"></span> 
+																<label class="float-label">Perfil</label>
+															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="login"
 																	value="${modelLogin.login}" id="login"

@@ -128,6 +128,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			String email = request.getParameter("email");
+			String perfil = request.getParameter("perfil");
 
 			ModelLogin modelLogin = new ModelLogin();
 
@@ -136,6 +137,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setLogin(login);
 			modelLogin.setEmail(email);
 			modelLogin.setSenha(senha);
+			modelLogin.setPerfil(perfil);
 
 			/*
 			 * if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) &&
@@ -197,6 +199,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
+					
+					List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
+					request.setAttribute("modelLogins", modelLogins);
 
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
@@ -208,6 +213,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
+					
+					List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
+					request.setAttribute("modelLogins", modelLogins);
 
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);

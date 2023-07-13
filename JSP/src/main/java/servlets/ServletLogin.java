@@ -78,9 +78,11 @@ public class ServletLogin extends HttpServlet {
 						HttpSession session = request.getSession();
 
 						session.setAttribute("usuario", modelLogin.getLogin());
-						session.setAttribute("isAdmin", modelLogin.getUseradmin());
-						System.out.println(modelLogin.getUseradmin());
+						// session.setAttribute("isAdmin", modelLogin.getUseradmin());
+						session.setAttribute("perfil", modelLogin.getPerfil());
+						System.out.println(modelLogin.getPerfil());
 						System.out.println(modelLogin.getLogin());
+						
 					} catch (Exception e) {
 						// TODO: handle exception
 						e.printStackTrace();
