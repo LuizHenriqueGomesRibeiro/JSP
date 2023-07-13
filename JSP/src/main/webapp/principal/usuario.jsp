@@ -63,6 +63,7 @@
 																	autocomplete="none"> <span class="form-bar"></span>
 																<label class="float-label">E-mail</label>
 															</div>
+															
 															<p>${msg_email}</p>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="login"
@@ -125,16 +126,21 @@
 												<tbody>
 													<c:forEach items='${modelLogins}' var='ml'>
 														<tr>
-															<td style="left: 40px; top: 11px; position: relative;"><c:out value="${ml.id}"></c:out></td>
-															<td style="top: 11px; position: relative;"><c:out value="${ml.nome}"></c:out></td>
-															<td style="top: 11px; position: relative;"><c:out value="${ml.login}"></c:out></td>
-															<td><a class="btn btn-success" href="<%=request.getContextPath()%>/ServletUsuarioController?acao=buscar&id=${ml.id}">Ver</a></td>				
+															<td style="left: 40px; top: 11px; position: relative;"><c:out
+																	value="${ml.id}"></c:out></td>
+															<td style="top: 11px; position: relative;"><c:out
+																	value="${ml.nome}"></c:out></td>
+															<td style="top: 11px; position: relative;"><c:out
+																	value="${ml.login}"></c:out></td>
+															<td><a class="btn btn-success"
+																href="<%=request.getContextPath()%>/ServletUsuarioController?acao=buscar&id=${ml.id}">Ver</a></td>
 														</tr>
 													</c:forEach>
 												</tbody>
 											</table>
 										</div>
-										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Pesquisar</button>
+										<button type="button" class="btn btn-success"
+											data-toggle="modal" data-target="#exampleModal">Pesquisar</button>
 									</div>
 									<!-- Page-body end -->
 								</div>

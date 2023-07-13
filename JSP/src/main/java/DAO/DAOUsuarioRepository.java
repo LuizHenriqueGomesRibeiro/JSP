@@ -127,18 +127,17 @@ public class DAOUsuarioRepository {
 
 			while (resultado.next()) {
 				modelLogin.setId(resultado.getLong("id"));
-				modelLogin.setNome(resultado.getString("nome"));
-				modelLogin.setEmail(resultado.getString("email"));
 				modelLogin.setLogin(resultado.getString("login"));
-				modelLogin.setSenha(resultado.getString("senha"));
+				modelLogin.setUseradmin(resultado.getBoolean("useradmin"));
 			}
 			return modelLogin;
 
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			
+			return null;
 		}
-		return modelLogin;
 	}
 	
 	public ModelLogin consultaUsuario(String login) {

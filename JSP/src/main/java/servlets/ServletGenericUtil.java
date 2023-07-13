@@ -13,7 +13,6 @@ public class ServletGenericUtil extends HttpServlet implements Serializable {
 	
 	private DAOUsuarioRepository daoUsuarioRepository = new DAOUsuarioRepository();
 	
-	
 	public Long getUserLogado(HttpServletRequest request) throws Exception {
 		
 		HttpSession session = request.getSession();

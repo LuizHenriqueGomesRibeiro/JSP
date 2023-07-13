@@ -3,12 +3,14 @@ package servlets;
 import java.io.IOException;
 
 import DAO.DAOLoginRepository;
+import DAO.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.ModelLogin;
 
 /**
@@ -19,6 +21,7 @@ public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private DAOLoginRepository daoLoginRepository = new DAOLoginRepository();
+	private DAOUsuarioRepository daoUsuarioRepository = new DAOUsuarioRepository();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -34,20 +37,20 @@ public class ServletLogin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		String acao=request.getParameter("acao");
-		
-		if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("logout")) {
+
+		String acao = request.getParameter("acao");
+
+		if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("logout")) {
 			request.getSession().invalidate();
-			
-			RequestDispatcher redirecionar=request.getRequestDispatcher("index.jsp");
+
+			RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
 			redirecionar.forward(request, response);
-			
-		}else {
+
+		} else {
 			doPost(request, response);
-		}		
+		}
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -69,7 +72,19 @@ public class ServletLogin extends HttpServlet {
 
 				if (daoLoginRepository.validarAutenticacao(modelLogin)) {
 
-					request.getSession().setAttribute("usuario", modelLogin.getLogin());
+					try {
+						modelLogin = daoUsuarioRepository.consultaUsuarioLogado(login);
+
+						HttpSession session = request.getSession();
+
+						session.setAttribute("usuario", modelLogin.getLogin());
+						session.setAttribute("isAdmin", modelLogin.getUseradmin());
+						System.out.println(modelLogin.getUseradmin());
+						System.out.println(modelLogin.getLogin());
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
 
 					if (url == null || url.equals("null")) {
 						url = "principal/principal.jsp";
@@ -89,7 +104,7 @@ public class ServletLogin extends HttpServlet {
 				request.setAttribute("msg", "Informe o login e senha.");
 				redirecionar.forward(request, response);
 			}
-			
+
 		} catch (Exception e) {
 			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
 			request.setAttribute("msg", e);

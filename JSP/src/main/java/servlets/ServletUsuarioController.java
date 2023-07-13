@@ -30,7 +30,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 	 */
 	public ServletUsuarioController() {
 		super();
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub usuario
 	}
 
 	/**
@@ -54,11 +54,10 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				request.setAttribute("msg", "excluído com sucesso.");
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
-
+				
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
 				String nomeBusca = request.getParameter("nomeBusca");
-				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca,
-						super.getUserLogado(request));
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca, super.getUserLogado(request));
 				Gson gson = new Gson();
 				String json = gson.toJson(dadosJsonUser);
 				PrintWriter printWriter = response.getWriter();
