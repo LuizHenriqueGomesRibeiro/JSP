@@ -23,7 +23,7 @@ public class DAOUsuarioRepository {
 		try {
 			if (modelLogin.isNovo()) {
 
-				String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil) VALUES (?, ?, ?, ?, ?, ?);";
+				String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil, sexo) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
 				PreparedStatement statement = connection.prepareStatement(sql);
 				statement.setString(1, modelLogin.getLogin());
@@ -32,12 +32,13 @@ public class DAOUsuarioRepository {
 				statement.setString(4, modelLogin.getEmail());
 				statement.setLong(5, userLogado);
 				statement.setString(6, modelLogin.getPerfil());
+				statement.setString(7, modelLogin.getSexo());
 
 				statement.execute();
 				connection.commit();
 
 			} else {
-				String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=? WHERE id = ?;";
+				String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=? WHERE id = ?;";
 
 				PreparedStatement statement = connection.prepareStatement(sql);
 				statement.setString(1, modelLogin.getLogin());
@@ -46,6 +47,7 @@ public class DAOUsuarioRepository {
 				statement.setString(4, modelLogin.getEmail());
 				statement.setString(5, modelLogin.getPerfil());
 				statement.setLong(6, modelLogin.getId());
+				statement.setString(7, modelLogin.getSexo());
 
 				statement.executeUpdate();
 				connection.commit();
@@ -68,7 +70,7 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login WHERE useradmin IS FALSE AND usuario_id = "+userLogado;
+		String sql = "SELECT * FROM model_login WHERE useradmin IS FALSE AND usuario_id = "+userLogado;
 		PreparedStatement statement = connection.prepareStatement(sql);
 
 		ResultSet resultado = statement.executeQuery();
@@ -81,6 +83,7 @@ public class DAOUsuarioRepository {
 			modelLogin.setId(resultado.getLong("id"));
 			modelLogin.setLogin(resultado.getString("login"));
 			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setSexo(resultado.getString("sexo"));
 			// modelLogin.setSenha(resultado.getString("senha"));
 
 			retorno.add(modelLogin);
@@ -93,7 +96,7 @@ public class DAOUsuarioRepository {
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login WHERE nome LIKE ? AND useradmin IS FALSE AND usuario_id = ?";
+		String sql = "SELECT * FROM model_login WHERE nome LIKE ? AND useradmin IS FALSE AND usuario_id = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1,"%" + nome + "%");
 		statement.setLong(2, userLogado);
@@ -109,6 +112,7 @@ public class DAOUsuarioRepository {
 			modelLogin.setLogin(resultado.getString("login"));
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setPerfil(resultado.getString("perfil"));
+			modelLogin.setSexo(resultado.getString("sexo"));
 			// modelLogin.setSenha(resultado.getString("senha"));
 
 			retorno.add(modelLogin);
@@ -133,6 +137,7 @@ public class DAOUsuarioRepository {
 				modelLogin.setLogin(resultado.getString("login"));
 				modelLogin.setUseradmin(resultado.getBoolean("useradmin"));
 				modelLogin.setPerfil(resultado.getString("perfil"));
+				modelLogin.setSexo(resultado.getString("sexo"));
 			}
 			return modelLogin;
 
@@ -162,6 +167,7 @@ public class DAOUsuarioRepository {
 				modelLogin.setLogin(resultado.getString("login"));
 				modelLogin.setSenha(resultado.getString("senha"));
 				modelLogin.setPerfil(resultado.getString("perfil"));
+				modelLogin.setSexo(resultado.getString("sexo"));
 			}
 			return modelLogin;
 
@@ -191,6 +197,7 @@ public class DAOUsuarioRepository {
 				modelLogin.setLogin(resultado.getString("login"));
 				modelLogin.setSenha(resultado.getString("senha"));
 				modelLogin.setPerfil(resultado.getString("perfil"));
+				modelLogin.setSexo(resultado.getString("sexo"));
 			}
 			return modelLogin;
 
@@ -220,6 +227,7 @@ public class DAOUsuarioRepository {
 				modelLogin.setLogin(resultado.getString("login"));
 				modelLogin.setSenha(resultado.getString("senha"));
 				modelLogin.setPerfil(resultado.getString("perfil"));
+				modelLogin.setSexo(resultado.getString("sexo"));
 			}
 			return modelLogin;
 

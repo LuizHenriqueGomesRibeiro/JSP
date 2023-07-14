@@ -65,38 +65,55 @@
 															</div>
 															<p>${msg_email}</p>
 															<div class="form-group form-default form-static-label">
-																<select class="form-control form-select" aria-label="multiple select example" name="perfil">
-																
+															<select class="form-control" multiple aria-label="multiple select example" name="perfil" 
+															style="height: 65px; overflow: hidden;">
+															
 																	<option value="ADMIN" <% 
 																	ModelLogin modelLogin = (ModelLogin) request.getAttribute("modelLogin");
 
-																	if(modelLogin != null && modelLogin.getPerfil().equals("ADMIN")){ 
-																		out.println(" ");
-																		out.println("selected=\"selected\"");
-																		out.println(" ");																		
+																	if(modelLogin != null && modelLogin.getPerfil().equals("ADMIN")){ 
+																		out.println("selected=\"selected\"");																		
 																	}%>>Admin</option>
 																	
 																	<option value="SECRETARIA" <% 
 																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
 																	
-																	if(modelLogin != null && modelLogin.getPerfil().equals("ADMIN")){ 
-																		out.println(" ");
-																		out.println("selected=\"selected\"");
-																		out.println(" ");																		
-																	}%>>Secretária</option>
+																	if(modelLogin != null && modelLogin.getPerfil().equals("SECRETARIA")){ 
+																		out.println("selected=\"selected\"");																		
+																	}%>>Secretaria</option>
 																	
 																	<option value="AUXILIAR" <% 
 																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
 																	
-																	if(modelLogin != null && modelLogin.getPerfil().equals("ADMIN")){ 
-																		out.println(" ");
-																		out.println("selected=\"selected\"");
-																		out.println(" ");																		
+																	if(modelLogin != null && modelLogin.getPerfil().equals("AUXILIAR")){ 
+																		out.println("selected=\"selected\"");																		
 																	}%>>Auxiliar</option>
 																	
 																</select>
 																<span class="form-bar"></span> 
 																<label class="float-label">Perfil</label>
+															</div>
+															<div class="form-control form-group form-default"
+															style="margin-top: 5px;">
+																<input type="radio" name="sexo" value="MASCULINO"
+																<%
+																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+																	
+																	if(modelLogin != null && modelLogin.getSexo().equals("MASCULINO")){
+																	out.println("checked=\"checked\"");
+																}	
+																%>
+																>Masculino</> 
+																<input type="radio" name="sexo" value="FEMININO"
+																<%
+																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+																	
+																	if(modelLogin != null && modelLogin.getSexo().equals("FEMININO")){ 
+																	out.println("checked=\"checked\"");
+																}	
+																%>
+																>Feminino</>	
+																<span class="form-bar"></span>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="login"
@@ -140,7 +157,7 @@
 										</div>
 									</div>
 									<span>
-										<h4>${msg}</h4>
+										<h4 style="margin-bottom: 28px;">${msg}</h4>
 									</span>
 									<div class="card">
 										<div class="card-header">
