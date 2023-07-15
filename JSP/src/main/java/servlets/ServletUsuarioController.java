@@ -2,11 +2,11 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Base64;
 import java.util.List;
 
-import org.apache.tomcat.jakartaee.commons.compress.utils.IOUtils;
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 
 import com.google.gson.Gson;
 
@@ -20,8 +20,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import model.ModelLogin;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Servlet implementation class ServletUsuarioController
@@ -63,10 +61,11 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				request.setAttribute("msg", "excluído com sucesso.");
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
-				
+
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
 				String nomeBusca = request.getParameter("nomeBusca");
-				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca, super.getUserLogado(request));
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca,
+						super.getUserLogado(request));
 				Gson gson = new Gson();
 				String json = gson.toJson(dadosJsonUser);
 				PrintWriter printWriter = response.getWriter();
@@ -90,10 +89,10 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
-				
+
 				request.setAttribute("msg", "Usuário em edição");
 				request.setAttribute("modelLogin", modelLogin);
-				
+
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
 
@@ -139,8 +138,6 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String email = request.getParameter("email");
 			String perfil = request.getParameter("perfil");
 			String sexo = request.getParameter("sexo");
-			
-			
 
 			ModelLogin modelLogin = new ModelLogin();
 
@@ -153,16 +150,13 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setSexo(sexo);
 
 			if (ServletFileUpload.isMultipartContent(request)) {
-				
-				Part part = request.getPart("fileFoto");
-			
-					byte[] foto = IOUtils.toByteArray(part.getInputStream());
-					String imagemBase64 = "data:/" + part.getContentType() + ";base64," +  new Base64().encodeBase64String(foto);
-					
-					modelLogin.setFotoUser(imagemBase64);
-					modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[0]);
-				
+
+				Part part = request.getPart("fileFoto"); 
+				byte[] foto = IOUtils.toByteArray(part.getInputStream());
+				String imagemBase64 = "data:image/"+ part.getContentType().split("\\/")[0]+";base64,"+ new Base64().encodeBase64String(foto);
+
 			}
+
 			/*
 			 * if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) &&
 			 * modelLogin.getId() == null) {
@@ -193,19 +187,19 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
 				if (daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
-					
+
 					request.setAttribute("msg_login", "Já existe um usuário com este login.");
 					request.setAttribute("msg_email", "Já existe um usuário com este email.");
 					request.setAttribute("modelLogin", modelLogin);
-					
+
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
-					
+
 				} else {
-					
+
 					request.setAttribute("msg_login", "Já existe um usuário com este login.");
 					request.setAttribute("modelLogin", modelLogin);
-					
+
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
 				}
@@ -223,8 +217,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
-					
-					List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
+
+					List<ModelLogin> modelLogins = daoUsuarioRepository
+							.consultaUsuarioList(super.getUserLogado(request));
 					request.setAttribute("modelLogins", modelLogins);
 
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
@@ -237,8 +232,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
-					
-					List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
+
+					List<ModelLogin> modelLogins = daoUsuarioRepository
+							.consultaUsuarioList(super.getUserLogado(request));
 					request.setAttribute("modelLogins", modelLogins);
 
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
