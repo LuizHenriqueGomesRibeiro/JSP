@@ -4,21 +4,30 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.tomcat.jakartaee.commons.compress.utils.IOUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.google.gson.Gson;
 
 import DAO.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import model.ModelLogin;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Servlet implementation class ServletUsuarioController
  */
+
+@MultipartConfig
 @WebServlet(urlPatterns = { "/ServletUsuarioController" })
 public class ServletUsuarioController extends ServletGenericUtil {
 	private static final long serialVersionUID = 1L;
@@ -81,6 +90,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
+				
 				request.setAttribute("msg", "Usuário em edição");
 				request.setAttribute("modelLogin", modelLogin);
 				
@@ -129,6 +139,8 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String email = request.getParameter("email");
 			String perfil = request.getParameter("perfil");
 			String sexo = request.getParameter("sexo");
+			
+			
 
 			ModelLogin modelLogin = new ModelLogin();
 
@@ -140,6 +152,17 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setPerfil(perfil);
 			modelLogin.setSexo(sexo);
 
+			if (ServletFileUpload.isMultipartContent(request)) {
+				
+				Part part = request.getPart("fileFoto");
+			
+					byte[] foto = IOUtils.toByteArray(part.getInputStream());
+					String imagemBase64 = "data:/" + part.getContentType() + ";base64," +  new Base64().encodeBase64String(foto);
+					
+					modelLogin.setFotoUser(imagemBase64);
+					modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[0]);
+				
+			}
 			/*
 			 * if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) &&
 			 * modelLogin.getId() == null) {

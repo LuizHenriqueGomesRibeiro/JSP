@@ -39,7 +39,7 @@
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
 														<form class="form-material" name="frmContato"
-															id="formulario"
+															id="formulario" enctype="multipart/form-data"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="post">
 
@@ -51,12 +51,25 @@
 																	value="${modelLogin.id}"> <span
 																	class="form-bar"></span> <label class="float-label">ID:</label>
 															</div>
+
+															<div class="form-group form-default input-group mb-4" style="height: 80px;">
+																<div class="input-group-prepend">
+																	<img alt="Imagem User" id="fotoembase64" height="70px" src="">
+																</div>
+																<input style="margin-top: 20px; margin-left: 10px;" type="file" id="fileFoto"
+																name="fileFoto" 
+																accept="image/*" onchange="visualizarImg('fotoembase64','fileFoto');" 
+																class="form-control-file">
+																
+															</div>
+
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="nome"
 																	id="nome" autocomplete="none"
 																	value="${modelLogin.nome}"> <span
 																	class="form-bar"></span> <label class="float-label">Nome</label>
 															</div>
+														
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="email"
 																	value="${modelLogin.email}" id="email"
@@ -95,7 +108,7 @@
 															</div>
 															<div class="form-control form-group form-default"
 															style="margin-top: 5px;">
-																<input type="radio" name="sexo" value="MASCULINO"
+																<input type="radio" name="sexo" value="MASCULINO" checked="checked"
 																<%
 																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
 																	
@@ -108,12 +121,11 @@
 																<%
 																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
 																	
-																	if(modelLogin != null && modelLogin.getSexo().equals("FEMININO")){ 
+											 						if(modelLogin != null && modelLogin.getSexo().equals("FEMININO")){ 
 																	out.println("checked=\"checked\"");
 																}	
 																%>
 																>Feminino</>	
-																<span class="form-bar"></span>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="login"
@@ -253,5 +265,7 @@
 		src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
 	<script type="text/javascript"
 		src="<%=request.getContextPath()%>/scripts/editar.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/imagem.js"></script>
 </body>
 </html>

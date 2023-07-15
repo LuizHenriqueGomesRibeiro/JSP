@@ -12,8 +12,14 @@ jQuery(function() {
 					required: true,
 				},
 				senha: {
-					required:true
+					required: true,
 				},
+				sexo: {
+					required: true,
+				},
+				perfil: {
+					required: true
+				}
 			},
 			messages: {
 				login: {
@@ -27,6 +33,12 @@ jQuery(function() {
 				},
 				senha:{
 					required:"A senha é obrigatória",
+				},
+				sexo:{
+					required:"O sexo é obrigatório",
+				},
+				perfil:{
+					required:"O perfil é obrigatório",
 				}
 			}
 		});
