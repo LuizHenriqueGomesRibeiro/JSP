@@ -2,14 +2,11 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Base64;
 import java.util.List;
-
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
-
 import com.google.gson.Gson;
-
+import org.apache.commons.codec.binary.StringUtils;
 import DAO.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -20,6 +17,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import model.ModelLogin;
+import org.apache.commons.codec.binary.Base64;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Servlet implementation class ServletUsuarioController
@@ -147,22 +147,40 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setEmail(email);
 			modelLogin.setSenha(senha);
 			modelLogin.setPerfil(perfil);
-			modelLogin.setSexo(sexo);
-
-			if (ServletFileUpload.isMultipartContent(request)) {
-
-				Part part = request.getPart("fileFoto"); /* Pega foto da tela */
-
-				if (part.getSize() > 0) {
+			modelLogin.setSexo(sexo);	
+			
+			Part part = request.getPart("fileFoto");
+			byte[] foto = IOUtils.toByteArray(part.getInputStream());
+			new Base64();
+			String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64," +  Base64.encodeBase64String(foto);
+			modelLogin.setFotoUser(imagemBase64);
+			modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
+			
+			System.out.println("----------------------------------------------------------------------------------------------------------");
+			System.out.println("Informações vindas do ServletUsuarioController:");
+			System.out.println("foto: "+foto);
+			System.out.println("imagemBase64: "+imagemBase64);
+			System.out.println("setExtensaofotouser: "+part.getContentType().split("\\/")[1]);
+			System.out.println("----------------------------------------------------------------------------------------------------------");
+			/*  boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+				System.out.println("isMultipart"+isMultipart);
+			 * 
+			 * try {
+				if (isMultipart) {
+					// ServletFileUpload.isMultipartContent(request)
+					Part part = request.getPart("fileFoto"); 
+					System.out.println("v"+part);
 					byte[] foto = IOUtils.toByteArray(part.getInputStream());
-					String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64," + new Base64().encodeBase64String(foto);
-
-					modelLogin.setFotouser(imagemBase64);
-					modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
+					String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[0] + ";base64," + new Base64().encodeBase64String(foto);
+					System.out.println("imagemBase64"+imagemBase64);
+					modelLogin.setFotoUser(imagemBase64);
+					modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[0]);
 				}
-
-			}
-
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}*/
+			
 			/*
 			 * if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) &&
 			 * modelLogin.getId() == null) {
@@ -239,8 +257,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
 
-					List<ModelLogin> modelLogins = daoUsuarioRepository
-							.consultaUsuarioList(super.getUserLogado(request));
+					List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 					request.setAttribute("modelLogins", modelLogins);
 
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");

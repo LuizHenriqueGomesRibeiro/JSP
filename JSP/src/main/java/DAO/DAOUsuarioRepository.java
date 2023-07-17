@@ -23,7 +23,7 @@ public class DAOUsuarioRepository {
 		try {
 			if (modelLogin.isNovo()) {
 
-				String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil, sexo) VALUES (?, ?, ?, ?, ?, ?, ?);";
+				String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil, sexo, fotouser, extensaofotouser) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 				PreparedStatement statement = connection.prepareStatement(sql);
 				statement.setString(1, modelLogin.getLogin());
@@ -33,12 +33,21 @@ public class DAOUsuarioRepository {
 				statement.setLong(5, userLogado);
 				statement.setString(6, modelLogin.getPerfil());
 				statement.setString(7, modelLogin.getSexo());
-
+				statement.setString(8, modelLogin.getFotoUser());
+				statement.setString(9, modelLogin.getExtensaofotouser());
+				
+				System.out.println("----------------------------------------------------------------------------------------------------------");
+				System.out.println("Informações vindas de INSERT INTO DAOUsuarioRepository: ");
+				System.out.println("FotoUser: "+modelLogin.getFotoUser());
+				System.out.println("ExtensaoFotoUser: "+modelLogin.getExtensaofotouser());
+				System.out.println("----------------------------------------------------------------------------------------------------------");
+				
 				statement.execute();
+				
 				connection.commit();
 
 			} else {
-				String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=? WHERE id = ?;";
+				String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=?, fotouser=?, extensaofotouser=? WHERE id = ?;";
 
 				PreparedStatement statement = connection.prepareStatement(sql);
 				statement.setString(1, modelLogin.getLogin());
@@ -46,10 +55,19 @@ public class DAOUsuarioRepository {
 				statement.setString(3, modelLogin.getNome());
 				statement.setString(4, modelLogin.getEmail());
 				statement.setString(5, modelLogin.getPerfil());
-				statement.setLong(6, modelLogin.getId());
-				statement.setString(7, modelLogin.getSexo());
+				statement.setString(6, modelLogin.getSexo());
+				statement.setString(7, modelLogin.getFotoUser());
+				statement.setString(8, modelLogin.getExtensaofotouser());
+				statement.setLong(9, modelLogin.getId());
+				
+				System.out.println("----------------------------------------------------------------------------------------------------------");
+				System.out.println("Informações vindas de UPDATE DAOUsuarioRepository: ");
+				System.out.println("FotoUser: "+modelLogin.getFotoUser());
+				System.out.println("ExtensaoFotoUser: "+modelLogin.getExtensaofotouser());
+				System.out.println("----------------------------------------------------------------------------------------------------------");
 
 				statement.executeUpdate();
+				
 				connection.commit();
 			}
 			return this.consultaUsuario(modelLogin.getLogin(), userLogado);
@@ -70,7 +88,7 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "SELECT * FROM model_login WHERE useradmin IS FALSE AND usuario_id = "+userLogado;
+		String sql = "SELECT * FROM model_login WHERE useradmin IS FALSE AND usuario_id = " + userLogado;
 		PreparedStatement statement = connection.prepareStatement(sql);
 
 		ResultSet resultado = statement.executeQuery();
@@ -91,14 +109,14 @@ public class DAOUsuarioRepository {
 
 		return retorno;
 	}
-	
+
 	public List<ModelLogin> consultaUsuarioList(String nome, Long userLogado) throws Exception {
-		
+
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
 		String sql = "SELECT * FROM model_login WHERE nome LIKE ? AND useradmin IS FALSE AND usuario_id = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(1,"%" + nome + "%");
+		statement.setString(1, "%" + nome + "%");
 		statement.setLong(2, userLogado);
 
 		ResultSet resultado = statement.executeQuery();
@@ -120,7 +138,7 @@ public class DAOUsuarioRepository {
 
 		return retorno;
 	}
-	
+
 	public ModelLogin consultaUsuarioLogado(String login) {
 
 		ModelLogin modelLogin = new ModelLogin();
@@ -144,11 +162,11 @@ public class DAOUsuarioRepository {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			
+
 			return null;
 		}
 	}
-	
+
 	public ModelLogin consultaUsuario(String login) {
 
 		ModelLogin modelLogin = new ModelLogin();
@@ -177,7 +195,7 @@ public class DAOUsuarioRepository {
 		}
 		return modelLogin;
 	}
-	
+
 	public ModelLogin consultaUsuario(String login, Long userLogado) {
 
 		ModelLogin modelLogin = new ModelLogin();
