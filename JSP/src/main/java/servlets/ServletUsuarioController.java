@@ -112,7 +112,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				
 				if(modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
 					response.setHeader("Content-Disposition", "attachment;filename=arquivo."+modelLogin.getExtensaofotouser());
-					// System.out.println(response.getHeader("Content-Disposition"));
+					System.out.println(modelLogin.getFotoUser());
 					new Base64();
 					response.getOutputStream().write(Base64.decodeBase64(modelLogin.getFotoUser().split("\\,")[1]));
 				}
@@ -120,8 +120,8 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			else {
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
-
 				request.setAttribute("msg", "Falha ao excluir o usuário. Tente novamente mais tarde.");
+				
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
 			}
@@ -151,22 +151,35 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String email = request.getParameter("email");
 			String perfil = request.getParameter("perfil");
 			String sexo = request.getParameter("sexo");
+			String cep = request.getParameter("cep");
+			String rua = request.getParameter("rua");
+			String bairro = request.getParameter("bairro");
+			String localidade = request.getParameter("localidade");
+			String uf = request.getParameter("uf");
+			String numero = request.getParameter("numero");
 
 			ModelLogin modelLogin = new ModelLogin();
-
+			
 			modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
 			modelLogin.setNome(nome);
 			modelLogin.setLogin(login);
 			modelLogin.setEmail(email);
 			modelLogin.setSenha(senha);
 			modelLogin.setPerfil(perfil);
-			modelLogin.setSexo(sexo);	
+			modelLogin.setSexo(sexo);
+			modelLogin.setCEP(cep);
+			modelLogin.setRua(rua);
+			modelLogin.setBairro(bairro);
+			modelLogin.setLocalidade(localidade);
+			modelLogin.setUf(uf);
+			modelLogin.setNumero(numero);
 			
 			Part part = request.getPart("fileFoto");
 			byte[] foto = IOUtils.toByteArray(part.getInputStream());
 			new Base64();
 			String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64," +  Base64.encodeBase64String(foto);
 			modelLogin.setFotoUser(imagemBase64);
+			System.out.println(imagemBase64);
 			modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
 			
 			/*
@@ -197,34 +210,6 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				// TODO: handle exception
 				e.printStackTrace();
 			}*/
-			
-			/*
-			 * if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) &&
-			 * modelLogin.getId() == null) {
-			 * if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) &&
-			 * modelLogin.getId() == null) { request.setAttribute("msg_login",
-			 * "Já existe um usuário com este login."); request.setAttribute("msg_email",
-			 * "Já existe um usuário com este email."); request.setAttribute("modelLogin",
-			 * modelLogin); RequestDispatcher redirecionar =
-			 * request.getRequestDispatcher("principal/usuario.jsp");
-			 * redirecionar.forward(request, response); } else {
-			 * request.setAttribute("msg_login", "Já existe um usuário com este login.");
-			 * request.setAttribute("modelLogin", modelLogin); RequestDispatcher
-			 * redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-			 * redirecionar.forward(request, response); } } else
-			 * if(daoUsuarioRepository.validarEmail(modelLogin.getEmail()) &&
-			 * modelLogin.getId() == null) { request.setAttribute("msg_email",
-			 * "Já existe um usuário com este email."); request.setAttribute("modelLogin",
-			 * modelLogin); RequestDispatcher redirecionar =
-			 * request.getRequestDispatcher("principal/usuario.jsp");
-			 * redirecionar.forward(request, response); } else {
-			 * 
-			 * daoUsuarioRepository.gravarUsuario(modelLogin); request.setAttribute("msg",
-			 * "Operação realizada com sucesso."); request.setAttribute("modelLogin",
-			 * modelLogin); RequestDispatcher redirecionar =
-			 * request.getRequestDispatcher("principal/usuario.jsp");
-			 * redirecionar.forward(request, response); }
-			 */
 
 			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
 				if (daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {

@@ -138,6 +138,42 @@
 																>Feminino</>	
 															</div>
 															<div class="form-group form-default">
+																<input type="text" class="form-control" name="cep"
+																	id="cep" onblur="pesquisaCEP();" value="${modelLogin.cep}"
+																	autocomplete="none"> <span class="form-bar"></span>
+																<label class="float-label">CEP</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="text" class="form-control" name="rua"
+																	id="rua" value="${modelLogin.rua}"
+																	autocomplete="none"> <span class="form-bar"></span>
+																<label class="float-label">rua</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="text" class="form-control" name="bairro"
+																	id="bairro" value="${modelLogin.bairro}"
+																	autocomplete="none"> <span class="form-bar"></span>
+																<label class="float-label">bairro</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="text" class="form-control" name="localidade"
+																	id="localidade" value="${modelLogin.localidade}"
+																	autocomplete="none"> <span class="form-bar"></span>
+																<label class="float-label">localidade</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="text" class="form-control" name="uf"
+																	id="uf" value="${modelLogin.uf}"
+																	autocomplete="none"> <span class="form-bar"></span>
+																<label class="float-label">uf</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="text" class="form-control" name="numero"
+																	id="numero" value="${modelLogin.numero}"
+																	autocomplete="none"> <span class="form-bar"></span>
+																<label class="float-label">número</label>
+															</div>
+															<div class="form-group form-default">
 																<input type="text" class="form-control" name="login"
 																	value="${modelLogin.login}" id="login"
 																	autocomplete="none"> <span class="form-bar"></span>
@@ -277,5 +313,7 @@
 		src="<%=request.getContextPath()%>/scripts/editar.js"></script>
 	<script type="text/javascript"
 		src="<%=request.getContextPath()%>/scripts/imagem.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/pesquisarCEP.js"></script>
 </body>
 </html>
