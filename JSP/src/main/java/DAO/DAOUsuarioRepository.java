@@ -36,11 +36,11 @@ public class DAOUsuarioRepository {
 				statement.setString(8, modelLogin.getFotoUser());
 				statement.setString(9, modelLogin.getExtensaofotouser());
 				
-				System.out.println("----------------------------------------------------------------------------------------------------------");
+				System.out.println("-------------------------------------------------------------------------------------------------------");
 				System.out.println("Informações vindas de INSERT INTO DAOUsuarioRepository: ");
 				System.out.println("FotoUser: "+modelLogin.getFotoUser());
 				System.out.println("ExtensaoFotoUser: "+modelLogin.getExtensaofotouser());
-				System.out.println("----------------------------------------------------------------------------------------------------------");
+				System.out.println("-------------------------------------------------------------------------------------------------------");
 				
 				statement.execute();
 				
@@ -60,11 +60,11 @@ public class DAOUsuarioRepository {
 				statement.setString(8, modelLogin.getExtensaofotouser());
 				statement.setLong(9, modelLogin.getId());
 				
-				System.out.println("----------------------------------------------------------------------------------------------------------");
+				System.out.println("-------------------------------------------------------------------------------------------------------");
 				System.out.println("Informações vindas de UPDATE DAOUsuarioRepository: ");
 				System.out.println("FotoUser: "+modelLogin.getFotoUser());
 				System.out.println("ExtensaoFotoUser: "+modelLogin.getExtensaofotouser());
-				System.out.println("----------------------------------------------------------------------------------------------------------");
+				System.out.println("-------------------------------------------------------------------------------------------------------");
 
 				statement.executeUpdate();
 				
@@ -156,6 +156,8 @@ public class DAOUsuarioRepository {
 				modelLogin.setUseradmin(resultado.getBoolean("useradmin"));
 				modelLogin.setPerfil(resultado.getString("perfil"));
 				modelLogin.setSexo(resultado.getString("sexo"));
+				modelLogin.setFotoUser(resultado.getString("fotouser"));
+				modelLogin.setExtensaofotouser(resultado.getString("extensaofotouser"));
 			}
 			return modelLogin;
 
@@ -186,6 +188,8 @@ public class DAOUsuarioRepository {
 				modelLogin.setSenha(resultado.getString("senha"));
 				modelLogin.setPerfil(resultado.getString("perfil"));
 				modelLogin.setSexo(resultado.getString("sexo"));
+				modelLogin.setFotoUser(resultado.getString("fotouser"));
+				modelLogin.setExtensaofotouser(resultado.getString("extensaofotouser"));
 			}
 			return modelLogin;
 
@@ -216,6 +220,8 @@ public class DAOUsuarioRepository {
 				modelLogin.setSenha(resultado.getString("senha"));
 				modelLogin.setPerfil(resultado.getString("perfil"));
 				modelLogin.setSexo(resultado.getString("sexo"));
+				modelLogin.setFotoUser(resultado.getString("fotouser"));
+				modelLogin.setExtensaofotouser(resultado.getString("extensaofotouser"));
 			}
 			return modelLogin;
 
@@ -246,6 +252,8 @@ public class DAOUsuarioRepository {
 				modelLogin.setSenha(resultado.getString("senha"));
 				modelLogin.setPerfil(resultado.getString("perfil"));
 				modelLogin.setSexo(resultado.getString("sexo"));
+				modelLogin.setFotoUser(resultado.getString("fotouser"));
+				modelLogin.setExtensaofotouser(resultado.getString("extensaofotouser"));
 			}
 			return modelLogin;
 

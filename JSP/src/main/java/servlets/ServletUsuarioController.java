@@ -104,7 +104,20 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
 
-			} else {
+			} else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("download")) {
+				
+				String id = request.getParameter("id");
+				
+				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id, super.getUserLogado(request));
+				
+				if(modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
+					response.setHeader("Content-Disposition", "attachment;filename=arquivo."+modelLogin.getExtensaofotouser());
+					// System.out.println(response.getHeader("Content-Disposition"));
+					new Base64();
+					response.getOutputStream().write(Base64.decodeBase64(modelLogin.getFotoUser().split("\\,")[1]));
+				}
+			}
+			else {
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
 
@@ -156,18 +169,22 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setFotoUser(imagemBase64);
 			modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
 			
+			/*
 			System.out.println("----------------------------------------------------------------------------------------------------------");
 			System.out.println("Informações vindas do ServletUsuarioController:");
 			System.out.println("foto: "+foto);
 			System.out.println("imagemBase64: "+imagemBase64);
 			System.out.println("setExtensaofotouser: "+part.getContentType().split("\\/")[1]);
 			System.out.println("----------------------------------------------------------------------------------------------------------");
-			/*  boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-				System.out.println("isMultipart"+isMultipart);
-			 * 
-			 * try {
+			*/
+			
+			/*
+			boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+			System.out.println("isMultipart"+isMultipart);
+			 
+			try {
 				if (isMultipart) {
-					// ServletFileUpload.isMultipartContent(request)
+					ServletFileUpload.isMultipartContent(request)
 					Part part = request.getPart("fileFoto"); 
 					System.out.println("v"+part);
 					byte[] foto = IOUtils.toByteArray(part.getInputStream());
