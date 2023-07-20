@@ -23,10 +23,9 @@ public class DAOUsuarioRepository {
 		try {
 			if (modelLogin.isNovo()) {
 
-				String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil, sexo, fotouser, extensaofotouser, cep, rua, bairro, localidade, uf, numero) "
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-
+				String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil, sexo, cep, rua, bairro, localidade, uf, numero)  VALUES (?, ?, ?, ?, ?, ?,?, ?, ?, ?,?,?,?);";
 				PreparedStatement statement = connection.prepareStatement(sql);
+				
 				statement.setString(1, modelLogin.getLogin());
 				statement.setString(2, modelLogin.getSenha());
 				statement.setString(3, modelLogin.getNome());
@@ -34,45 +33,69 @@ public class DAOUsuarioRepository {
 				statement.setLong(5, userLogado);
 				statement.setString(6, modelLogin.getPerfil());
 				statement.setString(7, modelLogin.getSexo());
-				statement.setString(8, modelLogin.getFotoUser());
-				statement.setString(9, modelLogin.getExtensaofotouser());
-				statement.setString(10, modelLogin.getCEP());
-				statement.setString(11, modelLogin.getRua());
-				statement.setString(12, modelLogin.getBairro());
-				statement.setString(13, modelLogin.getLocalidade());
-				statement.setString(14, modelLogin.getUf());
-				statement.setString(15, modelLogin.getNumero());
-				System.out.println(modelLogin.getNumero());
-
+				
+				statement.setString(8, modelLogin.getCEP());
+				statement.setString(9, modelLogin.getRua());
+				statement.setString(10, modelLogin.getBairro());
+				statement.setString(11, modelLogin.getLocalidade());
+				statement.setString(12, modelLogin.getUf());
+				statement.setString(13, modelLogin.getNumero());
+				
 				statement.execute();
-
+				
 				connection.commit();
+				
+				if (modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
+					sql = "update model_login set fotouser =?, extensaofotouser=? where login =?";
+					
+					statement = connection.prepareStatement(sql);
+					
+					statement.setString(1, modelLogin.getFotoUser());
+					statement.setString(2, modelLogin.getExtensaofotouser());
+					statement.setString(3, modelLogin.getLogin());
+					
+					statement.execute();
+					
+					connection.commit();
+				}
 
 			} else {
-				String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=?, fotouser=?, extensaofotouser=?, "
-						+ "cep=?, rua=?, bairro=?, localidade=?, uf=?, numero=? WHERE id = ?;";
-
-				PreparedStatement statement = connection.prepareStatement(sql);
-
+				String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=?, cep=?, rua=?, bairro =?, localidade=?, uf=?, numero =? WHERE id =  "+modelLogin.getId()+";";
+				
+				PreparedStatement	statement = connection.prepareStatement(sql);
+				
 				statement.setString(1, modelLogin.getLogin());
 				statement.setString(2, modelLogin.getSenha());
 				statement.setString(3, modelLogin.getNome());
 				statement.setString(4, modelLogin.getEmail());
 				statement.setString(5, modelLogin.getPerfil());
 				statement.setString(6, modelLogin.getSexo());
-				statement.setString(7, modelLogin.getFotoUser());
-				statement.setString(8, modelLogin.getExtensaofotouser());
-				statement.setString(9, modelLogin.getCEP());
-				statement.setString(10, modelLogin.getRua());
-				statement.setString(11, modelLogin.getBairro());
-				statement.setString(12, modelLogin.getLocalidade());
-				statement.setString(13, modelLogin.getUf());
-				statement.setString(14, modelLogin.getNumero());
-				statement.setLong(15, modelLogin.getId());
-
+			
+				statement.setString(7, modelLogin.getCEP());
+				statement.setString(8, modelLogin.getRua());
+				statement.setString(9, modelLogin.getBairro());
+				statement.setString(10, modelLogin.getLocalidade());
+				statement.setString(11, modelLogin.getUf());
+				statement.setString(12, modelLogin.getNumero());
+				
 				statement.executeUpdate();
-
+				
 				connection.commit();
+				
+				
+				if (modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
+					sql = "UPDATE model_login set fotouser =?, extensaofotouser=? where id =?";
+					
+					statement = connection.prepareStatement(sql);
+					
+					statement.setString(1, modelLogin.getFotoUser());
+					statement.setString(2, modelLogin.getExtensaofotouser());
+					statement.setLong(3, modelLogin.getId());
+					
+					statement.execute();
+					
+					connection.commit();
+				}
 				
 			}
 			return this.consultaUsuario(modelLogin.getLogin(), userLogado);
@@ -136,7 +159,12 @@ public class DAOUsuarioRepository {
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setPerfil(resultado.getString("perfil"));
 			modelLogin.setSexo(resultado.getString("sexo"));
-			// modelLogin.setSenha(resultado.getString("senha"));
+			modelLogin.setCEP(resultado.getString("cep"));
+			modelLogin.setRua(resultado.getString("rua"));
+			modelLogin.setBairro(resultado.getString("bairro"));
+			modelLogin.setLocalidade(resultado.getString("localidade"));
+			modelLogin.setUf(resultado.getString("uf"));
+			modelLogin.setNumero(resultado.getString("numero"));
 
 			retorno.add(modelLogin);
 		}
@@ -283,6 +311,13 @@ public class DAOUsuarioRepository {
 				modelLogin.setLocalidade(resultado.getString("localidade"));
 				modelLogin.setUf(resultado.getString("uf"));
 				modelLogin.setNumero(resultado.getString("numero"));
+				
+				System.out.println("--------------------------------------------------------------------------------");
+				System.out.println("Prompt: DAOUsuarioReposity consultaUsuarioId");
+				System.out.println(modelLogin.getNome());
+				System.out.println(modelLogin.getCEP());
+				System.out.println(modelLogin.getPerfil());
+				System.out.println("--------------------------------------------------------------------------------");
 			}
 			return modelLogin;
 

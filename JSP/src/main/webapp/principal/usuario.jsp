@@ -139,37 +139,37 @@
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="cep"
-																	id="cep" onblur="pesquisaCEP();" value="${modelLogin.cep}"
+																	id="cep"
 																	autocomplete="none"> <span class="form-bar"></span>
-																<label class="float-label">CEP</label>
+																<label class="float-label">cep</label>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="rua"
-																	id="rua" value="${modelLogin.rua}"
+																	value="${modelLogin.rua}" id="rua"
 																	autocomplete="none"> <span class="form-bar"></span>
 																<label class="float-label">rua</label>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="bairro"
-																	id="bairro" value="${modelLogin.bairro}"
+																	value="${modelLogin.bairro}" id="bairro"
 																	autocomplete="none"> <span class="form-bar"></span>
 																<label class="float-label">bairro</label>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="localidade"
-																	id="localidade" value="${modelLogin.localidade}"
+																	value="${modelLogin.localidade}" id="localidade"
 																	autocomplete="none"> <span class="form-bar"></span>
 																<label class="float-label">localidade</label>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="uf"
-																	id="uf" value="${modelLogin.uf}"
+																	value="${modelLogin.uf}" id="uf"
 																	autocomplete="none"> <span class="form-bar"></span>
 																<label class="float-label">uf</label>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="numero"
-																	id="numero" value="${modelLogin.numero}"
+																	value="${modelLogin.numero}" id="numero"
 																	autocomplete="none"> <span class="form-bar"></span>
 																<label class="float-label">número</label>
 															</div>
@@ -286,6 +286,7 @@
 				<table class="table" id="tabelaresultados">
 					<thead>
 						<tr>
+							<th>email</th>
 							<th>ID</th>
 							<th>Nome</th>
 							<th>Selecionar</th>

@@ -13,7 +13,7 @@ function pesquisaCEP() {
 			jQuery("#bairro").val(dados.bairro);
 			jQuery("#localidade").val(dados.localidade);
 			jQuery("#uf").val(dados.uf);
-			jQuery("#numero").val(dados.gia);
+			jQuery("#numero").val(dados.siafi);
 		} else {
 			alert("Este CEP não é válido.");
 		}

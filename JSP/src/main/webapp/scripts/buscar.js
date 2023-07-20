@@ -24,7 +24,7 @@ jQuery(function() {
 					jQuery('#tabelaresultados tbody tr').remove();
 
 					for (var p = 0; p < json.length; p++) {
-						jQuery('#tabelaresultados > tbody').append('<tr><td>' + json[p].id + '</td><td> ' + json[p].nome + '</td><td><button id="editar" onclick="editar('+json[p].id+')" type="button" class="btn btn-info">Ver</button></td></tr>');
+						jQuery('#tabelaresultados > tbody').append('<tr><td>' + json[p].cep + '</td><td> ' + json[p].id + '</td><td> ' + json[p].nome + '</td><td><button id="editar" onclick="editar('+json[p].id+')" type="button" class="btn btn-info">Ver</button></td></tr>');
 					}
 					document.getElementById('totalResultados').textContent = 'Resultados: ' + json.length;
 				}
