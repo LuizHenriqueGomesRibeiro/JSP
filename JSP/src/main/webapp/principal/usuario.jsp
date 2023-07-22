@@ -52,11 +52,14 @@
 																	class="form-bar"></span> <label class="float-label">ID:</label>
 															</div>
 
-															<div class="form-group form-default input-group mb-4" style="height: 80px;">
+															<div class="form-group form-default input-group mb-4"
+																style="height: 80px;">
 																<div class="input-group-prepend">
 																	<c:if test="${modelLogin.fotoUser != '' && modelLogin.fotoUser != null}">
-																		<a href="<%= request.getContextPath()%>/ServletUsuarioController?acao=download&id=${modelLogin.id}">
-																			<img alt="Imagem User" id="fotoembase64" src="${modelLogin.fotoUser}" height="70px">
+																		<a
+																			href="<%= request.getContextPath()%>/ServletUsuarioController?acao=download&id=${modelLogin.id}">
+																			<img alt="Imagem User" id="fotoembase64"
+																			src="${modelLogin.fotoUser}" height="70px">
 																		</a>
 																	</c:if>
 
@@ -66,20 +69,19 @@
 																			src="assets/images/1077114.png" height="70px">
 																	</c:if>
 																</div>
-																<input style="margin-top: 20px; margin-left: 10px;" type="file" id="fileFoto"
-																name="fileFoto" 
-																accept="image/*" onchange="visualizarImg('fotoembase64','fileFoto');" 
-																class="form-control-file">
-																
+																<input style="margin-top: 20px; margin-left: 10px;"
+																	type="file" id="fileFoto" name="fileFoto"
+																	accept="image/*"
+																	onchange="visualizarImg('fotoembase64','fileFoto');"
+																	class="form-control-file">
 															</div>
-
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="nome"
 																	id="nome" autocomplete="none"
 																	value="${modelLogin.nome}"> <span
 																	class="form-bar"></span> <label class="float-label">Nome</label>
 															</div>
-														
+
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="email"
 																	value="${modelLogin.email}" id="email"
@@ -88,66 +90,69 @@
 															</div>
 															<p>${msg_email}</p>
 															<div class="form-group form-default form-static-label">
-															<select class="form-control" multiple aria-label="multiple select example" name="perfil" 
-															style="height: 65px; overflow: hidden;">
-															
-																	<option value="ADMIN" <% 
-																	ModelLogin modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+																<select class="form-control" multiple
+																	aria-label="multiple select example" name="perfil"
+																	style="height: 65px; overflow: hidden;">
 
-																	if(modelLogin != null && modelLogin.getPerfil().equals("ADMIN")){ 
-																		out.println("selected=\"selected\"");																		
+																	<option value="ADMIN"
+																		<%ModelLogin modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+																	if (modelLogin != null && modelLogin.getPerfil().equals("ADMIN")) {
+
+																		out.println("selected=\"selected\"");
+
 																	}%>>Admin</option>
-																	
-																	<option value="SECRETARIA" <% 
-																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
-																	
-																	if(modelLogin != null && modelLogin.getPerfil().equals("SECRETARIA")){ 
-																		out.println("selected=\"selected\"");																		
+
+																	<option value="SECRETARIA"
+																		<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+																	if (modelLogin != null && modelLogin.getPerfil().equals("SECRETARIA")) {
+
+																		out.println("selected=\"selected\"");
+
 																	}%>>Secretaria</option>
-																	
-																	<option value="AUXILIAR" <% 
-																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
-																	
-																	if(modelLogin != null && modelLogin.getPerfil().equals("AUXILIAR")){ 
-																		out.println("selected=\"selected\"");																		
+
+																	<option value="AUXILIAR"
+																		<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+																	if (modelLogin != null && modelLogin.getPerfil().equals("AUXILIAR")) {
+
+																		out.println("selected=\"selected\"");
+
 																	}%>>Auxiliar</option>
-																	
-																</select>
-																<span class="form-bar"></span> 
-																<label class="float-label">Perfil</label>
+
+																</select> <span class="form-bar"></span> <label
+																	class="float-label">Perfil</label>
 															</div>
 															<div class="form-control form-group form-default"
-															style="margin-top: 5px;">
-																<input type="radio" name="sexo" value="MASCULINO" checked="checked"
-																<%
-																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
-																	
-																	if(modelLogin != null && modelLogin.getSexo().equals("MASCULINO")){
-																	out.println("checked=\"checked\"");
-																}	
-																%>
-																>Masculino</> 
+																style="margin-top: 5px;">
+																<input type="radio" name="sexo" value="MASCULINO"
+																	checked="checked"
+																	<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+																	if (modelLogin != null && modelLogin.getSexo().equals("MASCULINO")) {
+																		out.println("checked=\"checked\"");
+																	}%>>Masculino</>
 																<input type="radio" name="sexo" value="FEMININO"
-																<%
-																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
-																	
-											 						if(modelLogin != null && modelLogin.getSexo().equals("FEMININO")){ 
-																	out.println("checked=\"checked\"");
-																}	
-																%>
-																>Feminino</>	
+																	<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+																	if (modelLogin != null && modelLogin.getSexo().equals("FEMININO")) {
+																		out.println("checked=\"checked\"");
+																	}%>>Feminino</>
 															</div>
-															<div class="form-group form-default">
-																<input type="text" class="form-control" name="cep"
-																	id="cep"
-																	autocomplete="none"> <span class="form-bar"></span>
-																<label class="float-label">cep</label>
+															<div class="form-group form-default form-static-label">
+																<input onblur="pesquisarCEP();" type="text" name="cep"
+																	id="cep" class="form-control" required="required"
+																	autocomplete="off" placeholder=""
+																	value="<%out.print(request.getAttribute("cep"));%>">
+																<span class="form-bar"></span> <label
+																	class="float-label">cep</label>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="rua"
-																	value="${modelLogin.rua}" id="rua"
-																	autocomplete="none"> <span class="form-bar"></span>
-																<label class="float-label">rua</label>
+																	value="${modelLogin.rua}" id="rua" autocomplete="none">
+																<span class="form-bar"></span> <label
+																	class="float-label">rua</label>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="bairro"
@@ -156,16 +161,16 @@
 																<label class="float-label">bairro</label>
 															</div>
 															<div class="form-group form-default">
-																<input type="text" class="form-control" name="localidade"
-																	value="${modelLogin.localidade}" id="localidade"
-																	autocomplete="none"> <span class="form-bar"></span>
-																<label class="float-label">localidade</label>
+																<input type="text" class="form-control"
+																	name="localidade" value="${modelLogin.localidade}"
+																	id="localidade" autocomplete="none"> <span
+																	class="form-bar"></span> <label class="float-label">localidade</label>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="uf"
-																	value="${modelLogin.uf}" id="uf"
-																	autocomplete="none"> <span class="form-bar"></span>
-																<label class="float-label">uf</label>
+																	value="${modelLogin.uf}" id="uf" autocomplete="none">
+																<span class="form-bar"></span> <label
+																	class="float-label">uf</label>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="numero"
@@ -247,7 +252,19 @@
 												</tbody>
 											</table>
 										</div>
-										<button type="button" class="btn btn-success"
+										<nav aria-label="Page navigation example" 
+											style="margin: auto; position: relative;">
+											<ul class="pagination">
+												<%
+												int totalPagina = (int) request.getAttribute("totalPagina");
+												for (int p = 0; p < totalPagina; p++) {
+													String url = request.getContextPath() + "/ServletUsuarioController?acao=paginar&pagina=" + (p * 5);
+													out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + url + "\">" + (p + 1) + "</a></li>");
+												}
+												%>
+											</ul>
+										</nav>
+										<button type="button" class="btn btn-success" style="margin-top: 20px;"
 											data-toggle="modal" data-target="#exampleModal">Pesquisar</button>
 									</div>
 									<!-- Page-body end -->

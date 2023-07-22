@@ -46,7 +46,7 @@ public class DAOUsuarioRepository {
 				connection.commit();
 				
 				if (modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
-					sql = "update model_login set fotouser =?, extensaofotouser=? where login =?";
+					sql = "UPDATE model_login SET fotouser =?, extensaofotouser=? WHERE login =?";
 					
 					statement = connection.prepareStatement(sql);
 					
@@ -81,8 +81,7 @@ public class DAOUsuarioRepository {
 				statement.executeUpdate();
 				
 				connection.commit();
-				
-				
+							
 				if (modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
 					sql = "UPDATE model_login set fotouser =?, extensaofotouser=? where id =?";
 					
@@ -111,12 +110,61 @@ public class DAOUsuarioRepository {
 			return null;
 		}
 	}
+	
+	public int totalPagina(Long userLogado) throws Exception {
+		
+		String sql = "SELECT count(1) AS total FROM model_login WHERE usuario_id = ?";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setLong(1, userLogado);
+		ResultSet resultado = statement.executeQuery();	
+		resultado.next();
+		
+		Double total = resultado.getDouble("total");
+		Double porPagina = 5.0;
+		Double pagina = total / porPagina;
+		Double resto = total % porPagina;	
+		
+		if(resto>0) {
+			pagina++;
+		}
+		
+		return pagina.intValue();
+	}
+	
+	public List<ModelLogin> consultaUsuarioListPaginada(Long userLogado, int offset) throws Exception {
+
+		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
+
+		String sql = "SELECT * FROM model_login WHERE useradmin IS FALSE AND usuario_id = " + userLogado + " ORDER BY nome OFFSET ? LIMIT 5";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setInt(1, offset);
+
+		ResultSet resultado = statement.executeQuery();
+
+		while (resultado.next()) { /* percorrer as linhas de resultado do SQL */
+
+			ModelLogin modelLogin = new ModelLogin();
+
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setSexo(resultado.getString("sexo"));
+			// modelLogin.setSenha(resultado.getString("senha"));
+
+			retorno.add(modelLogin);
+		}
+
+		return retorno;
+	}
 
 	public List<ModelLogin> consultaUsuarioList(Long userLogado) throws Exception {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "SELECT * FROM model_login WHERE useradmin IS FALSE AND usuario_id = " + userLogado;
+		String sql = "SELECT * FROM model_login WHERE useradmin IS FALSE AND usuario_id = " + userLogado+" LIMIT 5";
 		PreparedStatement statement = connection.prepareStatement(sql);
 
 		ResultSet resultado = statement.executeQuery();
@@ -142,7 +190,7 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "SELECT * FROM model_login WHERE nome LIKE ? AND useradmin IS FALSE AND usuario_id = ?";
+		String sql = "SELECT * FROM model_login WHERE nome LIKE ? AND useradmin IS FALSE AND usuario_id = ? LIMIT 5";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, "%" + nome + "%");
 		statement.setLong(2, userLogado);

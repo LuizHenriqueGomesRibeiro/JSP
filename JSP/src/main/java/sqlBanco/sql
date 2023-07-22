@@ -6,8 +6,6 @@ CREATE DATABASE "JSP"
        LC_CTYPE = 'Portuguese_Brazil.1252'
        CONNECTION LIMIT = -1;
 
-
-
 CREATE TABLE public.model_login
 (
   login character varying(200),

@@ -20,7 +20,7 @@
 				<p>Login:</p>
 				<input name="login" type="text" required>
 				
-				<p>Senha:</p>
+				<p>Senha:</p>                  
 				<input name="senha" type="password" required><br>
 
 				<input class="enviar" type="submit" value="Continuar" onclick="validar()">

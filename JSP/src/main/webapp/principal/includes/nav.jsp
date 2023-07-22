@@ -19,15 +19,15 @@
                           </div>
                       </div>
                       <a href="index.html">
-                          <img class="img-fluid" src="<%=request.getContextPath() %>/assets/images/logo.png" alt="Theme-Logo" />
+                          <img class="img-fluid" style="height: 55px;" src="<%=request.getContextPath() %>/assets/images/—Pngtree—tree logo in circle shaped_8996797.png" alt="Theme-Logo" />
                       </a>
                       <a class="mobile-options waves-effect waves-light">
                           <i class="ti-more"></i>
                       </a>
                   </div>
                 
-                  <div class="navbar-container container-fluid">
-                      <ul class="nav-left">
+                  <div class="navbar-container container-fluid" >
+                      <ul class="nav-left" style="left:-190px; position: relative;">
                           <li>
                               <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
                           </li>
@@ -96,23 +96,8 @@
                               </a>
                               <ul class="show-notification profile-notification">
                                   <li class="waves-effect waves-light">
-                                      <a href="#!">
-                                          <i class="ti-settings"></i> Settings
-                                      </a>
-                                  </li>
-                                  <li class="waves-effect waves-light">
                                       <a href="user-profile.html">
                                           <i class="ti-user"></i> Profile
-                                      </a>
-                                  </li>
-                                  <li class="waves-effect waves-light">
-                                      <a href="email-inbox.html">
-                                          <i class="ti-email"></i> My Messages
-                                      </a>
-                                  </li>
-                                  <li class="waves-effect waves-light">
-                                      <a href="auth-lock-screen.html">
-                                          <i class="ti-lock"></i> Lock Screen
                                       </a>
                                   </li>
                                   <li class="waves-effect waves-light">

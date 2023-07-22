@@ -1,7 +1,7 @@
 /**
  * 
  */
-function pesquisaCEP() {
+function pesquisarCEP() {
 	
 	var cep = jQuery("#cep").val();
 
@@ -19,3 +19,4 @@ function pesquisaCEP() {
 		}
 	});
 }
+
