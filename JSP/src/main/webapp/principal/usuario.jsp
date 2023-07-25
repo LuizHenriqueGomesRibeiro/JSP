@@ -264,10 +264,9 @@
 												%>
 											</ul>
 										</nav>
-										<button type="button" class="btn btn-success" style="margin-top: 20px;"
+										<button type="button" class="btn btn-success"
 											data-toggle="modal" data-target="#exampleModal">Pesquisar</button>
 									</div>
-									<!-- Page-body end -->
 								</div>
 								<div id="styleSelector"></div>
 							</div>
@@ -290,7 +289,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" id='nomeBusca'>
+						<input type="text" class="form-control" id="nomeBusca">
 						<div class="input-group-append">
 							<button class="btn btn-success" type="button" id="buscar">Buscar</button>
 							<button class="btn btn-danger" type="button" id="limpar_pesquisa">Limpar</button>
@@ -316,6 +315,12 @@
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
 					<button type="button" class="btn btn-primary">Salvar mudanças</button>
 				</div>
+				<nav aria-label="Page navigation example"
+					style="margin: auto; position: relative;">
+					<ul class="pagination" id="ulPaginacaoUserAjax">
+						
+					</ul>
+				</nav>
 			</div>
 		</div>
 	</div>
@@ -331,5 +336,7 @@
 		src="<%=request.getContextPath()%>/scripts/imagem.js"></script>
 	<script type="text/javascript"
 		src="<%=request.getContextPath()%>/scripts/pesquisarCEP.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/buscaPagAjax.js"></script>
 </body>
 </html>

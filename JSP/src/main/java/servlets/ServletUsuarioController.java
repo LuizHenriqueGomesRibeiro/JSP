@@ -58,12 +58,36 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
-
-			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+				
+			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjaxPage")) {
+				
+				System.out.println("entramos em buscarUserAjaxPage servlet");
+				
+				String nomeBusca = request.getParameter("nomeBusca");
+				String pagina = request.getParameter("pagina");
+				
+				System.out.println("nomeBusca: "+nomeBusca);
+				System.out.println("pagina: "+pagina);
+				
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioListOffSet(nomeBusca, super.getUserLogado(request), Integer.parseInt(pagina));
+				System.out.println("dadosJsonUser: "+dadosJsonUser);
+				Gson gson = new Gson();
+				String json = gson.toJson(dadosJsonUser);
+				response.addHeader("TotalPagina", ""+daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
+				PrintWriter printWriter = response.getWriter();
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				System.out.println("json: "+json);
+				printWriter.write(json);
+				printWriter.close();
+				
+			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+				
 				String nomeBusca = request.getParameter("nomeBusca");
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca, super.getUserLogado(request));
 				Gson gson = new Gson();
 				String json = gson.toJson(dadosJsonUser);
+				response.addHeader("TotalPagina", ""+daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
 				PrintWriter printWriter = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");

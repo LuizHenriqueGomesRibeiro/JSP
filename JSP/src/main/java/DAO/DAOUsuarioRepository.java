@@ -3,6 +3,7 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class DAOUsuarioRepository {
 				connection.commit();
 							
 				if (modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
-					sql = "UPDATE model_login set fotouser =?, extensaofotouser=? where id =?";
+					sql = "UPDATE model_login SET fotouser =?, extensaofotouser=? WHERE id =?";
 					
 					statement = connection.prepareStatement(sql);
 					
@@ -118,6 +119,7 @@ public class DAOUsuarioRepository {
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setLong(1, userLogado);
 		ResultSet resultado = statement.executeQuery();	
+		
 		resultado.next();
 		
 		Double total = resultado.getDouble("total");
@@ -217,6 +219,59 @@ public class DAOUsuarioRepository {
 			retorno.add(modelLogin);
 		}
 
+		return retorno;
+	}
+	
+	public int consultaUsuarioListTotalPagina(String nome, Long userLogado) throws Exception {
+
+		String sql = "SELECT count(1) AS total FROM model_login WHERE nome LIKE ? AND useradmin IS FALSE AND usuario_id = ?";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, "%" + nome + "%");
+		statement.setLong(2, userLogado);
+
+		ResultSet resultado = statement.executeQuery();
+
+		resultado.next();
+		
+		Double total = resultado.getDouble("total");
+		Double porPagina = 5.0;
+		Double pagina = total / porPagina;
+		Double resto = total % porPagina;	
+		
+		if(resto>0) {
+			pagina++;
+		}
+		
+		return pagina.intValue();
+	}
+	
+	public List<ModelLogin> consultaUsuarioListOffSet(String nome, Long userLogado, int offset) throws SQLException{
+		
+		System.out.println("Estamos dentro do método consultaUsuarioListOffSet()");
+		System.out.println("nome: "+nome);
+		System.out.println("userLogado: "+userLogado);
+		System.out.println("offset: "+offset);
+		
+		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
+		
+		String sql = "SELECT*FROM model_login WHERE nome LIKE ? AND useradmin IS FALSE AND usuario_id = ? OFFSET "+offset+" LIMIT 5";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, "%" + nome + "%");
+		statement.setLong(2, userLogado);
+		ResultSet resultado = statement.executeQuery();
+		
+		while(resultado.next()) {
+			ModelLogin modelLogin = new ModelLogin();
+			
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setLogin(resultado.getString("login"));
+			
+			retorno.add(modelLogin);
+			
+		}
+		
 		return retorno;
 	}
 
