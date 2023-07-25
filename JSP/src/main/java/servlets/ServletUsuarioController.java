@@ -3,10 +3,8 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import com.google.gson.Gson;
-import org.apache.commons.codec.binary.StringUtils;
 import DAO.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -18,8 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import model.ModelLogin;
 import org.apache.commons.codec.binary.Base64;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Servlet implementation class ServletUsuarioController
@@ -77,7 +73,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				String id = request.getParameter("id");
 				
 				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id, super.getUserLogado(request));
-				
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
 				System.out.println(modelLogin.getEmail());
 				System.out.println(modelLogin.getCEP());
 
@@ -96,7 +92,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
-
+				
 				request.setAttribute("msg", "Usuário em edição");
 				request.setAttribute("modelLogin", modelLogin);
 				
@@ -126,7 +122,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				String id = request.getParameter("id");
 				
 				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id, super.getUserLogado(request));
-				
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
 				if(modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
 					response.setHeader("Content-Disposition", "attachment;filename=arquivo."+modelLogin.getExtensaofotouser());
 					new Base64();
@@ -144,6 +140,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
 			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("voltar")) {
+				
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/principal.jsp");
 				redirecionar.forward(request, response);
 			}
@@ -264,6 +261,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			} else if (daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
 				request.setAttribute("msg_email", "Já existe um usuário com este email.");
 				request.setAttribute("modelLogin", modelLogin);
+				
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
 			} else {
@@ -275,9 +273,8 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
-
-					List<ModelLogin> modelLogins = daoUsuarioRepository
-							.consultaUsuarioList(super.getUserLogado(request));
+					request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
+					List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 					request.setAttribute("modelLogins", modelLogins);
 
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");

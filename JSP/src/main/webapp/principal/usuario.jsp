@@ -66,7 +66,7 @@
 																	<c:if
 																		test="${modelLogin.fotoUser == '' || modelLogin.fotoUser == null}">
 																		<img alt="Imagem User" id="fotoembase64"
-																			src="assets/images/1077114.png" height="70px">
+																			src="<%=request.getContextPath() %>/assets/images/1077114.png" height="70px">
 																	</c:if>
 																</div>
 																<input style="margin-top: 20px; margin-left: 10px;"
@@ -313,10 +313,8 @@
 					</tbody>
 				</table>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Fechar</button>
-					<button type="button" class="btn btn-primary">Salvar
-						mudanças</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-primary">Salvar mudanças</button>
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <nav class="navbar header-navbar pcoded-header">
               <div class="navbar-wrapper">
                   <div class="navbar-logo">
@@ -91,7 +91,13 @@
                           </li>
                           <li class="user-profile header-notification">
                               <a href="#!" class="waves-effect waves-light">
-                                  <img src="<%=request.getContextPath() %>/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                              <c:if test="${fotoUser != '' && fotoUser != null}">
+                              	<img src="${fotoUser}" class="img-radius" alt="User-Profile-Image">
+                              </c:if>
+                             
+                              <c:if test="${fotoUser == '' || fotoUser == null}">
+                              	<img src="<%=request.getContextPath() %>/assets/images/1077114.png" class="img-radius" alt="User-Profile-Image">
+                              </c:if>            
                                   <i class="ti-angle-down"></i>
                               </a>
                               <ul class="show-notification profile-notification">
