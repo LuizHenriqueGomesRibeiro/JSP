@@ -39,7 +39,6 @@ jQuery(function() {
 						jQuery("#ulPaginacaoUserAjax").append('<li style="margin-bottom: -15px;" class="page-item"><a class="page-link" onclick="buscaPagAjax(\''+url+'\')">' + (p + 1) + '</a></li>');
 					}
 				}
-				
 			}).fail(function(xhr, status, errorThrown) {
 				alert('Erro ao buscar usuário por nome: ' + xhr.responseText);
 			});

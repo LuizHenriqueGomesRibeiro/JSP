@@ -60,24 +60,17 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				redirecionar.forward(request, response);
 				
 			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjaxPage")) {
-				
-				System.out.println("entramos em buscarUserAjaxPage servlet");
-				
+
 				String nomeBusca = request.getParameter("nomeBusca");
 				String pagina = request.getParameter("pagina");
 				
-				System.out.println("nomeBusca: "+nomeBusca);
-				System.out.println("pagina: "+pagina);
-				
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioListOffSet(nomeBusca, super.getUserLogado(request), Integer.parseInt(pagina));
-				System.out.println("dadosJsonUser: "+dadosJsonUser);
 				Gson gson = new Gson();
 				String json = gson.toJson(dadosJsonUser);
 				response.addHeader("TotalPagina", ""+daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
 				PrintWriter printWriter = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
-				System.out.println("json: "+json);
 				printWriter.write(json);
 				printWriter.close();
 				
@@ -98,8 +91,6 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				
 				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id, super.getUserLogado(request));
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
-				System.out.println(modelLogin.getEmail());
-				System.out.println(modelLogin.getCEP());
 
 				/*
 				 * ObjectMapper mapper = new ObjectMapper(); String json =
