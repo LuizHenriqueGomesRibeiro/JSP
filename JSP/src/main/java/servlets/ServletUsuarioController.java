@@ -128,8 +128,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
 
-				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
+				
+				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
 
 			} else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("download")) {
@@ -154,6 +155,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
+				
 			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("voltar")) {
 				
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/principal.jsp");
