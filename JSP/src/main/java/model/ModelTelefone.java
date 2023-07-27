@@ -44,7 +44,7 @@ public class ModelTelefone implements Serializable {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-	 
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

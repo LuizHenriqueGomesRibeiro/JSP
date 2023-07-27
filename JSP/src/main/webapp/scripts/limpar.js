@@ -7,6 +7,12 @@ jQuery(function(){
 	var login = jQuery("#login");
 	var senha = jQuery("#senha");
 	var id = jQuery("#id");
+	var cep = jQuery("#cep");
+	var rua = jQuery("#rua");
+	var bairro = jQuery("#bairro");
+	var localidade = jQuery("#localidade");
+	var uf = jQuery("#uf");
+	var numero = jQuery("#numero");
 	
 	limpar.click(function(){
 		nome.val("");
@@ -14,8 +20,25 @@ jQuery(function(){
 		login.val("");
 		senha.val("");
 		id.val("");
+		cep.val("");
+		rua.val("");
+		bairro.val("");
+		localidade.val("");
+		uf.val("");
+		numero.val("");
 	});
 });
+
+jQuery(function(){
+	var telefone = jQuery("#telefoneEsconder");
+	var limpar = jQuery("#limpar");
+	var caixa = jQuery("#caixa");
+	
+	limpar.click(function(){
+		telefone.hide();
+		caixa.hide();
+	})
+})
 
 jQuery(function(){
 	

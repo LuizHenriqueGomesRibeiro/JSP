@@ -236,7 +236,7 @@ public class DAOUsuarioRepository {
 		Double total = resultado.getDouble("total");
 		Double porPagina = 5.0;
 		Double pagina = total / porPagina;
-		Double resto = total % porPagina;	
+		Double resto = total % porPagina;
 		
 		if(resto>0) {
 			pagina++;
@@ -385,6 +385,43 @@ public class DAOUsuarioRepository {
 		}
 		return modelLogin;
 	}
+	
+	public ModelLogin consultaUsuarioId(Long id) {
+
+		ModelLogin modelLogin = new ModelLogin();
+
+		try {
+			String sql = "SELECT*FROM model_login WHERE id = ? AND useradmin IS FALSE";
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setLong(1, id);
+			ResultSet resultado = statement.executeQuery();
+
+			while (resultado.next()) {
+				modelLogin.setId(resultado.getLong("id"));
+				modelLogin.setNome(resultado.getString("nome"));
+				modelLogin.setEmail(resultado.getString("email"));
+				modelLogin.setLogin(resultado.getString("login"));
+				modelLogin.setSenha(resultado.getString("senha"));
+				modelLogin.setPerfil(resultado.getString("perfil"));
+				modelLogin.setSexo(resultado.getString("sexo"));
+				modelLogin.setFotoUser(resultado.getString("fotouser"));
+				modelLogin.setExtensaofotouser(resultado.getString("extensaofotouser"));
+				modelLogin.setCEP(resultado.getString("cep"));
+				modelLogin.setRua(resultado.getString("rua"));
+				modelLogin.setBairro(resultado.getString("bairro"));
+				modelLogin.setLocalidade(resultado.getString("localidade"));
+				modelLogin.setUf(resultado.getString("uf"));
+				modelLogin.setNumero(resultado.getString("numero"));
+			}
+			
+			return modelLogin;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
 
 	public ModelLogin consultaUsuarioId(String id, Long userLogado) {
 
@@ -414,18 +451,13 @@ public class DAOUsuarioRepository {
 				modelLogin.setLocalidade(resultado.getString("localidade"));
 				modelLogin.setUf(resultado.getString("uf"));
 				modelLogin.setNumero(resultado.getString("numero"));
-				
-				System.out.println("--------------------------------------------------------------------------------");
-				System.out.println("Prompt: DAOUsuarioReposity consultaUsuarioId");
-				System.out.println(modelLogin.getNome());
-				System.out.println(modelLogin.getCEP());
-				System.out.println(modelLogin.getPerfil());
-				System.out.println("--------------------------------------------------------------------------------");
 			}
+			
 			return modelLogin;
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return null;
 	}
