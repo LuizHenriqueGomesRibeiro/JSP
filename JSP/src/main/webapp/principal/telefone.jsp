@@ -28,7 +28,7 @@
 									<!-- Page-body start -->
 									<div class="page-body">
 										<div class="caixa">
-											<h1>Página de telefones</h1>
+											<h1 style="margin-bottom: 35px;">Página de telefones</h1>
 										</div>
 										<div class="row">
 											<div class="col-sm-12">
@@ -38,7 +38,7 @@
 													</div>
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
-														<form class="form-material" id="formulario_telefone"
+														<form class="form-material" id="formulario"
 															action="<%=request.getContextPath()%>/servletTelefone"
 															method="post">
 
@@ -61,9 +61,11 @@
 																	id="telefone" autocomplete="none"><span
 																	class="form-bar"></span> <label class="float-label">Telefone</label>
 															</div>
-															<button type="submit"
-																class="btn btn-primary waves-effect waves-light">Salvar</button>
+															<button type="submit" class="btn btn-primary waves-effect waves-light">Salvar</button>
 														</form>
+														<span>
+															<h4 style="margin-top: 25px;">${msg_sucesso}</h4>
+														</span>
 													</div>
 												</div>
 											</div>
@@ -91,7 +93,7 @@
 														<td style="top: 11px;"><c:out
 																value="${f.numero}"></c:out></td>
 														<td><a class="btn btn-success"
-															href="<%= request.getContextPath() %>/servletTelefone?acao=excluir&id=${f.id}">Ver</a></td>
+															href="<%= request.getContextPath() %>/servletTelefone?acao=excluir&id=${f.id}&userpai=${usuario.id}">Excluir</a></td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -109,19 +111,13 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/editar.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/imagem.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/pesquisarCEP.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/buscaPagAjax.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/editar.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/imagem.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/pesquisarCEP.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscaPagAjax.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/validacao.js"></script>
 </body>
 </html>

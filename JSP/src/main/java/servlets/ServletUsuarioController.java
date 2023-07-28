@@ -56,6 +56,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				request.setAttribute("msg", "excluído com sucesso.");
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
+				
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
 				

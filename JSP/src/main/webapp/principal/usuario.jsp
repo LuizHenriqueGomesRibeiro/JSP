@@ -39,7 +39,7 @@
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
 														<form class="form-material" name="frmContato"
-															id="formulario" enctype="multipart/form-data"
+															id="formulario_usuario" enctype="multipart/form-data"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="post">
 
@@ -332,19 +332,13 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/editar.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/imagem.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/pesquisarCEP.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/scripts/buscaPagAjax.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/editar.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/imagem.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/pesquisarCEP.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscaPagAjax.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/validacao.js"></script>
 </body>
 </html>

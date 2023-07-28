@@ -40,19 +40,35 @@ public class servletTelefone extends ServletGenericUtil {
 			
 			String acao = request.getParameter("acao");
 			
-			if(acao != null && !acao.isEmpty() && acao.equals("excluir")) {
+			if (acao != null && !acao.isEmpty() && acao.equals("excluir")) {
 				
-				String idFone = request.getParameter("id");
-				daoTelefoneRepository.deleteTelefone(idFone);
-			}
+				String idfone = request.getParameter("id");
+				
+				daoTelefoneRepository.deleteTelefone(idfone);
+				
+				String userpai = request.getParameter("userpai");
+				
+				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(Long.parseLong(userpai));
+				request.setAttribute("usuario", modelLogin);
+				
+				ModelLogin modelLogin1 = daoUsuarioRepository.consultaUsuarioId(Long.parseLong(userpai));
+				
+				List<ModelTelefone> modelTelefones = daoTelefoneRepository.listarTelefone(modelLogin1.getId());
+				request.setAttribute("telefones", modelTelefones);
+				
+				request.setAttribute("msg_sucesso", "Telefone excluido com sucesso");
+
+				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/telefone.jsp");
+				redirecionar.forward(request, response);
+				
+				return;
+			} 
 			
 			String iduser = request.getParameter("id");
-
+			
 			if (iduser != null && !iduser.isEmpty()) {
-
-				String usuario_pai_id = request.getParameter("id");
-
-				List<ModelTelefone> modelTelefones = daoTelefoneRepository.listarTelefone(usuario_pai_id);
+				
+				List<ModelTelefone> modelTelefones = daoTelefoneRepository.listarTelefone(iduser);
 				request.setAttribute("telefones", modelTelefones);
 
 				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(Long.parseLong(iduser));
@@ -60,12 +76,15 @@ public class servletTelefone extends ServletGenericUtil {
 
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/telefone.jsp");
 				redirecionar.forward(request, response);
+				
 			}
+			
+			
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-
 	}
 	
 	/**
@@ -73,7 +92,12 @@ public class servletTelefone extends ServletGenericUtil {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		try {
+		try { 
+			
+			String iduser = request.getParameter("id");
+			
+			ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(Long.parseLong(iduser));
+			request.setAttribute("usuario", modelLogin);
 
 			String usuario_pai_id = request.getParameter("id");
 			String telefone = request.getParameter("telefone");
@@ -91,7 +115,7 @@ public class servletTelefone extends ServletGenericUtil {
 			List<ModelTelefone> modelTelefones = daoTelefoneRepository.listarTelefone(usuario_pai_id);
 			request.setAttribute("telefones", modelTelefones);
 			
-			RequestDispatcher redirecionar = request.getRequestDispatcher("principal/telefone_2.jsp");
+			RequestDispatcher redirecionar = request.getRequestDispatcher("principal/telefone.jsp");
 			redirecionar.forward(request, response);
 	
 		} catch (Exception e) {
