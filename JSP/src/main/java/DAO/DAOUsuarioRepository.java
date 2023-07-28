@@ -225,6 +225,7 @@ public class DAOUsuarioRepository {
 	public int consultaUsuarioListTotalPagina(String nome, Long userLogado) throws Exception {
 
 		String sql = "SELECT count(1) AS total FROM model_login WHERE nome LIKE ? AND useradmin IS FALSE AND usuario_id = ?";
+		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, "%" + nome + "%");
 		statement.setLong(2, userLogado);
@@ -419,6 +420,7 @@ public class DAOUsuarioRepository {
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			
 		}
 		return null;
 	}

@@ -47,14 +47,14 @@
 															<div class="form-group form-default form-static-label">
 																<input type="text" name="id" id="id"
 																	class="form-control" readonly="readonly"
-																	value="${usuario.id}"> <span class="form-bar"></span>
-																<label class="float-label">Id:</label>
+																	value="${pai_telefone.id}"> <span
+																	class="form-bar"></span> <label class="float-label">Id:</label>
 															</div>
 															<div class="form-group form-default form-static-label">
 																<input type="text" class="form-control" name="nome"
-																	id="nome" autocomplete="none" value="${usuario.nome}"
-																	readonly="readonly"><span class="form-bar"></span>
-																<label class="float-label">Nome</label>
+																	id="nome" autocomplete="none"
+																	value="${pai_telefone.nome}" readonly="readonly"><span
+																	class="form-bar"></span> <label class="float-label">Nome</label>
 															</div>
 															<div class="form-group form-default form-static-label">
 																<input type="text" class="form-control" name="telefone"
@@ -64,6 +64,9 @@
 															<button type="submit"
 																class="btn btn-primary waves-effect waves-light">Salvar</button>
 														</form>
+														<span>
+															<h4 style="margin-top: 25px;">${msg_sucesso}</h4>
+														</span>
 													</div>
 												</div>
 											</div>
@@ -72,26 +75,27 @@
 								</div>
 								<div class="card">
 									<div class="card-header">
-										<h5>Lista de telefones cadastrados para ${usuario.nome}</h5>
+										<h5>Lista de telefones cadastrados para ${pai_telefone.nome}</h5>
 									</div>
 									<div>
 										<table class="table" id="tabelaResultados">
 											<thead>
 												<tr>
-													<th style="width: 70%; left: 40px; position: relative;">id</th>
-													<th style="width: 50%; position: relative;">Numero</th>
-													<th style="width: 25%; position: relative;">Selecionar</th>
+													<th>id</th>
+													<th>Numero</th>
+													<th>Selecionar</th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach items='${telefones}' var='f'>
 													<tr>
-														<td style="left: 40px; top: 11px;"><c:out
-																value="${f.id}"></c:out></td>
-														<td style="top: 11px;"><c:out
-																value="${f.numero}"></c:out></td>
-														<td><a class="btn btn-success"
-															href="<%= request.getContextPath() %>/servletTelefone?acao=excluir&id=${f.id}">Ver</a></td>
+														<td style="left: 40px; top: 11px; position: relative;">
+															<c:out value="${f.id}"></c:out></td>
+														<td style="top: 11px; position: relative;">
+															<c:out value="${f.numero}"></c:out></td>
+														<td>
+															<a class="btn btn-success" href="<%= request.getContextPath() %>/servletTelefone?id=${f.id}">Ver</a>
+														</td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -101,7 +105,7 @@
 										data-toggle="modal" data-target="#exampleModal">Pesquisar</button>
 								</div>
 							</div>
-							<div id="styleSelector"></div>
+								<div id="styleSelector"></div>
 							</div>
 						</div>
 					</div>

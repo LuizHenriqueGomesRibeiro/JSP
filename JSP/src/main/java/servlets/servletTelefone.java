@@ -36,17 +36,38 @@ public class servletTelefone extends ServletGenericUtil {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String iduser = request.getParameter("iduser");
+		try {
+			
+			String acao = request.getParameter("acao");
+			
+			if(acao != null && !acao.isEmpty() && acao.equals("excluir")) {
+				
+				String idFone = request.getParameter("id");
+				daoTelefoneRepository.deleteTelefone(idFone);
+			}
+			
+			String iduser = request.getParameter("id");
 
 			if (iduser != null && !iduser.isEmpty()) {
+
+				String usuario_pai_id = request.getParameter("id");
+
+				List<ModelTelefone> modelTelefones = daoTelefoneRepository.listarTelefone(usuario_pai_id);
+				request.setAttribute("telefones", modelTelefones);
 
 				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(Long.parseLong(iduser));
 				request.setAttribute("usuario", modelLogin);
 
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/telefone.jsp");
 				redirecionar.forward(request, response);
-			} 
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
 	}
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -63,15 +84,16 @@ public class servletTelefone extends ServletGenericUtil {
 			modelTelefone.setUsuario_cad_id(super.getUserLogadoObjeto(request));
 			
 			daoTelefoneRepository.gravaTelefone(modelTelefone);
-			
-			List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
-			request.setAttribute("modelLogins", modelLogins);
 
-			request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
+			request.setAttribute("pai_telefone", daoUsuarioRepository.consultaUsuarioId(Long.parseLong(usuario_pai_id)));
+			request.setAttribute("msg_sucesso", "Telefone cadastrado com sucesso");
 			
-			RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
+			List<ModelTelefone> modelTelefones = daoTelefoneRepository.listarTelefone(usuario_pai_id);
+			request.setAttribute("telefones", modelTelefones);
+			
+			RequestDispatcher redirecionar = request.getRequestDispatcher("principal/telefone_2.jsp");
 			redirecionar.forward(request, response);
-
+	
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

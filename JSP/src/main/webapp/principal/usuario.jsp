@@ -55,7 +55,8 @@
 															<div class="form-group form-default input-group mb-4"
 																style="height: 80px;">
 																<div class="input-group-prepend">
-																	<c:if test="${modelLogin.fotoUser != '' && modelLogin.fotoUser != null}">
+																	<c:if
+																		test="${modelLogin.fotoUser != '' && modelLogin.fotoUser != null}">
 																		<a
 																			href="<%= request.getContextPath()%>/ServletUsuarioController?acao=download&id=${modelLogin.id}">
 																			<img alt="Imagem User" id="fotoembase64"
@@ -66,7 +67,8 @@
 																	<c:if
 																		test="${modelLogin.fotoUser == '' || modelLogin.fotoUser == null}">
 																		<img alt="Imagem User" id="fotoembase64"
-																			src="<%=request.getContextPath() %>/assets/images/1077114.png" height="70px">
+																			src="<%=request.getContextPath() %>/assets/images/1077114.png"
+																			height="70px">
 																	</c:if>
 																</div>
 																<input style="margin-top: 20px; margin-left: 10px;"
@@ -213,20 +215,21 @@
 																	id="caixa">Excluir</button>
 															</c:if>
 															<c:if test="${modelLogin.id > 0}">
-																<a id="telefoneEsconder" href="<%= request.getContextPath() %>/servletTelefone?iduser=${modelLogin.id}" class="btn btn-primary waves-effect waves-light">Telefone</a>
+																<a id="telefoneEsconder" href="<%= request.getContextPath() %>/servletTelefone?id=${modelLogin.id}"
+																	class="btn btn-primary waves-effect waves-light">Telefone</a>
 															</c:if>
 															<button type="button" class="btn btn-success"
 																data-toggle="modal" data-target="#exampleModal">
 																Pesquisar</button>
 														</form>
+														<span>
+															<h4 style="margin-top: 25px;">${msg}</h4>
+														</span>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<span>
-										<h4 style="margin-bottom: 28px;">${msg}</h4>
-									</span>
 									<div class="card">
 										<div class="card-header">
 											<h5>Lista de usuários cadastrados</h5>
