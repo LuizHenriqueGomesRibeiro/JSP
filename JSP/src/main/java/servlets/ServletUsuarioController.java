@@ -112,6 +112,12 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				request.setAttribute("msg", "Usuário em edição");
 				request.setAttribute("modelLogin", modelLogin);
 				
+				System.out.println("Prompt: ServletUsuarioController consultaUsuarioId");
+				System.out.println(modelLogin.getNome());
+				System.out.println(modelLogin.getCEP());
+				System.out.println(modelLogin.getPerfil());
+				System.out.println("--------------------------------------------------------------------------------");
+				
 				request.setAttribute("cep", modelLogin.getCEP());
 
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
@@ -121,7 +127,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUsuario")) {
 
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
-				request.setAttribute("modelLogin", modelLogins);
+				request.setAttribute("modelLogins", modelLogins);
 
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
 				
@@ -220,6 +226,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			new Base64();
 			String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64," +  Base64.encodeBase64String(foto);
 			modelLogin.setFotoUser(imagemBase64);
+			System.out.println(imagemBase64);
 			modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
 			
 			/*
