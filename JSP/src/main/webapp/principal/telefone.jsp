@@ -47,19 +47,19 @@
 															<div class="form-group form-default form-static-label">
 																<input type="text" name="id" id="id"
 																	class="form-control" readonly="readonly"
-																	value="${usuario.id}"> <span class="form-bar"></span>
-																<label class="float-label">Id:</label>
+																	value="${usuario.id}"> <span
+																	class="form-bar"></span> <label class="float-label">ID:</label>
 															</div>
 															<div class="form-group form-default form-static-label">
 																<input type="text" class="form-control" name="nome"
-																	id="nome" autocomplete="none" value="${usuario.nome}"
-																	readonly="readonly"><span class="form-bar"></span>
-																<label class="float-label">Nome</label>
+																	id="nome" autocomplete="none"
+																	value="${usuario.nome}" readonly="readonly"><span
+																	class="form-bar"></span> <label class="float-label">Nome</label>
 															</div>
 															<div class="form-group form-default form-static-label">
 																<input type="text" class="form-control" name="telefone"
 																	id="telefone" autocomplete="none"><span
-																	class="form-bar"></span> <label class="float-label">Telefone</label>
+																	class="form-bar"></span> <label class="float-label">telefone</label>
 															</div>
 															<button type="submit" class="btn btn-primary waves-effect waves-light">Salvar</button>
 														</form>
@@ -72,6 +72,7 @@
 										</div>
 									</div>
 								</div>
+<<<<<<< master
 								<div class="card">
 									<div class="card-header">
 										<h5>Lista de telefones cadastrados para ${usuario.nome}</h5>
@@ -104,6 +105,9 @@
 								</div>
 							</div>
 							<div id="styleSelector"></div>
+=======
+								<div id="styleSelector"></div>
+>>>>>>> 3109e73 comitar criação de tabela de telefones para cada usuário
 							</div>
 						</div>
 					</div>
@@ -111,6 +115,7 @@
 			</div>
 		</div>
 	</div>
+<<<<<<< master
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
@@ -119,5 +124,69 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/pesquisarCEP.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscaPagAjax.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/validacao.js"></script>
+=======
+	<div class="modal fade" id="exampleModal" tabindex="1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisar</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id="nomeBusca">
+						<div class="input-group-append">
+							<button class="btn btn-success" type="button" id="buscar">Buscar</button>
+							<button class="btn btn-danger" type="button" id="limpar_pesquisa">Limpar</button>
+						</div>
+					</div>
+					<div class="caixa_de_dialogo">
+						<h7>Digite algum nome</h7>
+					</div>
+				</div>
+				<table class="table" id="tabelaresultados">
+					<thead>
+						<tr>
+							<th>email</th>
+							<th>ID</th>
+							<th>Nome</th>
+							<th>Selecionar</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-primary">Salvar mudanças</button>
+				</div>
+				<nav aria-label="Page navigation example"
+					style="margin: auto; position: relative;">
+					<ul class="pagination" id="ulPaginacaoUserAjax">
+						
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/editar.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/imagem.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/pesquisarCEP.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/scripts/buscaPagAjax.js"></script>
+>>>>>>> 3109e73 comitar criação de tabela de telefones para cada usuário
 </body>
 </html>
