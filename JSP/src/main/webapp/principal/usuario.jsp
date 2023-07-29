@@ -91,6 +91,7 @@
 																<label class="float-label">E-mail</label>
 															</div>
 															<p>${msg_email}</p>
+															
 															<div class="form-group form-default form-static-label">
 																<select class="form-control" multiple
 																	aria-label="multiple select example" name="perfil"
@@ -125,18 +126,18 @@
 
 																</select> <span class="form-bar"></span> <label
 																	class="float-label">Perfil</label>
-															</div>
+															</div>	
 															<div class="form-control form-group form-default"
 																style="margin-top: 5px;">
 																<input type="radio" name="sexo" value="MASCULINO"
 																	checked="checked"
-																	<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+																	<% modelLogin = (ModelLogin) request.getAttribute("modelLogin");
 
 																	if (modelLogin != null && modelLogin.getSexo().equals("MASCULINO")) {
 																		out.println("checked=\"checked\"");
 																	}%>>Masculino</>
 																<input type="radio" name="sexo" value="FEMININO"
-																	<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+																	<% modelLogin = (ModelLogin) request.getAttribute("modelLogin");
 
 																	if (modelLogin != null && modelLogin.getSexo().equals("FEMININO")) {
 																		out.println("checked=\"checked\"");

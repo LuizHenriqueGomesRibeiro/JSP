@@ -78,9 +78,6 @@ public class servletTelefone extends ServletGenericUtil {
 				redirecionar.forward(request, response);
 				
 			}
-			
-			
-			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
