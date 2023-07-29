@@ -74,6 +74,7 @@
 								</div>
 <<<<<<< master
 <<<<<<< master
+<<<<<<< master
 								<div class="card">
 									<div class="card-header">
 										<h5>Lista de telefones cadastrados para ${usuario.nome}</h5>
@@ -112,6 +113,9 @@
 =======
 								<div id="styleSelector"></div>
 >>>>>>> 3109e73 comitar criação de tabela de telefones para cada usuário
+=======
+								<div id="styleSelector"></div>
+>>>>>>> 3109e73 comitar criação de tabela de telefones para cada usuário
 							</div>
 						</div>
 					</div>
@@ -119,6 +123,7 @@
 			</div>
 		</div>
 	</div>
+<<<<<<< master
 <<<<<<< master
 <<<<<<< master
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
@@ -130,6 +135,8 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscaPagAjax.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/validacao.js"></script>
 =======
+=======
+>>>>>>> 3109e73 comitar criação de tabela de telefones para cada usuário
 =======
 >>>>>>> 3109e73 comitar criação de tabela de telefones para cada usuário
 	<div class="modal fade" id="exampleModal" tabindex="1" role="dialog"

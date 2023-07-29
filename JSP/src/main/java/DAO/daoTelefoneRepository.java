@@ -82,8 +82,7 @@ public List<ModelTelefone> listarTelefone(String id) throws SQLException{
 		String sql = "SELECT * FROM telefone WHERE usuario_pai_id = ?";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setLong(1, Long.parseLong(id));
-		ResultSet resultado = statement.executeQuery();	
+		ResultSet resultado = statement.executeQuery();
 		
 		while(resultado.next()) {
 			
