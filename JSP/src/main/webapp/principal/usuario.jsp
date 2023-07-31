@@ -9,6 +9,7 @@
 <jsp:include page="includes/theme-loader.jsp"></jsp:include>
 <jsp:include page="includes/javascript.jsp"></jsp:include>
 <body>
+<div><h1>Isso é só um teste</h1></div>
 	<!-- Pre-loader end -->
 	<div id="pcoded" class="pcoded">
 		<div class="pcoded-overlay-box"></div>
@@ -48,9 +49,7 @@
 															<div class="form-group form-default form-static-label">
 																<input type="text" name="id" id="id"
 																	class="form-control" readonly="readonly"
-																	value="${modelLogin.id}"
-																	> <span
-																	class="form-bar"></span> <label class="float-label">ID:</label>
+																	value="${modelLogin.id}"> <span class="form-bar"></span> <label class="float-label">ID:</label>
 															</div>
 
 															<div class="form-group form-default input-group mb-4"
@@ -63,7 +62,6 @@
 																			src="${modelLogin.fotoUser}" height="70px">
 																		</a>
 																	</c:if>
-
 																	<c:if
 																		test="${modelLogin.fotoUser == '' || modelLogin.fotoUser == null}">
 																		<img alt="Imagem User" id="fotoembase64"
@@ -330,6 +328,7 @@
 			</div>
 		</div>
 	</div>
+
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>

@@ -125,16 +125,20 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				redirecionar.forward(request, response);
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUsuario")) {
+				
+				ModelLogin modelLogin = super.getUserLogadoObjeto(request);
+				request.setAttribute("modelLogin", modelLogin);
+				
+				System.out.println("O perfil desejado é: " + modelLogin.getPerfil());
 
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
-				request.setAttribute("modelLogin", modelLogins);
 				request.setAttribute("modelLogins", modelLogins);
 
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
 				
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
-
+				
 			} else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("download")) {
 				
 				String id = request.getParameter("id");
@@ -227,7 +231,6 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			new Base64();
 			String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64," +  Base64.encodeBase64String(foto);
 			modelLogin.setFotoUser(imagemBase64);
-			System.out.println(imagemBase64);
 			modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
 			
 			/*
