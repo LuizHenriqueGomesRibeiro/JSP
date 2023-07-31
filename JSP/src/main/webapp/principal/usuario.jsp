@@ -48,8 +48,7 @@
 															<div class="form-group form-default form-static-label">
 																<input type="text" name="id" id="id"
 																	class="form-control" readonly="readonly"
-																	value="${modelLogin.id}"
-																	> <span
+																	value="${modelLogin.id}"> <span
 																	class="form-bar"></span> <label class="float-label">ID:</label>
 															</div>
 
@@ -90,9 +89,11 @@
 																<label class="float-label">E-mail</label>
 															</div>
 															<p>${msg_email}</p>
-															<div class="form-group form-default form-static-label">
-																<select class="form-control" multiple
-																	aria-label="multiple select example" name="perfil"
+															
+															
+															<c:if test="${modelLogin.perfil != null}">
+																<div class="form-group form-default form-static-label">
+																	<select class="form-control" multiple aria-label="multiple select example" name="perfil"
 																	style="height: 65px; overflow: hidden;">
 
 																	<option value="ADMIN"
@@ -122,14 +123,17 @@
 
 																	}%>>Auxiliar</option>
 
-																</select> <span class="form-bar"></span> <label
+																	</select> <span class="form-bar"></span> <label
 																	class="float-label">Perfil</label>
-															</div>
+																</div>
+															</c:if>
+															
+															
 															<div class="form-control form-group form-default"
 																style="margin-top: 5px;">
 																<input type="radio" name="sexo" value="MASCULINO"
 																	checked="checked"
-																	<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+																	<%ModelLogin modelLogin = (ModelLogin) request.getAttribute("modelLogin");
 
 																	if (modelLogin != null && modelLogin.getSexo().equals("MASCULINO")) {
 																		out.println("checked=\"checked\"");

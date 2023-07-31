@@ -17,7 +17,7 @@
 				
 				<input type="hidden" value="<%=request.getParameter("url")%>" name="url">
 
-				<p>Login:</p>
+				<p>Login:</p>	
 				<input name="login" type="text" required>
 				
 				<p>Senha:</p>                  
