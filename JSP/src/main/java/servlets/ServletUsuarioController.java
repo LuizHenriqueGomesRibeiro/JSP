@@ -101,7 +101,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				 */
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscar")) {
-
+				
 				String id = request.getParameter("id");
 
 				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id, super.getUserLogado(request));
@@ -128,6 +128,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogin", modelLogins);
+				request.setAttribute("modelLogins", modelLogins);
 
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
 				

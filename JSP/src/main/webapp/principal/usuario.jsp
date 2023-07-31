@@ -48,7 +48,8 @@
 															<div class="form-group form-default form-static-label">
 																<input type="text" name="id" id="id"
 																	class="form-control" readonly="readonly"
-																	value="${modelLogin.id}"> <span
+																	value="${modelLogin.id}"
+																	> <span
 																	class="form-bar"></span> <label class="float-label">ID:</label>
 															</div>
 
