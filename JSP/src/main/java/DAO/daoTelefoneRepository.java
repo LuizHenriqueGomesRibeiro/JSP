@@ -91,7 +91,6 @@ public List<ModelTelefone> listarTelefone(String id) throws SQLException{
 			ModelLogin modelLogin_cad = daoUsuarioRepository.consultaUsuarioId(resultado.getLong("usuario_cad_id"));
 			ModelLogin modelLogin_pai = daoUsuarioRepository.consultaUsuarioId(resultado.getLong("usuario_cad_id"));
 			modelTelefone.setId(resultado.getLong("id"));
-
 			modelTelefone.setNumero(resultado.getString("numero"));
 			modelTelefone.setUsuario_cad_id(modelLogin_cad);
 			modelTelefone.setUsuario_pai_id(modelLogin_pai);
