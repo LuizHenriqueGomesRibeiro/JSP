@@ -6,12 +6,12 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>servletTelefone</display-name>
-    <servlet-name>servletTelefone</servlet-name>
-    <servlet-class>servlets.servletTelefone</servlet-class>
+    <display-name>serverTelefone</display-name>
+    <servlet-name>serverTelefone</servlet-name>
+    <servlet-class>servlets.serverTelefone</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>servletTelefone</servlet-name>
-    <url-pattern>/servletTelefone</url-pattern>
+    <servlet-name>serverTelefone</servlet-name>
+    <url-pattern>/serverTelefone</url-pattern>
   </servlet-mapping>
 </web-app>

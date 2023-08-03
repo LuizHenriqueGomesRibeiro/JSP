@@ -247,11 +247,6 @@ public class DAOUsuarioRepository {
 	
 	public List<ModelLogin> consultaUsuarioListOffSet(String nome, Long userLogado, int offset) throws SQLException{
 		
-		System.out.println("Estamos dentro do método consultaUsuarioListOffSet()");
-		System.out.println("nome: "+nome);
-		System.out.println("userLogado: "+userLogado);
-		System.out.println("offset: "+offset);
-		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
 		String sql = "SELECT*FROM model_login WHERE nome LIKE ? AND useradmin IS FALSE AND usuario_id = ? OFFSET "+offset+" LIMIT 5";

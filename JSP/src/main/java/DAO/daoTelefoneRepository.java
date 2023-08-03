@@ -31,19 +31,18 @@ public class daoTelefoneRepository {
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, modelTelefone.getNumero());
 		statement.setLong(2, usuario_pai_id.getId());
-		// statement.setLong(1, modelTelefone.getUsuario_pai_id().getId());
 		statement.setLong(3, usuario_cad_id.getId());
 		statement.execute();
 		
 		connection.commit();
 	}
 	
-	public void deleteTelefone(Long id) throws SQLException {
+	public void deleteTelefone(String id) throws SQLException {
 		
 		String sql = "DELETE FROM telefone WHERE id = ?";
 
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setLong(1, id);
+		statement.setLong(1, Long.parseLong(id));
 		statement.executeUpdate();
 			
 		connection.commit();
@@ -56,6 +55,7 @@ public class daoTelefoneRepository {
 		String sql = "SELECT * FROM telefone WHERE usuario_pai_id = ?";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setLong(1, id);
 		ResultSet resultado = statement.executeQuery();
 		
 		while(resultado.next()) {
@@ -82,6 +82,7 @@ public List<ModelTelefone> listarTelefone(String id) throws SQLException{
 		String sql = "SELECT * FROM telefone WHERE usuario_pai_id = ?";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setLong(1, Long.parseLong(id));
 		ResultSet resultado = statement.executeQuery();
 		
 		while(resultado.next()) {

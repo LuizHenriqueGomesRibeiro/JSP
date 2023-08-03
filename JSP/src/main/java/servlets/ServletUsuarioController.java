@@ -17,10 +17,6 @@ import jakarta.servlet.http.Part;
 import model.ModelLogin;
 import org.apache.commons.codec.binary.Base64;
 
-/**
- * Servlet implementation class ServletUsuarioController
- */
-
 @MultipartConfig
 @WebServlet(urlPatterns = { "/ServletUsuarioController" })
 public class ServletUsuarioController extends ServletGenericUtil {
@@ -126,11 +122,13 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUsuario")) {
 				
+				/*
 				ModelLogin modelLogin = super.getUserLogadoObjeto(request);
 				request.setAttribute("modelLogin", modelLogin);
 				
 				System.out.println("O perfil desejado é: " + modelLogin.getPerfil());
-
+				*/
+				
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
 

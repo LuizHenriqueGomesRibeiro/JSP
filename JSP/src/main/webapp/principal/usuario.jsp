@@ -9,7 +9,6 @@
 <jsp:include page="includes/theme-loader.jsp"></jsp:include>
 <jsp:include page="includes/javascript.jsp"></jsp:include>
 <body>
-<div><h1>Isso é só um teste</h1></div>
 	<!-- Pre-loader end -->
 	<div id="pcoded" class="pcoded">
 		<div class="pcoded-overlay-box"></div>
@@ -39,7 +38,7 @@
 													</div>
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
-														<form class="form-material" name="frmContato"
+														<form class="form-material"	
 															id="formulario_usuario" enctype="multipart/form-data"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="post">
@@ -203,8 +202,7 @@
 															<button type="button"
 																class="btn btn-primary waves-effect waves-light"
 																id="limpar">Novo</button>
-															<button type="submit"
-																class="btn btn-primary waves-effect waves-light">Salvar</button>
+															<button type="submit" class="btn btn-primary waves-effect waves-light">Salvar</button>
 															<c:if test="${modelLogin.id > 0}">
 																<button type="button"
 																	style="background-color: red; border: 1px solid red;"
@@ -212,7 +210,7 @@
 																	id="caixa">Excluir</button>
 															</c:if>
 															<c:if test="${modelLogin.id > 0}">
-																<a id="telefoneEsconder" href="<%= request.getContextPath() %>/servletTelefone?iduser=${modelLogin.id}" class="btn btn-primary waves-effect waves-light">Telefone</a>
+																<a id="telefoneEsconder" href="<%= request.getContextPath() %>/serverTelefone?iduser=${modelLogin.id}&acao=listarTelefones" class="btn btn-primary waves-effect waves-light">Telefone</a>
 															</c:if>
 															<button type="button" class="btn btn-success"
 																data-toggle="modal" data-target="#exampleModal">
