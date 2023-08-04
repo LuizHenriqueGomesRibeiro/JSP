@@ -1,11 +1,12 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
-public class ModelLogin implements Serializable{
-	
+public class ModelLogin implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 	private String nome;
 	private String email;
@@ -22,13 +23,31 @@ public class ModelLogin implements Serializable{
 	private String localidade;
 	private String uf;
 	private String numero;
+	private Date dataNascimento;
+	private double renda;
 	
-	public String getCEP() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCEP(String cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
+	}
+
+	public double getRenda() {
+		return renda;
+	}
+
+	public void setRenda(double renda) {
+		this.renda = renda;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+	
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
 	public String getRua() {
@@ -54,7 +73,7 @@ public class ModelLogin implements Serializable{
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	
+
 	public String getLocalidade() {
 		return localidade;
 	}
@@ -112,41 +131,50 @@ public class ModelLogin implements Serializable{
 	}
 
 	public boolean isNovo() {
-		if(this.id == null) {
+		if (this.id == null) {
 			return true;
-		}else if(this.id != null && this.id > 0) {
+		} else if (this.id != null && this.id > 0) {
 			return false;
 		}
 		return id == null;
 	}
-	
+
 	public String getLogin() {
 		return login;
 	}
+
 	public void setLogin(String login) {
 		this.login = login;
 	}
+
 	public String getSenha() {
 		return senha;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}

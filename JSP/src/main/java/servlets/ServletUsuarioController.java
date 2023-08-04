@@ -2,9 +2,15 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.List;
+
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
+
 import com.google.gson.Gson;
+
 import DAO.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -15,7 +21,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import model.ModelLogin;
-import org.apache.commons.codec.binary.Base64;
 
 @MultipartConfig
 @WebServlet(urlPatterns = { "/ServletUsuarioController" })
@@ -77,7 +82,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca, super.getUserLogado(request));
 				Gson gson = new Gson();
 				String json = gson.toJson(dadosJsonUser);
-				response.addHeader("TotalPagina", ""+daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
+				response.addHeader("TotalPagina", "" + daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
 				PrintWriter printWriter = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
@@ -110,11 +115,11 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				
 				System.out.println("Prompt: ServletUsuarioController consultaUsuarioId");
 				System.out.println(modelLogin.getNome());
-				System.out.println(modelLogin.getCEP());
+				System.out.println(modelLogin.getCep());
 				System.out.println(modelLogin.getPerfil());
 				System.out.println("--------------------------------------------------------------------------------");
 				
-				request.setAttribute("cep", modelLogin.getCEP());
+				request.setAttribute("cep", modelLogin.getCep());
 
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
@@ -207,7 +212,13 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String localidade = request.getParameter("localidade");
 			String uf = request.getParameter("uf");
 			String numero = request.getParameter("numero");
-
+			String dataNascimento = request.getParameter("dataNascimento");
+			String renda = request.getParameter("renda");
+			
+			renda = renda.split("\\ ")[1].replaceAll("\\.", "").replaceAll("\\,", ".");
+			
+			System.out.println(renda);
+			
 			ModelLogin modelLogin = new ModelLogin();
 			
 			modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
@@ -217,12 +228,25 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setSenha(senha);
 			modelLogin.setPerfil(perfil);
 			modelLogin.setSexo(sexo);
-			modelLogin.setCEP(cep);
+			modelLogin.setCep(cep);
 			modelLogin.setRua(rua);
 			modelLogin.setBairro(bairro);
 			modelLogin.setLocalidade(localidade);
 			modelLogin.setUf(uf);
 			modelLogin.setNumero(numero);
+			modelLogin.setRenda(Double.valueOf(renda));
+					
+			SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date dataUtil;
+			try {
+				
+				dataUtil = formatador.parse(dataNascimento);
+				Date dataSql = new Date(dataUtil.getTime());
+				modelLogin.setDataNascimento(dataSql);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			Part part = request.getPart("fileFoto");
 			byte[] foto = IOUtils.toByteArray(part.getInputStream());
@@ -230,35 +254,6 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64," +  Base64.encodeBase64String(foto);
 			modelLogin.setFotoUser(imagemBase64);
 			modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
-			
-			/*
-			System.out.println("----------------------------------------------------------------------------------------------------------");
-			System.out.println("Informações vindas do ServletUsuarioController:");
-			System.out.println("foto: "+foto);
-			System.out.println("imagemBase64: "+imagemBase64);
-			System.out.println("setExtensaofotouser: "+part.getContentType().split("\\/")[1]);
-			System.out.println("----------------------------------------------------------------------------------------------------------");
-			*/
-			
-			/*
-			boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-			System.out.println("isMultipart"+isMultipart);
-			 
-			try {
-				if (isMultipart) {
-					ServletFileUpload.isMultipartContent(request)
-					Part part = request.getPart("fileFoto"); 
-					System.out.println("v"+part);
-					byte[] foto = IOUtils.toByteArray(part.getInputStream());
-					String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[0] + ";base64," + new Base64().encodeBase64String(foto);
-					System.out.println("imagemBase64"+imagemBase64);
-					modelLogin.setFotoUser(imagemBase64);
-					modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[0]);
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}*/
 
 			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
 				if (daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {

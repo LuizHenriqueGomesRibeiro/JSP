@@ -27,7 +27,7 @@ jQuery(function() {
 					required: true
 				},
 				rua: {
-					requered: true
+					required: true
 				},
 				bairro: {
 					required: true

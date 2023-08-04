@@ -29,6 +29,7 @@
 <!-- Style.css -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/css/style.css">
 <script type="text/javascript" src="<%=request.getContextPath() %>/scripts/jquery-3.7.0.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/scripts/validacao.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/scripts/limpar.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/scripts/deletar.js"></script>

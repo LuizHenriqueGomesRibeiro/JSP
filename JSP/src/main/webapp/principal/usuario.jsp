@@ -38,7 +38,7 @@
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
 														<form class="form-material"	
-															 name="frmContato" id="formulario" enctype="multipart/form-data"
+															name="frmContato" id="formulario" enctype="multipart/form-data"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="post">
 
@@ -77,6 +77,18 @@
 																	id="nome" autocomplete="none"
 																	value="${modelLogin.nome}"> <span
 																	class="form-bar"></span> <label class="float-label">Nome</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="date" class="form-control" name="dataNascimento"
+																	id="dataNascimento" autocomplete="dataNascimento"
+																	value="${modelLogin.dataNascimento}"> <span
+																	class="form-bar"></span> <label class="float-label">data de nascimento</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="text" class="form-control" name="renda"
+																	id="renda" autocomplete="renda"
+																	value="${modelLogin.renda}"> <span
+																	class="form-bar"></span> <label class="float-label">Renda mensal</label>
 															</div>
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="email"
@@ -326,14 +338,22 @@
 	</div>
 	<script type="text/javascript">
 	
-		jQuery("#numero").keypress(function (event){
+	
+		jQuery("#renda").maskMoney({
+			showSymbol : true,	
+			symbol : "R$ ",
+			decimal : ",",
+			thousands : "."
+		});
+
+		jQuery("#numero").keypress(function(event) {
 			return /\d/.test(String.fromCharCode(event.keyCode));
 		});
-		
-		jQuery("#cep").keypress(function (event){
+
+		jQuery("#cep").keypress(function(event) {
 			return /\d/.test(String.fromCharCode(event.keyCode));
 		});
-		
+
 	</script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
@@ -342,5 +362,6 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/imagem.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/pesquisarCEP.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscaPagAjax.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/validacao.js"></script>
 </body>
 </html>
