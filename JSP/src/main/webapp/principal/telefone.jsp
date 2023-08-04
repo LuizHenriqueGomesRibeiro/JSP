@@ -39,7 +39,7 @@
 													</div>
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
-														<form class="form-material" id="formulario"
+														<form class="form-material" name="frmContato" id="formulario"
 															action="<%=request.getContextPath()%>/serverTelefone"
 															method="post">
 

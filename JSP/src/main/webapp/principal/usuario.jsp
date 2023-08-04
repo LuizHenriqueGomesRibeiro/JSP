@@ -9,7 +9,6 @@
 <jsp:include page="includes/theme-loader.jsp"></jsp:include>
 <jsp:include page="includes/javascript.jsp"></jsp:include>
 <body>
-	<!-- Pre-loader end -->
 	<div id="pcoded" class="pcoded">
 		<div class="pcoded-overlay-box"></div>
 		<div class="pcoded-container navbar-wrapper">
@@ -39,7 +38,7 @@
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
 														<form class="form-material"	
-															id="formulario" enctype="multipart/form-data"
+															 name="frmContato" id="formulario" enctype="multipart/form-data"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="post">
 
@@ -79,7 +78,6 @@
 																	value="${modelLogin.nome}"> <span
 																	class="form-bar"></span> <label class="float-label">Nome</label>
 															</div>
-
 															<div class="form-group form-default">
 																<input type="text" class="form-control" name="email"
 																	value="${modelLogin.email}" id="email"
@@ -335,102 +333,6 @@
 		jQuery("#cep").keypress(function (event){
 			return /\d/.test(String.fromCharCode(event.keyCode));
 		});
-		
-		jQuery(function() {
-			if(jQuery("#formulario").length){
-				jQuery("#formulario").validate({
-					rules: {
-						login: {
-							required: true
-						},
-						nome: {
-							required: true
-						},
-						email: {
-							required: true
-						},
-						senha: {
-							required: true
-						},
-						sexo: {
-							required: true
-						},
-						perfil: {
-							required: true
-						},
-						telefone: {
-							required: true
-						},
-						cep: {
-							required: true
-						},
-						rua: {
-							requered: true
-						},
-						bairro: {
-							required: true
-						},
-						localidade: {
-							required: true
-						},
-						numero: {
-							required: true
-						},
-						uf: {
-							required: true
-						}
-					},
-					messages: {
-						login: {
-							required: "O login é obrigatório"
-						},
-						nome: {
-							required: "O nome é obrigatório"
-						},
-						email: {
-							required: "O E-mail é obrigatório"
-						},
-						senha:{
-							required:"A senha é obrigatória"
-						},
-						sexo:{
-							required:"O sexo é obrigatório"
-						},
-						perfil:{
-							required:"O perfil é obrigatório"
-						},
-						telefone:{
-							required:"Este campo é obrigatório"
-						},
-						cep:{
-							required: "O CEP é obrigatório"
-						},
-						rua: {
-							required: "A rua é obrigatória"
-						},
-						bairro: {
-							required: "O bairro é obrigatório"
-						},
-						localidade: {
-							required: "A localidade é obrigatória"
-						},
-						uf: {
-							required: "O Estado é obrigatório"
-						},
-						numero: {
-							required: "O número é obrigatório"
-						}
-					}
-				});
-			}
-			else{
-				validar();
-			}
-		});
-
-		function validar() {
-			document.forms["frmContato"].submit();
-		}
 		
 	</script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
