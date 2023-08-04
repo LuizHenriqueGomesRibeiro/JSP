@@ -40,7 +40,7 @@
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
 														<form class="form-material" id="formulario"
-															action="<%=request.getContextPath()%>/servletTelefone"
+															action="<%=request.getContextPath()%>/serverTelefone"
 															method="post">
 
 															<input type="hidden" name="acao" id="acao" value="">
@@ -111,7 +111,13 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	<script type="text/javascript">
+	
+		jQuery("#telefone").keypress(function (event){
+			return /\d/.test(String.fromCharCode(event.keyCode));
+		});
+		
+	</script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
@@ -119,6 +125,5 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/imagem.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/pesquisarCEP.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscaPagAjax.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/validacao.js"></script>
 </body>
 </html>

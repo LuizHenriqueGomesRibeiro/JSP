@@ -37,7 +37,6 @@ public class serverTelefone extends ServletGenericUtil {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Você está dentro do servlet de telefones. Seja bem-vindo!");
 		
 		String acao = request.getParameter("acao");
 
@@ -90,7 +89,38 @@ public class serverTelefone extends ServletGenericUtil {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Você está dentro do servlet de telefones. Seja bem-vindo!");
+		try {
+			
+String iduser = request.getParameter("id");
+			
+			ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(Long.parseLong(iduser));
+			request.setAttribute("usuario", modelLogin);
+
+			String usuario_pai_id = request.getParameter("id");
+			String telefone = request.getParameter("telefone");
+
+			ModelTelefone modelTelefone = new ModelTelefone();
+
+			modelTelefone.setNumero(telefone);
+			modelTelefone.setUsuario_pai_id(daoUsuarioRepository.consultaUsuarioId(Long.parseLong(usuario_pai_id)));
+			modelTelefone.setUsuario_cad_id(super.getUserLogadoObjeto(request));
+			
+			daoTelefoneRepository.gravaTelefone(modelTelefone);
+
+			request.setAttribute("pai_telefone", daoUsuarioRepository.consultaUsuarioId(Long.parseLong(usuario_pai_id)));
+			request.setAttribute("msg_sucesso", "Telefone cadastrado com sucesso");
+			
+			List<ModelTelefone> modelTelefones = daoTelefoneRepository.listarTelefone(usuario_pai_id);
+			request.setAttribute("telefones", modelTelefones);
+			
+			RequestDispatcher redirecionar = request.getRequestDispatcher("principal/telefone.jsp");
+			redirecionar.forward(request, response);
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 }

@@ -39,7 +39,7 @@
 													<div class="card-block">
 														<h4 class="sub-title">Preencha as suas informações:</h4>
 														<form class="form-material"	
-															id="formulario_usuario" enctype="multipart/form-data"
+															id="formulario" enctype="multipart/form-data"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="post">
 
@@ -326,7 +326,113 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	
+		jQuery("#numero").keypress(function (event){
+			return /\d/.test(String.fromCharCode(event.keyCode));
+		});
+		
+		jQuery("#cep").keypress(function (event){
+			return /\d/.test(String.fromCharCode(event.keyCode));
+		});
+		
+		jQuery(function() {
+			if(jQuery("#formulario").length){
+				jQuery("#formulario").validate({
+					rules: {
+						login: {
+							required: true
+						},
+						nome: {
+							required: true
+						},
+						email: {
+							required: true
+						},
+						senha: {
+							required: true
+						},
+						sexo: {
+							required: true
+						},
+						perfil: {
+							required: true
+						},
+						telefone: {
+							required: true
+						},
+						cep: {
+							required: true
+						},
+						rua: {
+							requered: true
+						},
+						bairro: {
+							required: true
+						},
+						localidade: {
+							required: true
+						},
+						numero: {
+							required: true
+						},
+						uf: {
+							required: true
+						}
+					},
+					messages: {
+						login: {
+							required: "O login é obrigatório"
+						},
+						nome: {
+							required: "O nome é obrigatório"
+						},
+						email: {
+							required: "O E-mail é obrigatório"
+						},
+						senha:{
+							required:"A senha é obrigatória"
+						},
+						sexo:{
+							required:"O sexo é obrigatório"
+						},
+						perfil:{
+							required:"O perfil é obrigatório"
+						},
+						telefone:{
+							required:"Este campo é obrigatório"
+						},
+						cep:{
+							required: "O CEP é obrigatório"
+						},
+						rua: {
+							required: "A rua é obrigatória"
+						},
+						bairro: {
+							required: "O bairro é obrigatório"
+						},
+						localidade: {
+							required: "A localidade é obrigatória"
+						},
+						uf: {
+							required: "O Estado é obrigatório"
+						},
+						numero: {
+							required: "O número é obrigatório"
+						}
+					}
+				});
+			}
+			else{
+				validar();
+			}
+		});
 
+		function validar() {
+			document.forms["frmContato"].submit();
+		}
+		
+	</script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscar.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/limpar.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.validate.js"></script>
@@ -334,6 +440,5 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/imagem.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/pesquisarCEP.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/buscaPagAjax.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/validacao.js"></script>
 </body>
 </html>

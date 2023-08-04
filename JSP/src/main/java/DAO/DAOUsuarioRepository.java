@@ -446,6 +446,7 @@ public class DAOUsuarioRepository {
 				modelLogin.setLocalidade(resultado.getString("localidade"));
 				modelLogin.setUf(resultado.getString("uf"));
 				modelLogin.setNumero(resultado.getString("numero"));
+				
 			}
 			
 			return modelLogin;
