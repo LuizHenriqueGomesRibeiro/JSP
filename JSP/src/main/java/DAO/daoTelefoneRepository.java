@@ -75,7 +75,7 @@ public class daoTelefoneRepository {
 		return retorno;
 	}
 	
-public List<ModelTelefone> listarTelefone(String id) throws SQLException{
+	public List<ModelTelefone> listarTelefone(String id) throws SQLException{
 		
 		List<ModelTelefone> retorno = new ArrayList<ModelTelefone>();
 		
@@ -100,5 +100,21 @@ public List<ModelTelefone> listarTelefone(String id) throws SQLException{
 		}
 		
 		return retorno;
+	}
+	
+	public boolean existeFone(String fone, Long idUser) throws SQLException {
+		
+		String sql = "SELECT count(1) > 0 AS existe FROM telefone WHERE usuario_pai_id = ? AND numero = ?";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		statement.setLong(1, idUser);
+		statement.setString(2, fone);
+		
+		ResultSet rs = statement.executeQuery();
+		
+		rs.next();
+		
+		return rs.getBoolean("existe");	
 	}
 }

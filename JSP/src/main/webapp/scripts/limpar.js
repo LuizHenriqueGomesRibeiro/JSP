@@ -13,6 +13,8 @@ jQuery(function(){
 	var localidade = jQuery("#localidade");
 	var uf = jQuery("#uf");
 	var numero = jQuery("#numero");
+	var dataNascimento = jQuery("#dataNascimento");
+	var renda = jQuery("#renda");
 	
 	limpar.click(function(){
 		nome.val("");
@@ -26,6 +28,8 @@ jQuery(function(){
 		localidade.val("");
 		uf.val("");
 		numero.val("");
+		dataNascimento.val("");
+		renda.val("");
 	});
 });
 

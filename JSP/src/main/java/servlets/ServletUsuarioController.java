@@ -69,7 +69,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioListOffSet(nomeBusca, super.getUserLogado(request), Integer.parseInt(pagina));
 				Gson gson = new Gson();
 				String json = gson.toJson(dadosJsonUser);
-				response.addHeader("TotalPagina", ""+daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
+				response.addHeader("TotalPagina", "" + daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
 				PrintWriter printWriter = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
@@ -112,12 +112,6 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				
 				request.setAttribute("msg", "Usuário em edição");
 				request.setAttribute("modelLogin", modelLogin);
-				
-				System.out.println("Prompt: ServletUsuarioController consultaUsuarioId");
-				System.out.println(modelLogin.getNome());
-				System.out.println(modelLogin.getCep());
-				System.out.println(modelLogin.getPerfil());
-				System.out.println("--------------------------------------------------------------------------------");
 				
 				request.setAttribute("cep", modelLogin.getCep());
 
@@ -216,8 +210,6 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String renda = request.getParameter("renda");
 			
 			renda = renda.split("\\ ")[1].replaceAll("\\.", "").replaceAll("\\,", ".");
-			
-			System.out.println(renda);
 			
 			ModelLogin modelLogin = new ModelLogin();
 			

@@ -338,13 +338,14 @@
 	</div>
 	<script type="text/javascript">
 	
-	
 		jQuery("#renda").maskMoney({
 			showSymbol : true,	
 			symbol : "R$ ",
 			decimal : ",",
 			thousands : "."
 		});
+		
+		jQuery("#renda").focus();
 
 		jQuery("#numero").keypress(function(event) {
 			return /\d/.test(String.fromCharCode(event.keyCode));

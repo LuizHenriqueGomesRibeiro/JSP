@@ -91,32 +91,48 @@ public class serverTelefone extends ServletGenericUtil {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			
-String iduser = request.getParameter("id");
+			String iduser = request.getParameter("id");
 			
-			ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(Long.parseLong(iduser));
-			request.setAttribute("usuario", modelLogin);
-
 			String usuario_pai_id = request.getParameter("id");
 			String telefone = request.getParameter("telefone");
+			
+			if (!daoTelefoneRepository.existeFone(telefone, Long.parseLong(iduser))) {
 
-			ModelTelefone modelTelefone = new ModelTelefone();
+				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(Long.parseLong(iduser));
+				request.setAttribute("usuario", modelLogin);
 
-			modelTelefone.setNumero(telefone);
-			modelTelefone.setUsuario_pai_id(daoUsuarioRepository.consultaUsuarioId(Long.parseLong(usuario_pai_id)));
-			modelTelefone.setUsuario_cad_id(super.getUserLogadoObjeto(request));
-			
-			daoTelefoneRepository.gravaTelefone(modelTelefone);
+				ModelTelefone modelTelefone = new ModelTelefone();
 
-			request.setAttribute("pai_telefone", daoUsuarioRepository.consultaUsuarioId(Long.parseLong(usuario_pai_id)));
-			request.setAttribute("msg_sucesso", "Telefone cadastrado com sucesso");
-			
-			List<ModelTelefone> modelTelefones = daoTelefoneRepository.listarTelefone(usuario_pai_id);
-			request.setAttribute("telefones", modelTelefones);
-			
-			RequestDispatcher redirecionar = request.getRequestDispatcher("principal/telefone.jsp");
-			redirecionar.forward(request, response);
-			
-			
+				modelTelefone.setNumero(telefone);
+				modelTelefone.setUsuario_pai_id(daoUsuarioRepository.consultaUsuarioId(Long.parseLong(usuario_pai_id)));
+				modelTelefone.setUsuario_cad_id(super.getUserLogadoObjeto(request));
+
+				daoTelefoneRepository.gravaTelefone(modelTelefone);
+
+				request.setAttribute("pai_telefone", daoUsuarioRepository.consultaUsuarioId(Long.parseLong(usuario_pai_id)));
+				request.setAttribute("msg_sucesso", "Telefone cadastrado com sucesso");
+
+				List<ModelTelefone> modelTelefones = daoTelefoneRepository.listarTelefone(usuario_pai_id);
+				request.setAttribute("telefones", modelTelefones);
+
+				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/telefone.jsp");
+				redirecionar.forward(request, response);
+
+			}else {
+				
+				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(Long.parseLong(iduser));
+				request.setAttribute("usuario", modelLogin);
+				
+				request.setAttribute("msg_sucesso", "Este telefone já existe");
+				
+				List<ModelTelefone> modelTelefones = daoTelefoneRepository.listarTelefone(usuario_pai_id);
+				request.setAttribute("telefones", modelTelefones);
+
+				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/telefone.jsp");
+				redirecionar.forward(request, response);
+				
+			}
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

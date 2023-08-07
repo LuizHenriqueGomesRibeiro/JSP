@@ -52,6 +52,7 @@ public class DAOUsuarioRepository {
 				connection.commit();
 				
 				if (modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
+					
 					sql = "UPDATE model_login SET fotouser =?, extensaofotouser=? WHERE login =?";
 					
 					statement = connection.prepareStatement(sql);
@@ -90,6 +91,7 @@ public class DAOUsuarioRepository {
 				connection.commit();
 							
 				if (modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
+					
 					sql = "UPDATE model_login SET fotouser = ?, extensaofotouser= ? WHERE id = ?";
 					
 					statement = connection.prepareStatement(sql);
@@ -151,8 +153,7 @@ public class DAOUsuarioRepository {
 
 		ResultSet resultado = statement.executeQuery();
 
-		while (resultado.next()) { /* percorrer as linhas de resultado do SQL */
-
+		while (resultado.next()) {
 			ModelLogin modelLogin = new ModelLogin();
 
 			modelLogin.setEmail(resultado.getString("email"));
@@ -160,7 +161,6 @@ public class DAOUsuarioRepository {
 			modelLogin.setLogin(resultado.getString("login"));
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setSexo(resultado.getString("sexo"));
-			// modelLogin.setSenha(resultado.getString("senha"));
 
 			retorno.add(modelLogin);
 		}
@@ -172,7 +172,7 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "SELECT * FROM model_login WHERE useradmin IS FALSE AND usuario_id = " + userLogado+" LIMIT 5";
+		String sql = "SELECT * FROM model_login WHERE useradmin IS FALSE AND usuario_id = " + userLogado + " LIMIT 5";
 		PreparedStatement statement = connection.prepareStatement(sql);
 
 		ResultSet resultado = statement.executeQuery();
@@ -186,7 +186,6 @@ public class DAOUsuarioRepository {
 			modelLogin.setLogin(resultado.getString("login"));
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setSexo(resultado.getString("sexo"));
-			// modelLogin.setSenha(resultado.getString("senha"));
 
 			retorno.add(modelLogin);
 		}
@@ -461,8 +460,7 @@ public class DAOUsuarioRepository {
 				modelLogin.setUf(resultado.getString("uf"));
 				modelLogin.setNumero(resultado.getString("numero"));
 				modelLogin.setDataNascimento(resultado.getDate("datanascimento"));
-				modelLogin.setRenda(resultado.getDouble("renda"));
-				
+				modelLogin.setRenda(resultado.getDouble("renda"));	
 			}
 			
 			return modelLogin;
