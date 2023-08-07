@@ -121,13 +121,6 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUsuario")) {
 				
-				/*
-				ModelLogin modelLogin = super.getUserLogadoObjeto(request);
-				request.setAttribute("modelLogin", modelLogin);
-				
-				System.out.println("O perfil desejado é: " + modelLogin.getPerfil());
-				*/
-				
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
 
@@ -147,11 +140,12 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					new Base64();
 					response.getOutputStream().write(Base64.decodeBase64(modelLogin.getFotoUser().split("\\,")[1]));
 				}
+				
 			} else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("paginar")) {
 				
 				Integer offset = Integer.parseInt(request.getParameter("pagina"));
 				
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioListPaginada(super.getUserLogado(request), offset); 
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioListPaginada(super.getUserLogado(request), offset);
 				request.setAttribute("modelLogins", modelLogins);
 				
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
@@ -162,6 +156,19 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("voltar")) {
 				
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/principal.jsp");
+				redirecionar.forward(request, response);
+				
+			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("printForm")) {
+				
+				String dataInicial = request.getParameter("dataInicial");
+				String dataFinal = request.getParameter("dataFinal");
+				
+				System.out.println(dataInicial + " " + dataFinal);
+				
+				request.setAttribute("dataInicial", dataInicial);
+				request.setAttribute("dataFinal", dataFinal);
+				
+				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/relatorio.jsp");
 				redirecionar.forward(request, response);
 			}
 			else {
