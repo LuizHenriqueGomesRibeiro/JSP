@@ -58,6 +58,7 @@ public class serverTelefone extends ServletGenericUtil {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
+			
 		}else if (acao != null && !acao.isEmpty() && acao.equals("excluir")) {
 			
 			try {

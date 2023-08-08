@@ -163,15 +163,20 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				String dataInicial = request.getParameter("dataInicial");
 				String dataFinal = request.getParameter("dataFinal");
 				
-				System.out.println(dataInicial + " " + dataFinal);
+				if(dataInicial == null || dataInicial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
+					request.setAttribute("modelLogins", daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request)));
+				}else {
+					request.setAttribute("modelLogins", daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request), dataInicial, dataFinal));
+				}
 				
 				request.setAttribute("dataInicial", dataInicial);
 				request.setAttribute("dataFinal", dataFinal);
 				
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/relatorio.jsp");
 				redirecionar.forward(request, response);
-			}
-			else {
+				
+			}else{
+				
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				
 				request.setAttribute("modelLogins", modelLogins);

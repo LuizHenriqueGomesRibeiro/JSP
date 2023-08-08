@@ -17,14 +17,10 @@
 				<div class="pcoded-wrapper">
 					<jsp:include page="includes/nav_2.jsp"></jsp:include>
 					<div class="pcoded-content">
-						<!-- Page-header start -->
 						<jsp:include page="includes/page-header.jsp"></jsp:include>
-						<!-- Page-header end -->
 						<div class="pcoded-inner-content">
-							<!-- Main-body start -->
 							<div class="main-body">
 								<div class="page-wrapper">
-									<!-- Page-body start -->
 									<div class="page-body">
 										<div class="caixa">
 											<h1>Página do usuário</h1>

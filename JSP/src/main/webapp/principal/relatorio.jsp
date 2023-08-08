@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <jsp:include page="includes/head.jsp"></jsp:include>
@@ -14,7 +15,7 @@
 				<div class="pcoded-wrapper">
 					<jsp:include page="includes/nav_2.jsp"></jsp:include>
 					<div class="pcoded-content">
-						<jsp:include page="includes/page-header.jsp"></jsp:include>
+						
 						<div class="pcoded-inner-content">
 							<div class="main-body">
 								<div class="page-wrapper">
@@ -53,6 +54,36 @@
 														</div>
 														</div>
 													</form>
+													<c:if test="${modelLogins != null}">
+														<div style="overflow-y: scroll; overflow-x: hidden; height: 300px;">
+															<table class="table" id="tabelaResultados">
+																<thead>
+																	<tr>
+																		<th
+																			style="width: 27%; left: 40px; position: relative;">ID</th>
+																		<th style="width: 27%;">Nome</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<c:forEach items='${modelLogins}' var='ml'>
+																		<tr>
+																			<td style="left: 40px; top: 11px; position: relative;">
+																				<c:out value="${ml.id}"></c:out>
+																			</td>
+																			<td style="top: 11px; position: relative;">
+																				<c:out value="${ml.nome}"></c:out>
+																			</td>
+																		</tr>
+																		<c:forEach items="${ml.telefones}" var="fone">
+																			<tr style="position: relative; left: 120px;">
+																				<td><c:out value="${fone.numero}"></c:out></td>
+																			</tr>
+																		</c:forEach>
+																	</c:forEach>
+																</tbody>
+															</table>
+														</div>
+													</c:if>
 													<div class="card-block"></div>
 												</div>
 											</div>
@@ -68,10 +99,6 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	
-	
-	
-	
 	</script>
 </body>
 </html>
