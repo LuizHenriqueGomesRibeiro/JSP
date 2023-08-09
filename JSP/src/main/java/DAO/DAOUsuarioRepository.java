@@ -213,6 +213,7 @@ public class DAOUsuarioRepository {
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setSexo(resultado.getString("sexo"));
 			modelLogin.setTelefones(this.listarTelefone(modelLogin.getId()));
+			modelLogin.setDataNascimento(resultado.getDate("datanascimento"));
 
 			retorno.add(modelLogin);
 		}

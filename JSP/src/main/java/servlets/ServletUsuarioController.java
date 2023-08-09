@@ -2,8 +2,8 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
@@ -12,8 +12,10 @@ import org.apache.commons.io.IOUtils;
 import com.google.gson.Gson;
 
 import DAO.DAOUsuarioRepository;
+import Util.reportUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -135,6 +137,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				
 				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id, super.getUserLogado(request));
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
+				
 				if(modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
 					response.setHeader("Content-Disposition", "attachment;filename=arquivo."+modelLogin.getExtensaofotouser());
 					new Base64();
@@ -174,6 +177,29 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/relatorio.jsp");
 				redirecionar.forward(request, response);
+				
+			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("printFormPDF")) {
+				
+				String dataInicial = request.getParameter("dataInicial");
+				String dataFinal = request.getParameter("dataFinal");
+				
+				List<ModelLogin> modelLogins = null;
+				
+				if(dataInicial == null || dataInicial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
+					
+					modelLogins = daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request));
+					
+				}else{
+					
+					modelLogins = daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request), dataInicial, dataFinal);
+				}
+				
+				reportUtil ru = new reportUtil();
+				byte[] relatorio = ru.geraRelatorioPDF(modelLogins, "relatorio", request.getServletContext());
+				response.setHeader("Content-Disposition", "attachment;filename=arquivo.pdf");
+				
+				ServletOutputStream download = response.getOutputStream();
+				download.write(relatorio);
 				
 			}else{
 				

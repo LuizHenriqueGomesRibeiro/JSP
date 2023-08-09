@@ -31,7 +31,7 @@
 														action="<%=request.getContextPath()%>/ServletUsuarioController"
 														method="get">
 														
-														<input type="hidden" name="acao" id="acao" value="printForm">
+														<input type="hidden" name="acao" id="acaoRelatorioImprimirTipo" value="printForm">
 														
 														<div style="margin: 20px;">
 														<div class="form-row align-items-center">
@@ -49,7 +49,10 @@
 																</div>
 															</div>
 															<div class="col-auto">
-																<button type="submit" class="btn btn-primary mb-2">Imprimir relatório</button>
+																<button type="button" onclick="imprimirHTML();" 
+																class="btn btn-primary mb-2">Imprimir relatório</button>
+																<button type="button" onclick="imprimirPDF();" 
+																class="btn btn-primary mb-2">Imprimir PDF</button>
 															</div>
 														</div>
 														</div>
@@ -99,6 +102,18 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+	
+		function imprimirHTML(){
+			document.getElementById("acaoRelatorioImprimirTipo").value = "printForm";
+			
+			jQuery("#formulario").submit();
+		}
+		
+		function imprimirPDF(){
+			document.getElementById("acaoRelatorioImprimirTipo").value = "printFormPDF";
+			
+			jQuery("#formulario").submit();
+		}
 	</script>
 </body>
 </html>
