@@ -30,4 +30,16 @@ public class reportUtil implements Serializable {
 		
 		return JasperExportManager.exportReportToPdf(impressoraJasper);
 	}
+	
+	public byte[] geraReltorioPDF(List listaDados, String nomeRelatorio, HashMap<String, Object> params, ServletContext servletContext) throws Exception {
+		
+		JRBeanCollectionDataSource jrbcds = new JRBeanCollectionDataSource(listaDados);
+
+		String caminhoJasper = servletContext.getRealPath("relatorio") + File.separator + nomeRelatorio + ".jasper";
+
+		JasperPrint impressoraJasper = JasperFillManager.fillReport(caminhoJasper, params, jrbcds);
+
+		return JasperExportManager.exportReportToPdf(impressoraJasper);
+
+	}
 }

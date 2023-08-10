@@ -1,9 +1,11 @@
 package servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
@@ -90,10 +92,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				response.setCharacterEncoding("UTF-8");
 				printWriter.write(json);
 				printWriter.close();
-				
-				String id = request.getParameter("id");
-				
-				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id, super.getUserLogado(request));
+
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
 
 				/*
@@ -193,13 +192,13 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					
 					modelLogins = daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request), dataInicial, dataFinal);
 				}
-				
-				reportUtil ru = new reportUtil();
-				byte[] relatorio = ru.geraRelatorioPDF(modelLogins, "relatorio", request.getServletContext());
+		
+				HashMap<String, Object> params = new HashMap<String, Object>();
+				params.put("PARAM_SUB_REPORT", request.getServletContext().getRealPath("relatorio") + File.separator);
+				byte[] relatorio = new reportUtil().geraReltorioPDF(modelLogins, "resl-user-jsp", params ,request.getServletContext());
+				  
 				response.setHeader("Content-Disposition", "attachment;filename=arquivo.pdf");
-				
-				ServletOutputStream download = response.getOutputStream();
-				download.write(relatorio);
+				response.getOutputStream().write(relatorio);
 				
 			}else{
 				

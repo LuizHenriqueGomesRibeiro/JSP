@@ -69,7 +69,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="78" splitType="Stretch">
+		<band height="111" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="550" height="40" uuid="1fb54ccb-1401-4481-a809-fbaa1991a620"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -80,39 +80,65 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="25" splitType="Stretch">
+		<band height="13" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement x="0" y="0" width="280" height="24" uuid="027e3e92-0442-458c-8078-9b047f54ad36">
+				<reportElement x="0" y="0" width="140" height="13" uuid="027e3e92-0442-458c-8078-9b047f54ad36">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2bffa0b-d079-44fb-86bc-98475f014e42"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[ Nome]]></text>
+				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="0" width="270" height="24" uuid="5e658312-4691-4b95-a812-197d66a2cd81">
+				<reportElement x="280" y="0" width="270" height="13" uuid="5e658312-4691-4b95-a812-197d66a2cd81">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b22a0200-8c0e-4e3b-ba67-ceffb0947d7c"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[login]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="140" y="0" width="140" height="13" uuid="1a9cca81-d079-4199-8439-652551fb7b0e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="43" splitType="Stretch">
+		<band height="13" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="280" height="19" uuid="71c3f3fd-e62e-4632-93dd-7bb407a7a8dd">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2bffa0b-d079-44fb-86bc-98475f014e42"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="280" y="0" width="270" height="19" uuid="71f1fafd-f920-4f4f-86a1-7b9942032429">
+				<reportElement x="290" y="0" width="260" height="13" uuid="71f1fafd-f920-4f4f-86a1-7b9942032429">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b22a0200-8c0e-4e3b-ba67-ceffb0947d7c"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{login}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="10" y="0" width="130" height="13" uuid="71c3f3fd-e62e-4632-93dd-7bb407a7a8dd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2bffa0b-d079-44fb-86bc-98475f014e42"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="M/d/yy" isBlankWhenNull="true">
+				<reportElement x="150" y="0" width="130" height="13" uuid="dc39157f-3b54-40e5-89dd-086f06fc0aac">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{dataNascimento}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
+	<summary>
+		<band height="61">
+			<textField pattern="M/d/yy">
+				<reportElement x="380" y="30" width="180" height="20" uuid="036bfa6d-d118-4c18-a0cb-98181474097a"/>
+				<textFieldExpression><![CDATA["Impresso em " + new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>

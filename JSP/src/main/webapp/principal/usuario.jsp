@@ -273,7 +273,7 @@
 											</ul>
 										</nav>
 										<button type="button" class="btn btn-success"
-											data-toggle="modal" data-target="#exampleModal">Pesquisar</button>
+										data-toggle="modal" data-target="#exampleModal">Pesquisar</button>
 									</div>
 								</div>
 								<div id="styleSelector"></div>
@@ -311,7 +311,7 @@
 					<thead>
 						<tr>
 							<th>email</th>
-							<th>ID</th>
+							<th>id</th>
 							<th>Nome</th>
 							<th>Selecionar</th>
 						</tr>
