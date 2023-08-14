@@ -14,10 +14,10 @@ import org.apache.commons.io.IOUtils;
 import com.google.gson.Gson;
 
 import DAO.DAOUsuarioRepository;
-import Util.reportUtil;
+import Util.ReportUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletOutputStream;
+
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -61,32 +61,36 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				request.setAttribute("msg", "excluído com sucesso.");
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
-				
+
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
-				
-			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjaxPage")) {
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjaxPage")) {
 
 				String nomeBusca = request.getParameter("nomeBusca");
 				String pagina = request.getParameter("pagina");
-				
-				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioListOffSet(nomeBusca, super.getUserLogado(request), Integer.parseInt(pagina));
+
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioListOffSet(nomeBusca,
+						super.getUserLogado(request), Integer.parseInt(pagina));
 				Gson gson = new Gson();
 				String json = gson.toJson(dadosJsonUser);
-				response.addHeader("TotalPagina", "" + daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
+				response.addHeader("TotalPagina", ""
+						+ daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
 				PrintWriter printWriter = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
 				printWriter.write(json);
 				printWriter.close();
-				
-			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
-				
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+
 				String nomeBusca = request.getParameter("nomeBusca");
-				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca, super.getUserLogado(request));
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca,
+						super.getUserLogado(request));
 				Gson gson = new Gson();
 				String json = gson.toJson(dadosJsonUser);
-				response.addHeader("TotalPagina", "" + daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
+				response.addHeader("TotalPagina", ""
+						+ daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
 				PrintWriter printWriter = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
@@ -103,17 +107,17 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				 */
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscar")) {
-				
+
 				String id = request.getParameter("id");
 
 				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id, super.getUserLogado(request));
 
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
-				
+
 				request.setAttribute("msg", "Usuário em edição");
 				request.setAttribute("modelLogin", modelLogin);
-				
+
 				request.setAttribute("cep", modelLogin.getCep());
 
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
@@ -121,95 +125,103 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				redirecionar.forward(request, response);
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUsuario")) {
-				
+
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
 
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
-				
+
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
-				
-			} else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("download")) {
-				
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("download")) {
+
 				String id = request.getParameter("id");
-				
+
 				ModelLogin modelLogin = daoUsuarioRepository.consultaUsuarioId(id, super.getUserLogado(request));
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
-				
-				if(modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
-					response.setHeader("Content-Disposition", "attachment;filename=arquivo."+modelLogin.getExtensaofotouser());
+
+				if (modelLogin.getFotoUser() != null && !modelLogin.getFotoUser().isEmpty()) {
+					response.setHeader("Content-Disposition",
+							"attachment;filename=arquivo." + modelLogin.getExtensaofotouser());
 					new Base64();
 					response.getOutputStream().write(Base64.decodeBase64(modelLogin.getFotoUser().split("\\,")[1]));
 				}
-				
-			} else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("paginar")) {
-				
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("paginar")) {
+
 				Integer offset = Integer.parseInt(request.getParameter("pagina"));
-				
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioListPaginada(super.getUserLogado(request), offset);
+
+				List<ModelLogin> modelLogins = daoUsuarioRepository
+						.consultaUsuarioListPaginada(super.getUserLogado(request), offset);
 				request.setAttribute("modelLogins", modelLogins);
-				
+
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
-				
+
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
-				
-			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("voltar")) {
-				
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("voltar")) {
+
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/principal.jsp");
 				redirecionar.forward(request, response);
-				
-			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("printForm")) {
-				
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("printForm")) {
+
 				String dataInicial = request.getParameter("dataInicial");
 				String dataFinal = request.getParameter("dataFinal");
-				
-				if(dataInicial == null || dataInicial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
-					request.setAttribute("modelLogins", daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request)));
-				}else {
-					request.setAttribute("modelLogins", daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request), dataInicial, dataFinal));
+
+				if (dataInicial == null || dataInicial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
+					request.setAttribute("modelLogins",
+							daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request)));
+				} else {
+					request.setAttribute("modelLogins", daoUsuarioRepository
+							.consultaUsuarioListRelatorio(super.getUserLogado(request), dataInicial, dataFinal));
 				}
-				
+
 				request.setAttribute("dataInicial", dataInicial);
 				request.setAttribute("dataFinal", dataFinal);
-				
+
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/relatorio.jsp");
 				redirecionar.forward(request, response);
-				
-			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("printFormPDF")) {
-				
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("printFormPDF")) {
+
 				String dataInicial = request.getParameter("dataInicial");
 				String dataFinal = request.getParameter("dataFinal");
-				
+
 				List<ModelLogin> modelLogins = null;
-				
-				if(dataInicial == null || dataInicial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
-					
+
+				if (dataInicial == null || dataInicial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
+
 					modelLogins = daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request));
-					
-				}else{
-					
-					modelLogins = daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request), dataInicial, dataFinal);
+
+				} else {
+
+					modelLogins = daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request),
+							dataInicial, dataFinal);
 				}
-		
-				byte[] relatorio = new reportUtil().geraReltorioPDF(modelLogins, "resl-user-jsp", request.getServletContext());
+
+				HashMap<String, Object> params = new HashMap<String, Object>();
+				params.put("PARAM_SUB_REPORT", request.getServletContext().getRealPath("relatorio") + File.separator);
+
+				byte[] relatorio = new ReportUtil().geraReltorioPDF(modelLogins, "resl-user-jsp", params, request.getServletContext());
+
 				response.setHeader("Content-Disposition", "attachment;filename=arquivo.pdf");
-				new Base64();
 				response.getOutputStream().write(relatorio);
-				
-				
-			}else{
-				
+
+			} else {
+
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
-				
+
 				request.setAttribute("modelLogins", modelLogins);
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
 				request.setAttribute("msg", "Falha ao excluir o usuário. Tente novamente mais tarde.");
-			    
+
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
 			}
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			request.setAttribute("msg", e);
@@ -244,11 +256,11 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String numero = request.getParameter("numero");
 			String dataNascimento = request.getParameter("dataNascimento");
 			String renda = request.getParameter("renda");
-			
+
 			renda = renda.split("\\ ")[1].replaceAll("\\.", "").replaceAll("\\,", ".");
-			
+
 			ModelLogin modelLogin = new ModelLogin();
-			
+
 			modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
 			modelLogin.setNome(nome);
 			modelLogin.setLogin(login);
@@ -263,23 +275,24 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setUf(uf);
 			modelLogin.setNumero(numero);
 			modelLogin.setRenda(Double.valueOf(renda));
-					
+
 			SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date dataUtil;
 			try {
-				
+
 				dataUtil = formatador.parse(dataNascimento);
 				Date dataSql = new Date(dataUtil.getTime());
 				modelLogin.setDataNascimento(dataSql);
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			Part part = request.getPart("fileFoto");
 			byte[] foto = IOUtils.toByteArray(part.getInputStream());
 			new Base64();
-			String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64," +  Base64.encodeBase64String(foto);
+			String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64,"
+					+ Base64.encodeBase64String(foto);
 			modelLogin.setFotoUser(imagemBase64);
 			modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
 
@@ -304,7 +317,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			} else if (daoUsuarioRepository.validarEmail(modelLogin.getEmail()) && modelLogin.getId() == null) {
 				request.setAttribute("msg_email", "Já existe um usuário com este email.");
 				request.setAttribute("modelLogin", modelLogin);
-				
+
 				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 				redirecionar.forward(request, response);
 			} else {
@@ -317,7 +330,8 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
 					request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
-					List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
+					List<ModelLogin> modelLogins = daoUsuarioRepository
+							.consultaUsuarioList(super.getUserLogado(request));
 					request.setAttribute("modelLogins", modelLogins);
 
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
@@ -331,10 +345,11 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					request.setAttribute("msg", msg);
 					request.setAttribute("modelLogin", modelLogin);
 
-					List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
+					List<ModelLogin> modelLogins = daoUsuarioRepository
+							.consultaUsuarioList(super.getUserLogado(request));
 					request.setAttribute("modelLogins", modelLogins);
 					request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
-					
+
 					RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
 					redirecionar.forward(request, response);
 				}
