@@ -20,26 +20,25 @@ public class reportUtil implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public byte[] geraRelatorioPDF(List listaDados, String nomeRelatorio, ServletContext servletContext) throws JRException {
-		
-		JRBeanCollectionDataSource jrBean = new JRBeanCollectionDataSource(listaDados);
-		
-		String caminhoJasper = servletContext.getRealPath("relatorio") + File.separator + nomeRelatorio + ".jasper";
-		
-		JasperPrint impressoraJasper = JasperFillManager.fillReport(caminhoJasper, new HashMap(), jrBean);
-		
-		return JasperExportManager.exportReportToPdf(impressoraJasper);
-	}
-	
-	public byte[] geraReltorioPDF(List listaDados, String nomeRelatorio, HashMap<String, Object> params, ServletContext servletContext) throws Exception {
+	/*public byte[] geraReltorioPDF(List listaDados, String nomeRelatorio, HashMap<String, Object> params, ServletContext servletContext) throws Exception {
 		
 		JRBeanCollectionDataSource jrbcds = new JRBeanCollectionDataSource(listaDados);
-
+		
 		String caminhoJasper = servletContext.getRealPath("relatorio") + File.separator + nomeRelatorio + ".jasper";
-
+		
 		JasperPrint impressoraJasper = JasperFillManager.fillReport(caminhoJasper, params, jrbcds);
+		
+		return JasperExportManager.exportReportToPdf(impressoraJasper);		
+	}*/
 
+	public byte[] geraReltorioPDF(List listaDados, String nomeRelatorio, ServletContext servletContext) throws Exception {
+		
+		JRBeanCollectionDataSource jrbcds = new JRBeanCollectionDataSource(listaDados);
+		
+		String caminhoJasper = servletContext.getRealPath("relatorio") + File.separator + nomeRelatorio + ".jasper";		
+		
+		JasperPrint impressoraJasper = JasperFillManager.fillReport(caminhoJasper, new HashMap(), jrbcds);
+		
 		return JasperExportManager.exportReportToPdf(impressoraJasper);
-
 	}
 }

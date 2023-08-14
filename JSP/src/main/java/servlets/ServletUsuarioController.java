@@ -193,12 +193,11 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					modelLogins = daoUsuarioRepository.consultaUsuarioListRelatorio(super.getUserLogado(request), dataInicial, dataFinal);
 				}
 		
-				HashMap<String, Object> params = new HashMap<String, Object>();
-				params.put("PARAM_SUB_REPORT", request.getServletContext().getRealPath("relatorio") + File.separator);
-				byte[] relatorio = new reportUtil().geraReltorioPDF(modelLogins, "resl-user-jsp", params ,request.getServletContext());
-				  
+				byte[] relatorio = new reportUtil().geraReltorioPDF(modelLogins, "resl-user-jsp", request.getServletContext());
 				response.setHeader("Content-Disposition", "attachment;filename=arquivo.pdf");
+				new Base64();
 				response.getOutputStream().write(relatorio);
+				
 				
 			}else{
 				
