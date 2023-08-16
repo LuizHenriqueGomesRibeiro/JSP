@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 
 import DAO.DAOUsuarioRepository;
 import Util.ReportUtil;
+import beandto.BeanDtoGraficoSalarioUser;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 
@@ -208,7 +209,34 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				response.setHeader("Content-Disposition", "attachment;filename=arquivo.pdf");
 				response.getOutputStream().write(relatorio);
 
-			} else {
+			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("graficoSalario")) {
+
+				String dataInicial = request.getParameter("dataInicial");
+				String dataFinal = request.getParameter("dataFinal");
+				
+				System.out.println("Estamos em grafico Servlet");
+
+				if (dataInicial == null || dataInicial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
+					
+					BeanDtoGraficoSalarioUser beanDtoGraficoSalarioUser = 
+							daoUsuarioRepository.montarGraficoMediaSalario(super.getUserLogado(request));
+					
+					System.out.println(beanDtoGraficoSalarioUser);
+					
+					Gson gson = new Gson();
+					String json = gson.toJson(beanDtoGraficoSalarioUser);
+					System.out.println(json);
+					PrintWriter printWriter = response.getWriter();
+					response.setContentType("application/json");
+					response.setCharacterEncoding("UTF-8");
+					printWriter.write(json);
+					printWriter.close();
+				} else {
+
+					
+				}
+				
+			}else{
 
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 

@@ -35,15 +35,13 @@
 														<div style="margin: 20px;">
 														<div class="form-row align-items-center">
 															<div class="col-auto">
-																<label class="sr-only" for="dataInicial">Data</label>
-																<input type="date" class="form-control mb-2" value="${dataInicial}"
+																<input type="hidden" class="form-control mb-2" value="${dataInicial}"
 																id="dataInicial" placeholder="Data incial" name="dataInicial">
 															</div>
 															
 															<div class="col-auto">
-																<label class="sr-only" for="dataFinal">Data final</label>
 																<div class="input-group mb-2">
-																	<input type="date" class="form-control" value="${dataFinal}"
+																	<input type="hidden" class="form-control" value="${dataFinal}"
 																	id="dataFinal" placeholder="Data final" name="dataFinal">
 																</div>
 															</div>
@@ -72,29 +70,46 @@
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script>
+	<script type="text/javascript">
+	
 		function gerarGrafico() {
-			const ctx = document.getElementById('myChart');
+			
+			var urlAction = document.getElementById('formulario').action;
+			var dataInicial = document.getElementById('dataInicial').value;
+			var dataFinal = document.getElementById('dataFinal').value;
+			
+			jQuery.ajax({
 
-			new Chart(ctx,{
-				type:'bar',
-				data:{
-					labels:['Red','Blue','Yellow','Green','Purple',
-							'Orange'],
-					datasets:[{
-						label:'Gráfico sobre média salarial por tipo',
-						data:[12,19,3,5,2,3],
-						borderWidth:1
-					}]
-				},
-				options:{
-					scales:{
-						y:{
-							beginAtZero:true
+				method: "get",
+				url: urlAction,
+				data: "dataInicial=" + dataInicial + '&dataFinal=' + dataFinal + '&acao=graficoSalario',
+				success: function(json, textStatus, xhr) {
+				
+				const ctx = document.getElementById('myChart');
+
+							new Chart(ctx, {
+								type : 'bar',
+								data : {
+									labels : json.perfis,
+									datasets : [ {
+										label : '# of Votes',
+										data : json.salarios,
+										borderWidth : 1
+									} ]
+								},
+								options : {
+									scales : {
+										y : {
+											beginAtZero : true
+										}
+									}
+								}
+							});
 						}
-					}
-				}
+					}).fail(function(xhr, status, errorThrown) {
+				alert('Erro ao buscar dados de gráfico: ' + xhr.responseText);
 			});
+
 		}
 	</script>
 </body>

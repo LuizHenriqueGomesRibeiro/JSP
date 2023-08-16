@@ -24,7 +24,7 @@ public class DAOUsuarioRepository {
 	}
 	
 	public BeanDtoGraficoSalarioUser montarGraficoMediaSalario(Long userLogado) throws Exception {
-		String sql = "SELECT avg(renda) AS media_salarial, perfil FROM model_login WHERE usuario_id = 1 GROUP BY perfil";
+		String sql = "SELECT avg(renda) AS media_salarial, perfil FROM model_login WHERE usuario_id = ? GROUP BY perfil";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
 		statement.setLong(1, userLogado);
