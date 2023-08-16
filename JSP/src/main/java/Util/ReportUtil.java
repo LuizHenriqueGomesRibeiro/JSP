@@ -5,7 +5,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-import jakarta.servlet.ServletContext;	
+import jakarta.servlet.ServletContext;
+import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;

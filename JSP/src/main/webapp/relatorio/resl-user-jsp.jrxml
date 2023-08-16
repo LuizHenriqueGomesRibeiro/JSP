@@ -95,6 +95,9 @@
 			</band>
 		</groupHeader>
 	</group>
+	<group name="grupo_user">
+		<groupExpression><![CDATA[$F{nome}]]></groupExpression>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -136,4 +139,15 @@
 			</staticText>
 		</band>
 	</columnHeader>
+	<detail>
+		<band height="13">
+			<subreport>
+				<reportElement x="0" y="0" width="545" height="13" uuid="17139776-a9d8-40dc-98b0-adfb563e3e16">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{telefones})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{PARAM_SUB_REPORT} + "sub_report_user.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
 </jasperReport>

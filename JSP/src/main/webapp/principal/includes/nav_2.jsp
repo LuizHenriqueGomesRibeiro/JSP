@@ -42,14 +42,30 @@
 							</a>
 						</li>
 					</c:if>
-				<li>
-					<a href="<%= request.getContextPath() %>/principal/relatorio.jsp" class="waves-effect waves-dark"> 
-					<span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span> 
-					<span class="pcoded-mtext" data-i18n="nav.form-components.main">Relatório</span>
-					<span class="pcoded-mcaret"></span>
-				</a>
-				</li>
-			</ul></li>
+					<li>
+						<a href="<%=request.getContextPath()%>/principal/relatorio.jsp"
+						class="waves-effect waves-dark"> 
+							<span class="pcoded-micon">
+								<i class="ti-layers"></i>
+								<b>FC</b>
+							</span> 
+							<span class="pcoded-mtext" data-i18n="nav.form-components.main">Relatório</span> 
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+					<li>
+						<a href="<%=request.getContextPath()%>/principal/graficoJS.jsp"
+						class="waves-effect waves-dark"> 
+							<span class="pcoded-micon">
+								<i class="ti-layers"></i>
+								<b>FC</b>
+							</span> 
+							<span class="pcoded-mtext" data-i18n="nav.form-components.main">Gráfico</span> 
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+				</ul>
+			</li>
 		</ul>
 		<div class="pcoded-navigation-label" data-i18n="nav.category.other">Outros</div>
 		<ul class="pcoded-item pcoded-left-item">

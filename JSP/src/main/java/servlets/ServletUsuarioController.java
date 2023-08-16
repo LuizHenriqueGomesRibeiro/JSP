@@ -74,8 +74,8 @@ public class ServletUsuarioController extends ServletGenericUtil {
 						super.getUserLogado(request), Integer.parseInt(pagina));
 				Gson gson = new Gson();
 				String json = gson.toJson(dadosJsonUser);
-				response.addHeader("TotalPagina", ""
-						+ daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
+				response.addHeader("TotalPagina", "" 
+				+ daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
 				PrintWriter printWriter = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
@@ -85,12 +85,10 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
 
 				String nomeBusca = request.getParameter("nomeBusca");
-				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca,
-						super.getUserLogado(request));
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca, super.getUserLogado(request));
 				Gson gson = new Gson();
 				String json = gson.toJson(dadosJsonUser);
-				response.addHeader("TotalPagina", ""
-						+ daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
+				response.addHeader("TotalPagina",""+daoUsuarioRepository.consultaUsuarioListTotalPagina(nomeBusca, super.getUserLogado(request)));
 				PrintWriter printWriter = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
