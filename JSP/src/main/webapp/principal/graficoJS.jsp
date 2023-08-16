@@ -23,7 +23,7 @@
 											<div class="col-sm-12">
 												<div class="card">
 													<div class="card-header">
-														<h5>Página de relatório</h5>
+														<h5>Página de gráfico</h5>
 													</div>
 													<form 
 														class="form-material" name="frmContato" id="formulario"
@@ -35,7 +35,7 @@
 														<div style="margin: 20px;">
 														<div class="form-row align-items-center">
 															<div class="col-auto">
-																<label class="sr-only" for="dataInicial">Data inicial</label>
+																<label class="sr-only" for="dataInicial">Data</label>
 																<input type="date" class="form-control mb-2" value="${dataInicial}"
 																id="dataInicial" placeholder="Data incial" name="dataInicial">
 															</div>
@@ -48,19 +48,15 @@
 																</div>
 															</div>
 															<div class="col-auto">
-																<button type="button" onclick="imprimirHTML();" 
-																class="btn btn-primary mb-2">Gerar gráfico</button>
 																<button type="button" onclick="gerarGrafico();" 
-																class="btn btn-primary mb-2">Imprimir PDF</button>
+																class="btn btn-primary mb-2">Gerar gráfico</button>
 															</div>
 														</div>
 														</div>
 													</form>
-													<c:if test="${modelLogins != null}">
-														<div style="overflow-y: scroll; overflow-x: hidden; height: 300px;">
-														
-														</div>
-													</c:if>
+													<div>
+														<canvas id="myChart"></canvas>
+													</div>
 													<div class="card-block"></div>
 												</div>
 											</div>
@@ -75,12 +71,31 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-	
-		function gerarGrafico(){
-			
-		}	
-	
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+		function gerarGrafico() {
+			const ctx = document.getElementById('myChart');
+
+			new Chart(ctx,{
+				type:'bar',
+				data:{
+					labels:['Red','Blue','Yellow','Green','Purple',
+							'Orange'],
+					datasets:[{
+						label:'Gráfico sobre média salarial por tipo',
+						data:[12,19,3,5,2,3],
+						borderWidth:1
+					}]
+				},
+				options:{
+					scales:{
+						y:{
+							beginAtZero:true
+						}
+					}
+				}
+			});
+		}
 	</script>
 </body>
 </html>
